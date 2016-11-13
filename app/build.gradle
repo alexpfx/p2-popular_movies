@@ -6,7 +6,7 @@ android {
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "udacity.nanodegree.android.p2"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"

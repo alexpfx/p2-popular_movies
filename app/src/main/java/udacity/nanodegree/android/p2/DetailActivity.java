@@ -25,6 +25,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import udacity.nanodegree.android.p2.domain.Result;
+import udacity.nanodegree.android.p2.domain.Trailer;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -43,7 +44,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
-    public static class DetailFragment extends Fragment implements VolleyFetchMovies.Listener {
+    public static class DetailFragment extends Fragment {
 
         @BindView(R.id.text_title)
         TextView txtTitle;
@@ -73,43 +74,60 @@ public class DetailActivity extends AppCompatActivity {
             ButterKnife.bind(this, view);
 
             String id = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            new VolleyFetchMovies(new GetMovie(id), getContext(), this).execute();
+            new VolleyFetchMovies(new GetVideos(id), getContext(), videosListener).execute();
+            new VolleyFetchMovies(new GetMovie(id), getContext(), movieDetailListener).execute();
             return view;
         }
 
+        private final VolleyFetchMovies.Listener movieDetailListener = new VolleyFetchMovies.Listener() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = new Gson();
+                Result result = gson.fromJson(response.toString(), Result.class);
 
-        @Override
-        public void onResponse(JSONObject response) {
-            Gson gson = new Gson();
-            Result result = gson.fromJson(response.toString(), Result.class);
+                txtTitle.setText(result.getOriginalTitle());
+                txtReleaseDate.setText(result.getReleaseDate());
+                String path = getString(R.string.tmdb_image_base_path) + result.getPosterPath();
 
-            txtTitle.setText(result.getOriginalTitle());
-            txtReleaseDate.setText(result.getReleaseDate());
-            String path = getString(R.string.tmdb_image_base_path) + result.getPosterPath();
+                Picasso.with(getContext()).load(path).placeholder(R.drawable.loading).error(R.drawable.error).into(imgPoster);
+                Calendar calendar;
+                try {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format), Locale.US);
+                    calendar = Calendar.getInstance();
+                    calendar.setTime(simpleDateFormat.parse(result.getReleaseDate()));
 
-            Picasso.with(getContext()).load(path).placeholder(R.drawable.loading).error(R.drawable.error).into(this.imgPoster);
-            Calendar calendar;
-            try {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format), Locale.US);
-                calendar = Calendar.getInstance();
-                calendar.setTime(simpleDateFormat.parse(result.getReleaseDate()));
+                } catch (ParseException e) {
+                    Log.e(TAG, "parse exception: ", e);
+                    throw new RuntimeException(e);
+                }
 
-            } catch (ParseException e) {
-                Log.e(TAG, "parse exception: ", e);
-                throw new RuntimeException(e);
+                txtReleaseDate.setText(String.valueOf(calendar.get(Calendar.YEAR)));
+                txtVoteAvg.setText(String.valueOf(result.getVoteAverage()));
+                txtOverview.setText(String.valueOf(result.getOverview()));
             }
 
-            txtReleaseDate.setText(String.valueOf(calendar.get(Calendar.YEAR)));
-            txtVoteAvg.setText(String.valueOf(result.getVoteAverage()));
-            txtOverview.setText(String.valueOf(result.getOverview()));
+            @Override
+            public void onError(int networkStatusCode, Throwable cause) {
+
+            }
+        };
+
+        private final VolleyFetchMovies.Listener videosListener = new VolleyFetchMovies.Listener() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Gson gson = new Gson();
+                Trailer trailer = gson.fromJson(response.toString(), Trailer.class);
 
 
-        }
 
-        @Override
-        public void onError(int networkStatusCode, Throwable cause) {
+            }
 
-        }
+            @Override
+            public void onError(int networkStatusCode, Throwable cause) {
+
+            }
+        };
+
     }
 
 

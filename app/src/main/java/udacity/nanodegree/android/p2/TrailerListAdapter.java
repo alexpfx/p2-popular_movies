@@ -47,18 +47,20 @@ public class TrailerListAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 String key = trailerItem.getKey();
-                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + key));
+                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.youtube_app, key)));
 
                 if (appIntent.resolveActivity(context.getPackageManager()) != null) {
                     context.startActivity(appIntent);
                 } else {
-                    Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + key));
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.youtube_web,key)));
                     context.startActivity(webIntent);
                 }
             }
         });
 
     }
+
+
 
     @Override
     public int getItemCount() {

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">PopularMovies</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -6,9 +6,25 @@
     <string name="action_settings">Settings</string>
     <string name="action_most_popular">Most Popular</string>
     <string name="action_top_rated">Highest Rated</string>
-    <string name="date_format">yyyy-MM-dd</string>
+    <string name="date_format">
+        <xliff:g id="date_format">
+            yyyy-MM-dd
+        </xliff:g>
+    </string>
     <string name="detail_movie_poster">Movie Poster</string>
     <string name="error_not_connected">Unable to retrieve movie data, please make sure you are connected</string>
-    <string name="tmdb_image_base_path">http://image.tmdb.org/t/p/w342//</string>
+    <string name="tmdb_image_base_path">
+        <xliff:g id="tmdb_base_url">
+            http://image.tmdb.org/t/p/w342//
+        </xliff:g>
+    </string>
     <string name="detail_title_trailers">Trailers</string>
+    <string name="max_rating"> <xliff:g id="rating">%1.1f</xliff:g>/10</string>
+
+    <string name="youtube_web">
+        <xliff:g id="youtube_web">http://www.youtube.com/watch?v=%s</xliff:g>
+    </string>
+    <string name="youtube_app">
+        <xliff:g id="youtube_app">vnd.youtube:%s</xliff:g>
+    </string>
 </resources>

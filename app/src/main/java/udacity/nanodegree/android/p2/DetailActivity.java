@@ -105,6 +105,9 @@ public class DetailActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 Result result = gson.fromJson(response.toString(), Result.class);
 
+                Log.d(TAG, "onResponse: "+response);
+                Log.d(TAG, "onResponse: "+result);
+
                 txtTitle.setText(result.getOriginalTitle());
                 String path = getString(R.string.tmdb_image_base_path) + result.getPosterPath();
 
@@ -121,7 +124,10 @@ public class DetailActivity extends AppCompatActivity {
                 }
 
                 txtReleaseDate.setText(String.valueOf(calendar.get(Calendar.YEAR)));
-                txtVoteAvg.setText(String.valueOf(result.getVoteAverage()));
+
+                Log.d(TAG, "onResponse: "+result.getVoteAverage());
+                txtVoteAvg.setText(getString(R.string.max_rating, result.getVoteAverage()));
+
                 txtOverview.setText(String.valueOf(result.getOverview()));
                 txtRuntime.setText(String.valueOf(result.getRuntime()));
             }

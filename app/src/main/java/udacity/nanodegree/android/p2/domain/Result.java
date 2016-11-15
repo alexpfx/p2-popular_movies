@@ -8,6 +8,7 @@ import javax.annotation.Generated;
 @SuppressWarnings("unused")
 @Generated("org.jsonschema2pojo")
 public class Result {
+    private static final String TAG = "Result";
 
     @SerializedName("poster_path")
     @Expose
@@ -57,17 +58,9 @@ public class Result {
         return runtime;
     }
 
-    public void setRuntime(Integer runtime) {
-        this.runtime = runtime;
-    }
 
     public String getPosterPath() {
         return posterPath;
-    }
-
-
-    public void setPosterPath(String posterPath) {
-        this.posterPath = posterPath;
     }
 
 
@@ -76,18 +69,8 @@ public class Result {
     }
 
 
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-
     public String getReleaseDate() {
         return releaseDate;
-    }
-
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
     }
 
 
@@ -96,18 +79,8 @@ public class Result {
     }
 
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
     public String getOriginalTitle() {
         return originalTitle;
-    }
-
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
     }
 
 
@@ -116,18 +89,8 @@ public class Result {
     }
 
 
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
-
-
     public String getTitle() {
         return title;
-    }
-
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
 
@@ -136,18 +99,8 @@ public class Result {
     }
 
 
-    public void setPopularity(Double popularity) {
-        this.popularity = popularity;
-    }
-
-
     public Integer getVoteCount() {
         return voteCount;
-    }
-
-
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
     }
 
 
@@ -156,9 +109,20 @@ public class Result {
     }
 
 
-    public void setVoteAverage(Double voteAverage) {
-        this.voteAverage = voteAverage;
+    @Override
+    public String toString() {
+        return "Result{" +
+                "posterPath='" + posterPath + '\'' +
+                ", overview='" + overview + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", id=" + id +
+                ", originalTitle='" + originalTitle + '\'' +
+                ", originalLanguage='" + originalLanguage + '\'' +
+                ", title='" + title + '\'' +
+                ", popularity=" + popularity +
+                ", voteCount=" + voteCount +
+                ", voteAverage=" + voteAverage +
+                ", runtime=" + runtime +
+                '}';
     }
-
-
 }

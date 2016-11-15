@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -62,6 +63,9 @@ public class DetailActivity extends AppCompatActivity {
         @BindView(R.id.text_release_year)
         TextView txtReleaseDate;
 
+        @BindView(R.id.text_runtime)
+        TextView txtRuntime;
+
         @BindView(R.id.rv_trailers)
         RecyclerView rvTrailers;
 
@@ -78,31 +82,33 @@ public class DetailActivity extends AppCompatActivity {
             View view = inflater.inflate(R.layout.fragment_detail, container, false);
             ButterKnife.bind(this, view);
 
-            initRecyclerView ();
+            initRecyclerView();
 
             String id = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
-            new VolleyFetchMovies(new GetVideos(id), getContext(), videosListener).execute();
-            new VolleyFetchMovies(new GetMovie(id), getContext(), movieDetailListener).execute();
+            new VolleyFetch(new GetVideos(id), getContext(), videosListener).execute();
+            new VolleyFetch(new GetMovie(id), getContext(), movieDetailListener).execute();
             return view;
         }
 
         private void initRecyclerView() {
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
+
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvTrailers.getContext(), ((LinearLayoutManager) layoutManager).getOrientation());
+            rvTrailers.addItemDecoration(dividerItemDecoration);
             rvTrailers.setLayoutManager(layoutManager);
         }
 
 
-        private final VolleyFetchMovies.Listener movieDetailListener = new VolleyFetchMovies.Listener() {
+        private final VolleyFetch.Listener movieDetailListener = new VolleyFetch.Listener() {
             @Override
             public void onResponse(JSONObject response) {
                 Gson gson = new Gson();
                 Result result = gson.fromJson(response.toString(), Result.class);
 
                 txtTitle.setText(result.getOriginalTitle());
-                txtReleaseDate.setText(result.getReleaseDate());
                 String path = getString(R.string.tmdb_image_base_path) + result.getPosterPath();
 
-                Picasso.with(getContext()).load(path).placeholder(R.drawable.loading).error(R.drawable.error).into(imgPoster);
+                Picasso.with(getContext()).load(path).placeholder(R.mipmap.ic_autorenew_black_48dp).error(R.mipmap.ic_error_black_48dp).into(imgPoster);
                 Calendar calendar;
                 try {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(getString(R.string.date_format), Locale.US);
@@ -117,6 +123,7 @@ public class DetailActivity extends AppCompatActivity {
                 txtReleaseDate.setText(String.valueOf(calendar.get(Calendar.YEAR)));
                 txtVoteAvg.setText(String.valueOf(result.getVoteAverage()));
                 txtOverview.setText(String.valueOf(result.getOverview()));
+                txtRuntime.setText(String.valueOf(result.getRuntime()));
             }
 
             @Override
@@ -125,14 +132,14 @@ public class DetailActivity extends AppCompatActivity {
             }
         };
 
-        private final VolleyFetchMovies.Listener videosListener = new VolleyFetchMovies.Listener() {
+        private final VolleyFetch.Listener videosListener = new VolleyFetch.Listener() {
             @Override
             public void onResponse(JSONObject response) {
 
                 Gson gson = new Gson();
                 Trailer trailer = gson.fromJson(response.toString(), Trailer.class);
 
-                Log.d(TAG, "onResponse: "+trailer);
+                Log.d(TAG, "onResponse: " + trailer);
                 rvTrailers.setAdapter(new TrailerListAdapter(trailer.getResults(), getContext()));
 
             }

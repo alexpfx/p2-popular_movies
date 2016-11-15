@@ -32,7 +32,7 @@ import udacity.nanodegree.android.p2.domain.Result;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MoviesFragment extends Fragment implements VolleyFetchMovies.Listener {
+public class MoviesFragment extends Fragment implements VolleyFetch.Listener {
     private static final String TAG = "MoviesFragment";
 
     @BindView(R.id.grid_movies)
@@ -68,7 +68,7 @@ public class MoviesFragment extends Fragment implements VolleyFetchMovies.Listen
     }
 
     private void fetchMovies(FetchRules fetchRules) {
-        new VolleyFetchMovies(fetchRules, this.getContext(), this).execute();
+        new VolleyFetch(fetchRules, this.getContext(), this).execute();
     }
 
     @Override

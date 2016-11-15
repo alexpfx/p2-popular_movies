@@ -16,14 +16,14 @@ import org.json.JSONObject;
  * Created by alexandre on 13/11/2016.
  */
 
-public class VolleyFetchMovies implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class VolleyFetch implements Response.Listener<JSONObject>, Response.ErrorListener {
     private static final String URL_BASE = "https://api.themoviedb.org/3/movie/?";
 
     private final FetchRules fetchRules;
     private final Context context;
     private final Listener listener;
 
-    public VolleyFetchMovies(FetchRules fetchRules, Context context, Listener listener) {
+    public VolleyFetch(FetchRules fetchRules, Context context, Listener listener) {
         this.fetchRules = fetchRules;
         this.context = context;
         this.listener = listener;

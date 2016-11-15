@@ -49,6 +49,17 @@ public class Result {
     @Expose
     private Double voteAverage;
 
+    @SerializedName("runtime")
+    @Expose
+    private Integer runtime;
+
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
 
     public String getPosterPath() {
         return posterPath;

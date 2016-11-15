@@ -49,7 +49,7 @@ public class ImageAdapter extends ArrayAdapter<ImageAdapter.Item> {
         Item item = getItem(position);
         String path = context.getString(R.string.tmdb_image_base_path) + item.getPath();
 
-        Picasso.with(context).load(path).placeholder(R.drawable.loading).error(R.drawable.error).into(holder.posterImage);
+        Picasso.with(context).load(path).placeholder(R.mipmap.ic_autorenew_black_48dp).error(R.mipmap.ic_error_black_48dp).into(holder.posterImage);
 
         return convertView;
     }

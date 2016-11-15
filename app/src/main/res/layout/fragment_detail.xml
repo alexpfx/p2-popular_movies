@@ -5,29 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:divider="@drawable/divider"
+        android:orientation="vertical"
+
+        >
 
         <TextView
             android:id="@+id/text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary"
             android:gravity="center_vertical|start"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
+            android:textColor="#fff"
             tools:text="Title"
             />
 
         <LinearLayout
             android:id="@+id/ll_details"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/text_title"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="horizontal"
+
             >
 
             <ImageView
@@ -40,7 +42,7 @@
                 android:minHeight="100dp"
                 android:minWidth="100dp"
                 android:scaleType="fitCenter"
-                tools:src="@mipmap/ic_launcher"
+                android:src="@mipmap/ic_launcher"
 
                 />
 
@@ -48,7 +50,12 @@
                 android:id="@+id/ll_details_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:divider="@drawable/divider"
+                android:gravity="center"
                 android:orientation="vertical"
+                android:padding="16dp"
+                android:showDividers="middle"
                 >
 
                 <TextView
@@ -56,14 +63,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:padding="2dp"
                     tools:text="0000"
                     />
 
                 <TextView
-                    android:id="@+id/text_duration"
+                    android:id="@+id/text_runtime"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:padding="2dp"
                     tools:text="120 min"
                     />
 
@@ -72,6 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:padding="2dp"
                     tools:text="8.1/10"
                     />
 
@@ -79,13 +89,14 @@
                     android:id="@+id/image_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:background="@null"
                     android:maxHeight="60dp"
                     android:maxWidth="40dp"
                     android:minHeight="40dp"
                     android:minWidth="40dp"
-                    tools:src="@mipmap/ic_launcher"
+                    android:padding="2dp"
+                    android:src="@mipmap/ic_favorite_black_48dp"
                     />
 
             </LinearLayout>
@@ -95,17 +106,16 @@
             android:id="@+id/text_overview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/text_title"
-            android:layout_below="@id/ll_details"
+            android:padding="16dp"
             tools:text="Overview"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/text_overview"
-            android:orientation="vertical">
+            android:divider="@drawable/divider"
+            android:orientation="vertical"
+            android:showDividers="beginning">
 
             <TextView
                 android:layout_width="match_parent"
@@ -122,6 +132,6 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>

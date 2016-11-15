@@ -10,4 +10,6 @@
     <string name="movie_poster">Movie Poster</string>
     <string name="message_not_connected">Unable to retrieve movie data, please make sure you are connected</string>
     <string name="tmdb_image_base_path">http://image.tmdb.org/t/p/w342//</string>
+    <string name="title_placeholder">Title</string>
+    <string name="text_placeholder_trailer">Trailer</string>
 </resources>

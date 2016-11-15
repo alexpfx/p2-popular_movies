@@ -105,25 +105,20 @@
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_below="@id/text_overview"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
-                android:text="@string/detail_title_trailers"
-                />
+                android:text="@string/detail_title_trailers"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_trailers"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="9"
-                >
-
-            </android.support.v7.widget.RecyclerView>
+                android:layout_weight="9"/>
 
         </LinearLayout>
 

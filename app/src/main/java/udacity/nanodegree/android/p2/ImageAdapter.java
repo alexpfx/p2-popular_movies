@@ -36,7 +36,7 @@ public class ImageAdapter extends ArrayAdapter<ImageAdapter.Item> {
 
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.movie_poster_list_item, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_poster, parent, false);
             holder = new ViewHolder(convertView);
             convertView.setTag(holder);
         } else {

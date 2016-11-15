@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,8 +58,11 @@ public class DetailActivity extends AppCompatActivity {
         @BindView(R.id.text_overview)
         TextView txtOverview;
 
-        @BindView(R.id.text_release_date)
+        @BindView(R.id.text_release_year)
         TextView txtReleaseDate;
+
+        @BindView(R.id.rv_trailers)
+        RecyclerView trailersRecyclerView;
 
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,13 +74,19 @@ public class DetailActivity extends AppCompatActivity {
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.detail_fragment, container, false);
+            View view = inflater.inflate(R.layout.fragment_detail, container, false);
             ButterKnife.bind(this, view);
+
+            initRecycler();
 
             String id = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
             new VolleyFetchMovies(new GetVideos(id), getContext(), videosListener).execute();
             new VolleyFetchMovies(new GetMovie(id), getContext(), movieDetailListener).execute();
             return view;
+        }
+
+        private void initRecycler() {
+
         }
 
         private final VolleyFetchMovies.Listener movieDetailListener = new VolleyFetchMovies.Listener() {

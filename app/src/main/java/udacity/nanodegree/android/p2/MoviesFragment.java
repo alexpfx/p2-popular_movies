@@ -62,7 +62,7 @@ public class MoviesFragment extends Fragment implements VolleyFetchMovies.Listen
         View view = inflater.inflate(R.layout.fragment_movies, container, false);
         ButterKnife.bind(this, view);
         fetchMovies(new GetPopularMovies());
-        getActivity().setTitle(getString(R.string.most_popular));
+        getActivity().setTitle(getString(R.string.action_most_popular));
 
         return view;
     }

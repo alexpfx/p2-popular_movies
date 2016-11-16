@@ -1,6 +1,8 @@
-package udacity.nanodegree.android.p2;
+package udacity.nanodegree.android.p2.detail;
 
 import android.net.Uri;
+
+import udacity.nanodegree.android.p2.FetchRules;
 
 /**
  * Created by alexandre on 30/10/2016.

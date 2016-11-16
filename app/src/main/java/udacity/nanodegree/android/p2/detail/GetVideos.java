@@ -1,12 +1,14 @@
-package udacity.nanodegree.android.p2;
+package udacity.nanodegree.android.p2.detail;
 
 import android.net.Uri;
+
+import udacity.nanodegree.android.p2.FetchRules;
 
 /**
  * Created by alexandre on 13/11/2016.
  */
 
-public class GetVideos implements FetchRules{
+public class GetVideos implements FetchRules {
 
     private String id;
 

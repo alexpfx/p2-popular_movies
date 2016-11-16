@@ -18,6 +18,13 @@
             http://image.tmdb.org/t/p/w342//
         </xliff:g>
     </string>
+
+    <string name="tmdb_api_base_url">
+        <xliff:g id="tmdb_api_base_url">
+            https://api.themoviedb.org/3/movie/?
+        </xliff:g>
+    </string>
+
     <string name="detail_title_trailers">Trailers</string>
     <string name="max_rating"> <xliff:g id="rating">%1.1f</xliff:g>/10</string>
 

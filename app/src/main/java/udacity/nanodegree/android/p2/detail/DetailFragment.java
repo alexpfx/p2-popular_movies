@@ -26,7 +26,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import udacity.nanodegree.android.p2.R;
-import udacity.nanodegree.android.p2.TrailerListAdapter;
 import udacity.nanodegree.android.p2.VolleyFetch;
 import udacity.nanodegree.android.p2.domain.Result;
 import udacity.nanodegree.android.p2.domain.Trailer;
@@ -68,10 +67,8 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
-
         initRecyclerView();
-
-        String id = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
+        String id = getArguments().getString("movie_id");
         new VolleyFetch(new GetVideos(id), getContext(), videosListener).execute();
         new VolleyFetch(new GetMovie(id), getContext(), movieDetailListener).execute();
         return view;

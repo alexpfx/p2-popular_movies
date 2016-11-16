@@ -1,11 +1,17 @@
 package udacity.nanodegree.android.p2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-public class MainActivity extends AppCompatActivity {
+import udacity.nanodegree.android.p2.detail.DetailFragment;
+import udacity.nanodegree.android.p2.home.MovieGridAdapter;
+import udacity.nanodegree.android.p2.home.MoviesFragment;
 
+public class MainActivity extends AppCompatActivity implements MoviesFragment.OnMovieSelectedListener{
 
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,4 +23,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onMovieSelected(MovieGridAdapter.Item item) {
+        Log.d(TAG, "onMovieSelected: "+item);
+
+        DetailFragment fragment = new DetailFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+        Bundle args = new Bundle();
+        args.putString("movie_id", String.valueOf(item.getId()));
+        fragment.setArguments(args);
+    }
 }

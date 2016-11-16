@@ -17,7 +17,7 @@ import org.json.JSONObject;
  */
 
 public class VolleyFetch implements Response.Listener<JSONObject>, Response.ErrorListener {
-    private static final String URL_BASE = "https://api.themoviedb.org/3/movie/?";
+
 
     private final FetchRules fetchRules;
     private final Context context;
@@ -32,7 +32,7 @@ public class VolleyFetch implements Response.Listener<JSONObject>, Response.Erro
 
     public void execute() {
         Uri clientUri = fetchRules
-                .composeUrl(Uri.parse(URL_BASE))
+                .composeUrl(Uri.parse(context.getString(R.string.tmdb_api_base_url)))
                 .buildUpon()
                 .appendQueryParameter("api_key", BuildConfig.MOVIE_DB_API_KEY)
                 .build();

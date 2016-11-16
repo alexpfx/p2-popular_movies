@@ -1,6 +1,7 @@
-package udacity.nanodegree.android.p2;
+package udacity.nanodegree.android.p2.home;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +26,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import udacity.nanodegree.android.p2.FetchRules;
+import udacity.nanodegree.android.p2.R;
+import udacity.nanodegree.android.p2.VolleyFetch;
 import udacity.nanodegree.android.p2.domain.Page;
 import udacity.nanodegree.android.p2.domain.Result;
 
@@ -34,6 +38,8 @@ import udacity.nanodegree.android.p2.domain.Result;
  */
 public class MoviesFragment extends Fragment implements VolleyFetch.Listener {
     private static final String TAG = "MoviesFragment";
+
+    private OnMovieSelectedListener onMovieSelectedListener;
 
     @BindView(R.id.grid_movies)
     GridView movieGrid;
@@ -49,11 +55,16 @@ public class MoviesFragment extends Fragment implements VolleyFetch.Listener {
     }
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        onMovieSelectedListener = (OnMovieSelectedListener) context;
+    }
+
     @OnItemClick(R.id.grid_movies)
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        ImageAdapter.Item item = (ImageAdapter.Item) adapterView.getItemAtPosition(position);
-        Intent intent = new Intent(getActivity(), DetailActivity.class).putExtra(Intent.EXTRA_TEXT, String.valueOf(item.getId()));
-        startActivity(intent);
+        MovieGridAdapter.Item item = (MovieGridAdapter.Item) adapterView.getItemAtPosition(position);
+        onMovieSelectedListener.onMovieSelected(item);
     }
 
     @Override
@@ -98,15 +109,19 @@ public class MoviesFragment extends Fragment implements VolleyFetch.Listener {
         Gson gson = new Gson();
         Page page = gson.fromJson(response.toString(), Page.class);
         List<Result> results = page.getResults();
-        List<ImageAdapter.Item> paths = new ArrayList<>();
+        List<MovieGridAdapter.Item> paths = new ArrayList<>();
         for (Result r : results) {
-            paths.add(new ImageAdapter.Item(r.getId(), r.getPosterPath()));
+            paths.add(new MovieGridAdapter.Item(r.getId(), r.getPosterPath()));
         }
-        movieGrid.setAdapter(new ImageAdapter(paths, getContext()));
+        movieGrid.setAdapter(new MovieGridAdapter(paths, getContext()));
     }
 
     @Override
     public void onError(int networkStatusCode, Throwable cause) {
         Log.e(TAG, "onError: " + String.valueOf(networkStatusCode), cause);
+    }
+
+    public interface OnMovieSelectedListener {
+        void onMovieSelected(MovieGridAdapter.Item item);
     }
 }

@@ -1,4 +1,4 @@
-package udacity.nanodegree.android.p2;
+package udacity.nanodegree.android.p2.home;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,15 +15,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import udacity.nanodegree.android.p2.R;
 
 /**
  * Created by alexandre on 25/10/2016.
  */
 
-public class ImageAdapter extends ArrayAdapter<ImageAdapter.Item> {
+public class MovieGridAdapter extends ArrayAdapter<MovieGridAdapter.Item> {
 
 
-    public ImageAdapter(List<Item> imagePaths, Context context) {
+    public MovieGridAdapter(List<Item> imagePaths, Context context) {
         super(context, 0, imagePaths);
     }
 
@@ -65,7 +66,7 @@ public class ImageAdapter extends ArrayAdapter<ImageAdapter.Item> {
 
     }
 
-    static class Item {
+    public static class Item {
         public Item(int id, String path) {
             this.id = id;
             this.path = path;

@@ -1,4 +1,4 @@
-package udacity.nanodegree.android.p2;
+package udacity.nanodegree.android.p2.detail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import udacity.nanodegree.android.p2.R;
 import udacity.nanodegree.android.p2.domain.TrailerItem;
 
 /**

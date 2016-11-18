@@ -1,6 +1,5 @@
 package udacity.nanodegree.android.p2.detail;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -68,9 +67,13 @@ public class DetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
         initRecyclerView();
-        String id = getArguments().getString("movie_id");
-        new VolleyFetch(new GetVideos(id), getContext(), videosListener).execute();
-        new VolleyFetch(new GetMovie(id), getContext(), movieDetailListener).execute();
+        Bundle arguments = getArguments();
+        String id = null;
+        if (arguments != null) {
+            id = arguments.getString("movie_id");
+            new VolleyFetch(new GetVideos(id), getContext(), videosListener).execute();
+            new VolleyFetch(new GetMovie(id), getContext(), movieDetailListener).execute();
+        }
         return view;
     }
 

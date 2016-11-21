@@ -16,11 +16,13 @@
         android:layout_weight="4"
         tools:layout="@android:layout/list_content" />
 
-    <FrameLayout
-        android:id="@+id/main_container"
+    <fragment
+        android:id="@+id/fragment_detail"
+        android:name="udacity.nanodegree.android.p2.detail.DetailFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="6" />
+        android:layout_weight="4"
+        tools:layout="@android:layout/list_content" />
 
 
 </LinearLayout>

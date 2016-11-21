@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ import udacity.nanodegree.android.p2.domain.Trailer;
  */
 public class DetailFragment extends Fragment {
 
+    private static final String TAG = "DetailFragment";
     @BindView(R.id.text_title)
     TextView txtTitle;
     @BindView(R.id.image_poster)
@@ -61,20 +63,53 @@ public class DetailFragment extends Fragment {
     }
 
 
+    public void updateMovie(String id){
+        if (id == null){
+            return;
+        }
+
+        new VolleyFetch(new GetVideos(id), getContext(), videosListener).execute();
+        new VolleyFetch(new GetMovie(id), getContext(), movieDetailListener).execute();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
+        Log.d(TAG, "onCreateView: ");
         ButterKnife.bind(this, view);
         initRecyclerView();
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+
+
+    private String getMovieId (){
         Bundle arguments = getArguments();
         String id = null;
+
         if (arguments != null) {
             id = arguments.getString("movie_id");
-            new VolleyFetch(new GetVideos(id), getContext(), videosListener).execute();
-            new VolleyFetch(new GetMovie(id), getContext(), movieDetailListener).execute();
         }
-        return view;
+        return id;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateMovie(getMovieId());
     }
 
     private void initRecyclerView() {

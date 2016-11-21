@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import udacity.nanodegree.android.p2.detail.DetailFragment;
 import udacity.nanodegree.android.p2.home.MovieGridAdapter;
@@ -27,13 +28,11 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
             replaceMainContainer(new MoviesFragment(), "");
         }
 
+
     }
 
     private void replaceMainContainer(Fragment fragment, String name) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment).addToBackStack(null).commit();
     }
 
 
@@ -41,14 +40,12 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     public void onMovieSelected(MovieGridAdapter.Item item) {
         Log.d(TAG, "onMovieSelected: " + item);
 
-        DetailFragment fragment = new DetailFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.addToBackStack(null);
-        transaction.replace(R.id.main_container, fragment);
-        transaction.commit();
+        DetailFragment fragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_detail);
 
         Bundle args = new Bundle();
         args.putString("movie_id", String.valueOf(item.getId()));
-        fragment.setArguments(args);
+        fragment.updateMovie(String.valueOf(item.getId()));
+
+
     }
 }

@@ -2,7 +2,6 @@ package udacity.nanodegree.android.p2.home;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -59,6 +58,12 @@ public class MoviesFragment extends Fragment implements VolleyFetch.Listener {
     public void onAttach(Context context) {
         super.onAttach(context);
         onMovieSelectedListener = (OnMovieSelectedListener) context;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        onMovieSelectedListener = null;
     }
 
     @OnItemClick(R.id.grid_movies)

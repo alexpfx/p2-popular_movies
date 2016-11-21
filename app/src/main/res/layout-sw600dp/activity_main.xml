@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"
-        tools:layout="@android:layout/list_content" />
+        tools:layout="@android:layout/list_content"/>
 
     <fragment
         android:id="@+id/fragment_detail"
@@ -22,7 +22,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"
-        tools:layout="@android:layout/list_content" />
-
+        tools:layout="@android:layout/list_content"/>
 
 </LinearLayout>

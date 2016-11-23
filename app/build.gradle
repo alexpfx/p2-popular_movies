@@ -41,8 +41,13 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
 
     compile group: 'javax.annotation', name: 'javax.annotation-api', version: '1.2'
-
     compile 'com.android.volley:volley:1.0.0'
 
+    // https://mvnrepository.com/artifact/javax.persistence/persistence-api
+    compile group: 'javax.persistence', name: 'persistence-api', version: '1.0.2'
+
+
     testCompile 'junit:junit:4.12'
+
+
 }

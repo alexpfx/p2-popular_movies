@@ -15,7 +15,7 @@
     <string name="error_not_connected">Unable to retrieve movie data, please make sure you are connected</string>
     <string name="tmdb_image_base_path">
         <xliff:g id="tmdb_base_url">
-            http://image.tmdb.org/t/p/w342//
+            http://image.tmdb.org/t/p/w342/%s
         </xliff:g>
     </string>
 
@@ -28,10 +28,18 @@
     <string name="detail_title_trailers">Trailers</string>
     <string name="max_rating"> <xliff:g id="rating">%1.1f</xliff:g>/10</string>
 
+    <string name="min"><xliff:g id="min">%d</xliff:g> min</string>
+
     <string name="youtube_web">
         <xliff:g id="youtube_web">http://www.youtube.com/watch?v=%s</xliff:g>
     </string>
     <string name="youtube_app">
         <xliff:g id="youtube_app">vnd.youtube:%s</xliff:g>
     </string>
+    
+    <string name="dateToYear"><xliff:g id="dateToYear">%1$tY</xliff:g></string>
+
+    <string name="myDateFormat"><xliff:g id="myDateFormat">%1$td/%1$tm/%1$tY</xliff:g></string>
+    
+    
 </resources>

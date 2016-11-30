@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-               android:id="@+id/poster_image"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:adjustViewBounds="true"
-               android:padding="0dp"
-               android:scaleType="centerCrop">
+    <data>
 
-    </ImageView>
+        <variable
+            name="vm"
+            type="udacity.nanodegree.android.p2.model.comum.MovieViewModel"/>
 
-</LinearLayout>
+        <!--<variable-->
+            <!--name="handler"-->
+            <!--type="udacity.nanodegree.android.p2.model.comum.MovieViewModel"/>-->
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/poster_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
+            android:onClick="@{vm::onClick}"
+            app:imageUrl="@{@string/tmdb_image_base_path(vm.posterImage)}"/>
+    </LinearLayout>
+</layout>

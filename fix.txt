@@ -1,0 +1,2 @@
+- verificar comportamento no back button. nao esta voltando para o ponto da tela onde estava.
+- recyclerview não está otimizada.

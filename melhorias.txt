@@ -1,0 +1,4 @@
+ok - substituir gridView por recyclerView
+- substituir butter knife por bindview e remover butter knife
+ok - criar pacote comum e mover classes compartilhadas
+

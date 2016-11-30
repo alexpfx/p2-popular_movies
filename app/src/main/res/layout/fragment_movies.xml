@@ -1,17 +1,15 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="udacity.nanodegree.android.p2.home.MoviesFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/grid_movies"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:fastScrollEnabled="true"
-              android:gravity="center"
-              android:numColumns="auto_fit"
-              android:stretchMode="columnWidth">
-    </GridView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="udacity.nanodegree.android.p2.MainActivity">
 
-</FrameLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_movies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+    </FrameLayout>
+</layout>

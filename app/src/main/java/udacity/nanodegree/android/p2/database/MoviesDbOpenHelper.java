@@ -4,8 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import udacity.nanodegree.android.p2.database.utils.SqliteDmlBuilder;
-
 /**
  * Created by alexandre on 22/11/2016.
  */
@@ -29,8 +27,6 @@ public class MoviesDbOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = new SqliteDmlBuilder(MovieDataModel.class).createSql();
-        db.execSQL(sql);
     }
 
     @Override

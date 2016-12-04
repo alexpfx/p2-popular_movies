@@ -12,11 +12,11 @@ import android.support.annotation.Nullable;
  */
 
 public class MoviesContentProvider extends ContentProvider {
-    private MoviesDbOpenHelper moviesDbOpenHelper;
+    private MoviesOpenHelper moviesOpenHelper;
 
     @Override
     public boolean onCreate() {
-        moviesDbOpenHelper = MoviesDbOpenHelper.getInstance(getContext());
+        moviesOpenHelper = MoviesOpenHelper.getInstance(getContext());
         return false;
     }
 

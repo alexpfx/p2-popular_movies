@@ -15,11 +15,19 @@ public class SpacedStringBuilder {
 
     }
 
+    public static SpacedStringBuilder create() {
+        return new SpacedStringBuilder();
+    }
+
     public SpacedStringBuilder append(String s) {
         sb.append(" ").append(s).append(" ");
         return this;
     }
 
+    public SpacedStringBuilder deleteAt (int index){
+        sb.deleteCharAt(index);
+        return this;
+    }
     public SpacedStringBuilder replace(int start, int end, String str) {
         sb.replace(start, end, str);
         return this;
@@ -28,6 +36,8 @@ public class SpacedStringBuilder {
     public int lastIndexOf(String str) {
         return sb.lastIndexOf(str);
     }
+
+
 
     @Override
     public String toString() {

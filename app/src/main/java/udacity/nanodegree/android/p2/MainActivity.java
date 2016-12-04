@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import udacity.nanodegree.android.p2.database.MoviesDbOpenHelper;
+import udacity.nanodegree.android.p2.database.MoviesOpenHelper;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.detail.DetailFragment;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
@@ -13,7 +13,7 @@ import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 public class MainActivity extends AppCompatActivity implements MoviesFragment.OnMovieSelectedListener {
 
     private static final String TAG = "MainActivity";
-    private MoviesDbOpenHelper moviesDbOpenHelper;
+    private MoviesOpenHelper moviesOpenHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

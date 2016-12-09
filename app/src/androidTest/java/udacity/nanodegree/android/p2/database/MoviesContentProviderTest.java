@@ -1,10 +1,13 @@
 package udacity.nanodegree.android.p2.database;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.test.rule.ActivityTestRule;
+import android.util.Log;
 
 import junit.framework.Assert;
 
@@ -17,6 +20,7 @@ import udacity.nanodegree.android.p2.MainActivity;
 import udacity.nanodegree.android.p2.utils.MovieTestHelper;
 import udacity.nanodegree.android.p2.utils.TestHelper;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotSame;
 import static junit.framework.Assert.assertTrue;
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
@@ -26,6 +30,7 @@ import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
  */
 public class MoviesContentProviderTest {
 
+    private static final String TAG = "MoviesContentProviderTe";
     @Rule
     public ActivityTestRule<MainActivity> mainActivityRule = new ActivityTestRule<>(MainActivity.class);
 
@@ -47,10 +52,10 @@ public class MoviesContentProviderTest {
         TestHelper.deleteDatabase(database);
     }
 
-    private ContentValues insertValuesForTest() {
-        ContentValues contentValues = MovieTestHelper.getFightClubContentValues();
-        database.insert(MovieEntry.TABLE_NAME, null, contentValues);
-        return contentValues;
+    private ContentValues insertValuesForTest(ContentValues cv) {
+        long id = database.insert(MovieEntry.TABLE_NAME, null, cv);
+        cv.put(MovieEntry._ID, id);
+        return cv;
     }
 
     private Cursor queryAll() {
@@ -59,36 +64,27 @@ public class MoviesContentProviderTest {
 
     @Test
     public void query() throws Exception {
-        ContentValues contentValues = insertValuesForTest();
+        ContentValues contentValues = insertValuesForTest(MovieTestHelper.getPulpFictionContentValues());
 
         Cursor cursor = context.getContentResolver()
                 .query(MovieEntry.CONTENT_URI, null, null, null, null);
         assertTrue(cursor.moveToFirst());
-        cursor.moveToNext();
-        assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_POSTER);
-        assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_RELEASE);
-        assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_TITLE);
-        assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_SYNOPSIS);
-        assertColumnValueDouble(contentValues, cursor, MovieEntry.COLUMN_USER_RATING);
+        MovieTestHelper.Asserts.assertEqualContentValuesAndCursor(contentValues, cursor);
     }
 
-    public void assertColumnValueString(ContentValues expected, Cursor cursor, String columnName) {
-        Assert.assertEquals(expected.get(columnName), cursor.getString(cursor.getColumnIndex(columnName)));
-    }
-
-    public void assertColumnValueDouble(ContentValues expected, Cursor cursor, String columnName) {
-        Assert.assertEquals(expected.get(columnName), cursor.getDouble(cursor.getColumnIndex(columnName)));
-    }
-
-    //    @Test
+    @Test
     public void getType() throws Exception {
+        String type = context.getContentResolver()
+                .getType(MovieEntry.CONTENT_URI);
+
+        Log.d(TAG, "getType: " + type);
 
     }
 
     @Test
     public void delete() throws Exception {
-        insertValuesForTest();
-        insertValuesForTest();
+        insertValuesForTest(MovieTestHelper.getFightClubContentValues());
+        insertValuesForTest(MovieTestHelper.getPulpFictionContentValues());
         Cursor cursor = queryAll();
         assertTrue(cursor.moveToFirst());
         long id = cursor.getLong(cursor.getColumnIndex(MovieEntry._ID));
@@ -105,9 +101,33 @@ public class MoviesContentProviderTest {
 
     }
 
-    //    @Test
-    public void update() throws Exception {
+    /**
+     * Insert.
+     * get id.
+     * Update values.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testUpdate() throws Exception {
+        ContentValues values = insertValuesForTest(MovieTestHelper.getFightClubContentValues());
+        Assert.assertFalse(Long.valueOf(values.getAsLong(MovieEntry._ID)) == -1L);
+        int count = context.getContentResolver()
+                .update(MovieEntry.CONTENT_URI, MovieTestHelper.getPulpFictionContentValues(), MovieEntry._ID + "=?", new String[]{String.valueOf(values.getAsLong(MovieEntry._ID))});
+        assertEquals(1, count);
 
+        Cursor cursor = queryAll();
+        MovieTestHelper.Asserts.assertEqualContentValuesAndCursor(MovieTestHelper.getPulpFictionContentValues(), cursor);
+    }
+
+    @Test
+    public void insert() throws Exception {
+        ContentValues values = MovieTestHelper.getFightClubContentValues();
+        Uri uri = context.getContentResolver()
+                .insert(MovieEntry.CONTENT_URI, values);
+        long id = ContentUris.parseId(uri);
+
+        assertNotSame(-1L, id);
     }
 
 }

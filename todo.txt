@@ -1,4 +1,9 @@
 
+- acabar implementacao de ContentProvider
+    - implementar update
+    - implementar notify
+    - implementar bulk insert
+
 - parametrizar versoes de libs no build.gradle
 - padronizar nomes de classes e variaveis
 

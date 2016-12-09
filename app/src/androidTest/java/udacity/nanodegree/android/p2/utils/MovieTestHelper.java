@@ -1,6 +1,9 @@
 package udacity.nanodegree.android.p2.utils;
 
 import android.content.ContentValues;
+import android.database.Cursor;
+
+import junit.framework.Assert;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
@@ -20,6 +23,40 @@ public class MovieTestHelper {
         cv.put(MovieEntry.COLUMN_USER_RATING, 8.1d);
 
         return cv;
+    }
+
+    public static final ContentValues getPulpFictionContentValues (){
+        ContentValues cv = new ContentValues();
+
+        cv.put(MovieEntry.COLUMN_TITLE, "Pulp Fiction");
+        cv.put(MovieEntry.COLUMN_SYNOPSIS, "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.");
+        cv.put(MovieEntry.COLUMN_RELEASE, "1994-10-14");
+
+        cv.put(MovieEntry.COLUMN_POSTER, "/dM2w364MScsjFf8pfMbaWUcWrR.jpg");
+        cv.put(MovieEntry.COLUMN_USER_RATING, 6.870153d);
+
+        return cv;
+
+    }
+
+    public static class Asserts{
+
+        public static void assertColumnValueString(ContentValues expected, Cursor cursor, String columnName) {
+            Assert.assertEquals(expected.get(columnName), cursor.getString(cursor.getColumnIndex(columnName)));
+        }
+
+        public static void assertEqualContentValuesAndCursor(ContentValues contentValues, Cursor cursor) {
+            cursor.moveToNext();
+            assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_POSTER);
+            assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_RELEASE);
+            assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_TITLE);
+            assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_SYNOPSIS);
+            assertColumnValueDouble(contentValues, cursor, MovieEntry.COLUMN_USER_RATING);
+        }
+
+        public static void assertColumnValueDouble(ContentValues expected, Cursor cursor, String columnName) {
+            Assert.assertEquals(expected.get(columnName), cursor.getDouble(cursor.getColumnIndex(columnName)));
+        }
     }
 
 }

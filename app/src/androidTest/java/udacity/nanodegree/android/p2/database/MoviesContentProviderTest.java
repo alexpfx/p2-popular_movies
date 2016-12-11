@@ -69,7 +69,6 @@ public class MoviesContentProviderTest {
 
         Cursor cursor = context.getContentResolver()
                 .query(MovieEntry.CONTENT_URI, null, null, null, null);
-        assertTrue(cursor.moveToFirst());
         MovieTestHelper.Asserts.assertEqualContentValuesAndCursor(contentValues, cursor);
     }
 

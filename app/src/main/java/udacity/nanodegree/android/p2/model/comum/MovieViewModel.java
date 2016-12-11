@@ -149,7 +149,10 @@ public class MovieViewModel extends BaseObservable {
     @BindingAdapter(value = {"imageUrl"}, requireAll = false)
     public static void setImageUrl(ImageView view, String url) {
         Log.d(TAG, "setImageUrl: " + url);
-        Picasso.with(view.getContext()).load(url).error(R.drawable.ic_error_black_48dp).into(view);
+        Picasso.with(view.getContext())
+                .load(url)
+                .error(R.drawable.ic_error_black_48dp)
+                .into(view);
     }
 
     public void onClick(View v) {

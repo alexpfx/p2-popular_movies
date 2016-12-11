@@ -25,7 +25,7 @@ public class MovieTestHelper {
         return cv;
     }
 
-    public static final ContentValues getPulpFictionContentValues (){
+    public static final ContentValues getPulpFictionContentValues() {
         ContentValues cv = new ContentValues();
 
         cv.put(MovieEntry.COLUMN_TITLE, "Pulp Fiction");
@@ -39,7 +39,7 @@ public class MovieTestHelper {
 
     }
 
-    public static class Asserts{
+    public static class Asserts {
 
         public static void assertColumnValueString(ContentValues expected, Cursor cursor, String columnName) {
             Assert.assertEquals(expected.get(columnName), cursor.getString(cursor.getColumnIndex(columnName)));

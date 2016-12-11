@@ -1,7 +1,5 @@
 package udacity.nanodegree.android.p2.database;
 
-import udacity.nanodegree.android.p2.util.SpacedStringBuilder;
-
 /**
  * Created by alexandre on 03/12/2016.
  */
@@ -11,13 +9,15 @@ public class DmlHelper {
     private StringBuilder stringBuilder = new StringBuilder();
 
     public DmlHelper table(String name) {
-        stringBuilder.append("create table ").append(name)
+        stringBuilder.append("create table ")
+                .append(name)
                 .append("(");
         return this;
     }
 
     public DmlHelper column(String name, String specs) {
-        stringBuilder.append(name).append(" ")
+        stringBuilder.append(name)
+                .append(" ")
                 .append(specs)
                 .append(", ");
         return this;
@@ -40,6 +40,5 @@ public class DmlHelper {
     public String toString() {
         return stringBuilder.toString();
     }
-
 
 }

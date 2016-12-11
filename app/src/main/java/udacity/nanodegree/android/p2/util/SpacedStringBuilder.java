@@ -8,7 +8,9 @@ public class SpacedStringBuilder {
     private StringBuilder sb = new StringBuilder();
 
     public SpacedStringBuilder(String s) {
-        sb.append(" ").append(s).append(" ");
+        sb.append(" ")
+                .append(s)
+                .append(" ");
     }
 
     public SpacedStringBuilder() {
@@ -20,14 +22,17 @@ public class SpacedStringBuilder {
     }
 
     public SpacedStringBuilder append(String s) {
-        sb.append(" ").append(s).append(" ");
+        sb.append(" ")
+                .append(s)
+                .append(" ");
         return this;
     }
 
-    public SpacedStringBuilder deleteAt (int index){
+    public SpacedStringBuilder deleteAt(int index) {
         sb.deleteCharAt(index);
         return this;
     }
+
     public SpacedStringBuilder replace(int start, int end, String str) {
         sb.replace(start, end, str);
         return this;
@@ -37,10 +42,10 @@ public class SpacedStringBuilder {
         return sb.lastIndexOf(str);
     }
 
-
-
     @Override
     public String toString() {
-        return sb.toString().replaceAll("\\s+", " ").trim();
+        return sb.toString()
+                .replaceAll("\\s+", " ")
+                .trim();
     }
 }

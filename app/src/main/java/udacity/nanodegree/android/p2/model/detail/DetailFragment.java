@@ -116,7 +116,6 @@ public class DetailFragment extends Fragment {
 //            vm.setOnMovieSelectedListener(onMovieSelectedListener);
             binding.setVm(vm);
 
-
         }
 
         @Override

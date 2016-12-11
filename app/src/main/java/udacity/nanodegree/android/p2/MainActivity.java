@@ -32,7 +32,10 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     }
 
     private void replaceMainContainer(Fragment fragment, String name) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, fragment, name).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container, fragment, name)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override

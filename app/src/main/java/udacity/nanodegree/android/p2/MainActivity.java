@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
 
 
+
         /*if fragment_movies doesn't exists, place the MoviesFragment into main_fragment_container.
          * if exists, so it is a tablet and the MoviesFragment is already in their own fragment view.
           */

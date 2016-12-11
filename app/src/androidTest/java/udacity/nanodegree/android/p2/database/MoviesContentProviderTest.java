@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.test.rule.ActivityTestRule;
 import android.util.Log;
@@ -18,7 +19,6 @@ import org.junit.Test;
 
 import udacity.nanodegree.android.p2.MainActivity;
 import udacity.nanodegree.android.p2.utils.MovieTestHelper;
-import udacity.nanodegree.android.p2.utils.TestHelper;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
@@ -37,39 +37,40 @@ public class MoviesContentProviderTest {
 
     private Context context;
 
-    SQLiteDatabase database;
+    private SQLiteOpenHelper sqLiteOpenHelper;
 
     @Before
     public void setUp() throws Exception {
         context = mainActivityRule.getActivity();
-        MoviesOpenHelper dbHelper = new MoviesOpenHelper(context);
-        database = dbHelper.getWritableDatabase();
-
+        this.sqLiteOpenHelper = new MoviesOpenHelper(context);
     }
 
     @After
     public void tearDown() throws Exception {
-        database.close();
-        TestHelper.deleteDatabase(database);
+        SQLiteDatabase database = sqLiteOpenHelper.getWritableDatabase();
+        database.delete(MovieEntry.TABLE_NAME, MovieEntry._ID + " != -1", null);
     }
 
     private ContentValues insertValuesForTest(ContentValues cv) {
-        long id = database.insert(MovieEntry.TABLE_NAME, null, cv);
+        long id = sqLiteOpenHelper.getWritableDatabase()
+                .insert(MovieEntry.TABLE_NAME, null, cv);
         cv.put(MovieEntry._ID, id);
         return cv;
     }
 
     private Cursor queryAll() {
-        return database.query(MovieEntry.TABLE_NAME, null, null, null, null, null, null, null);
+        return sqLiteOpenHelper.getReadableDatabase()
+                .query(MovieEntry.TABLE_NAME, null, null, null, null, null, null, null);
     }
 
     @Test
-    public void query() throws Exception {
+    public void testQuery() throws Exception {
         ContentValues contentValues = insertValuesForTest(MovieTestHelper.getPulpFictionContentValues());
 
         Cursor cursor = context.getContentResolver()
                 .query(MovieEntry.CONTENT_URI, null, null, null, null);
         MovieTestHelper.Asserts.assertEqualContentValuesAndCursor(contentValues, cursor);
+        cursor.close();
     }
 
     @Test

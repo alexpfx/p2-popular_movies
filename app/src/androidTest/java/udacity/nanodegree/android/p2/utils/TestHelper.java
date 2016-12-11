@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 
 import java.io.File;
 
@@ -15,6 +16,7 @@ import java.io.File;
 public class TestHelper {
 
     private static class TestContentObserver extends ContentObserver{
+        private static final String TAG = "TestContentObserver";
         private TestContentObserver(Handler handler) {
             super(handler);
         }
@@ -23,6 +25,12 @@ public class TestHelper {
             HandlerThread ht = new HandlerThread("ContentObserverThread");
             ht.start();
             return new TestContentObserver(new Handler(ht.getLooper()));
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            Log.d(TAG, "onChange: "+selfChange);
         }
     }
 
@@ -33,5 +41,7 @@ public class TestHelper {
     public static void deleteDatabase (SQLiteDatabase database){
         SQLiteDatabase.deleteDatabase(new File(database.getPath()));
     }
+
+
 
 }

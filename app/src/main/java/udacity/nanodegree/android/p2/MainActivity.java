@@ -8,9 +8,11 @@ import android.util.Log;
 import udacity.nanodegree.android.p2.database.MoviesOpenHelper;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.detail.DetailFragment;
+import udacity.nanodegree.android.p2.model.detail.DetailHandler;
+import udacity.nanodegree.android.p2.model.detail.TrailerHandler;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 
-public class MainActivity extends AppCompatActivity implements MoviesFragment.OnMovieSelectedListener {
+public class MainActivity extends AppCompatActivity implements MoviesFragment.OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
 
     private static final String TAG = "MainActivity";
     private MoviesOpenHelper moviesOpenHelper;
@@ -19,8 +21,6 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
 
         /*if fragment_movies doesn't exists, place the MoviesFragment into main_fragment_container.
@@ -48,6 +48,28 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
         fragment.setArguments(args);
         replaceMainContainer(fragment, "detail");
+
+    }
+
+    @Override
+    public void onFavorite(boolean isFavorited, MovieViewModel viewModel) {
+        Log.d(TAG, "onFavorite: " + isFavorited);
+        Log.d(TAG, "onFavorite: " + viewModel);
+    }
+
+    @Override
+    public void onTrailerPlay(String key) {
+        Log.d(TAG, "onTrailerPlay: "+key);
+        //        String key = vm.getKey();
+//        Context context = view.getContext();
+//        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.youtube_app, key)));
+//
+//        if (appIntent.resolveActivity(context.getPackageManager()) != null) {
+//            context.startActivity(appIntent);
+//        } else {
+//            Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.youtube_web, key)));
+//            context.startActivity(webIntent);
+//        }
 
     }
 }

@@ -25,11 +25,12 @@ import udacity.nanodegree.android.p2.network.data_transfer.Trailer;
 /**
  * Created by alexandre on 15/11/2016.
  */
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment{
 
     private static final String TAG = "DetailFragment";
     FragmentDetailBinding binding;
     private MoviesFragment.OnMovieSelectedListener onMovieSelectedListener;
+    private DetailHandler.DetailHandlerDelegate detailHandlerDelegate;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class DetailFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         onMovieSelectedListener = (MoviesFragment.OnMovieSelectedListener) context;
+        detailHandlerDelegate = (DetailHandler.DetailHandlerDelegate) context;
     }
 
     @Nullable
@@ -113,9 +115,10 @@ public class DetailFragment extends Fragment {
             Result result = gson.fromJson(response.toString(), Result.class);
 
             MovieViewModel vm = MovieViewModel.fromResult(result);
+
 //            vm.setOnMovieSelectedListener(onMovieSelectedListener);
             binding.setVm(vm);
-
+            binding.setHandler(new DetailHandler(detailHandlerDelegate));
         }
 
         @Override

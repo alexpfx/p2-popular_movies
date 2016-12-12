@@ -53,19 +53,4 @@ public class TrailerViewModel extends BaseObservable {
     public void setKey(String key) {
         this.key = key;
     }
-
-    public void onItemClick(View view) {
-        Log.d(TAG, "onItemClick: " + key);
-        Context context = view.getContext();
-        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.youtube_app, key)));
-
-        if (appIntent.resolveActivity(context.getPackageManager()) != null) {
-            context.startActivity(appIntent);
-        } else {
-            Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.youtube_web, key)));
-            context.startActivity(webIntent);
-        }
-
-    }
-
 }

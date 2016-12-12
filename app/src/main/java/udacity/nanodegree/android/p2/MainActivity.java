@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
     @Override
     public void onFavorite(boolean isFavorited, MovieViewModel viewModel) {
+        Log.d(TAG, "onFavorite: "+viewModel);
         if (isFavorited) {
             insertOrUpdate(viewModel);
         } else {
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     }
 
     private void insertOrUpdate(MovieViewModel viewModel) {
-        if (movieExists(viewModel)) {
+        if (!movieExists(viewModel)) {
             insertMovie(viewModel);
         } else {
             updateMovie(viewModel);
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     }
 
     private boolean movieExists(MovieViewModel viewModel) {
-        Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI, new String[]{MovieEntry._ID}, MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(viewModel.getId())}, null);
+        Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI, new String[]{MovieEntry.COLUMN_MOVIE_ID}, MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(viewModel.getId())}, null);
         return cursor.moveToFirst();
     }
 

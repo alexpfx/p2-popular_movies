@@ -66,7 +66,7 @@ public class MovieOpenHelperTest {
         Cursor cursor = database.query(MovieEntry.TABLE_NAME, null, null, null, null, null, null);
         Assert.assertTrue(cursor.moveToFirst());
 
-        String title = cursor.getString(1);
+        String title = cursor.getString(2);
 
         Assert.assertEquals("title", title);
         cursor.close();
@@ -89,6 +89,7 @@ public class MovieOpenHelperTest {
 
     public ContentValues getContentValues() {
         ContentValues c = new ContentValues();
+        c.put(MovieEntry.COLUMN_MOVIE_ID, "movie_id");
         c.put(MovieEntry.COLUMN_POSTER, "poster");
         c.put(MovieEntry.COLUMN_RELEASE, "release");
         c.put(MovieEntry.COLUMN_SYNOPSIS, "synopsis");

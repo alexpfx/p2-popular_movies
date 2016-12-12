@@ -1,5 +1,7 @@
 
 
+- separar logica do MainActivity
+
 ok    - implementar update
 ok    - implementar notify
  ok   - implementar delete

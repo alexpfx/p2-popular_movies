@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import udacity.nanodegree.android.p2.database.MoviesContentProvider;
 import udacity.nanodegree.android.p2.database.MoviesOpenHelper;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.detail.DetailFragment;
@@ -15,12 +16,14 @@ import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 public class MainActivity extends AppCompatActivity implements MoviesFragment.OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
 
     private static final String TAG = "MainActivity";
-    private MoviesOpenHelper moviesOpenHelper;
+    private MoviesContentProvider provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        provider = new MoviesContentProvider();
+
 
 
         /*if fragment_movies doesn't exists, place the MoviesFragment into main_fragment_container.

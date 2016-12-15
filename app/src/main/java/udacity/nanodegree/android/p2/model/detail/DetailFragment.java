@@ -1,20 +1,27 @@
 package udacity.nanodegree.android.p2.model.detail;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CursorAdapter;
 
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.databinding.FragmentDetailBinding;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
@@ -25,17 +32,20 @@ import udacity.nanodegree.android.p2.network.data_transfer.Trailer;
 /**
  * Created by alexandre on 15/11/2016.
  */
-public class DetailFragment extends Fragment{
+public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = "DetailFragment";
+    private static final int MOVIE_LOADER = 0;
     FragmentDetailBinding binding;
     private MoviesFragment.OnMovieSelectedListener onMovieSelectedListener;
     private DetailHandler.DetailHandlerDelegate detailHandlerDelegate;
+    private CursorAdapter cursorAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     public void updateMovie(String id) {
@@ -67,8 +77,8 @@ public class DetailFragment extends Fragment{
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        getLoaderManager().initLoader(MOVIE_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
-
     }
 
     @Override
@@ -141,4 +151,24 @@ public class DetailFragment extends Fragment{
         }
     };
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getContext(), MoviesContract.MovieEntry.CONTENT_URI, new String[]{MoviesContract.MovieEntry.COLUMN_MOVIE_ID, MoviesContract.MovieEntry.COLUMN_TITLE}, MoviesContract.MovieEntry.COLUMN_MOVIE_ID + " = ?", new String[]{getMovieId()}, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (!data.moveToFirst()) {
+            return;
+        }
+        do {
+            Log.d(TAG, "onLoadFinished: " + data.getString(data.getColumnIndex(MoviesContract.MovieEntry.COLUMN_TITLE)));
+        } while (data.moveToNext());
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        Log.d(TAG, "onLoaderReset: ");
+
+    }
 }

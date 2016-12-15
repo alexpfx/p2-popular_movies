@@ -2,6 +2,7 @@ package udacity.nanodegree.android.p2;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.icu.text.DateFormat;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -102,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         c.put(MovieEntry.COLUMN_SYNOPSIS, viewModel.getSynopsys());
         c.put(MovieEntry.COLUMN_TITLE, viewModel.getTitle());
         c.put(MovieEntry.COLUMN_USER_RATING, viewModel.getVoteAvg());
+        c.put(MovieEntry.COLUMN_IS_FAVORITE, viewModel.isFavorite());
+        //UPLOADED DATE
         //runtime
         return c;
     }

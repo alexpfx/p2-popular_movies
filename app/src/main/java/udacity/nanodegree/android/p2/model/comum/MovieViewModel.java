@@ -156,11 +156,25 @@ public class MovieViewModel extends BaseObservable {
     }
 
     public void onClick(View v) {
-        Log.d(TAG, "onClick: " + id);
+        Log.d(TAG, "onItemClick: " + id);
         onMovieSelectedListener.onMovieSelected(this);
     }
 
     public void setOnMovieSelectedListener(MoviesFragment.OnMovieSelectedListener onMovieSelectedListener) {
         this.onMovieSelectedListener = onMovieSelectedListener;
+    }
+
+    @Override
+    public String toString() {
+        return "MovieViewModel{" +
+                "synopsys='" + synopsys + '\'' +
+                ", favorite=" + favorite +
+                ", voteAvg=" + voteAvg +
+                ", runtime=" + runtime +
+                ", releaseDate=" + releaseDate +
+                ", posterImage='" + posterImage + '\'' +
+                ", title='" + title + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

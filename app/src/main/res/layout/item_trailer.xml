@@ -7,15 +7,18 @@
             name="vm"
             type="udacity.nanodegree.android.p2.model.detail.TrailerViewModel"/>
 
+        <variable
+            name="handler"
+            type="udacity.nanodegree.android.p2.model.detail.TrailerHandler"/>
+
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:gravity="center_vertical"
-        android:onClick="@{(view) -> vm.onItemClick(view)}"
-        android:orientation="horizontal"
-        >
+        android:onClick="@{() -> handler.onItemClick(vm)}"
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/btn_play_trailer"

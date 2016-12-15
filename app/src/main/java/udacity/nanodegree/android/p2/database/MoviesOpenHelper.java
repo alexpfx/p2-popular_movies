@@ -13,7 +13,7 @@ import udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
 public class MoviesOpenHelper extends SQLiteOpenHelper {
     public static final String dbName = "movies.db";
-    public static final int dbVersion = 2;
+    public static final int dbVersion = 3;
     private static final String TAG = "MoviesOpenHelper";
 
     private static MoviesOpenHelper instance;
@@ -34,6 +34,7 @@ public class MoviesOpenHelper extends SQLiteOpenHelper {
         String dml = DmlHelper.createInstance()
                 .table(MovieEntry.TABLE_NAME)
                 .column(MovieEntry._ID, "integer primary key")
+                .column(MovieEntry.COLUMN_MOVIE_ID, "integer not null")
                 .column(MovieEntry.COLUMN_TITLE, "text not null")
                 .column(MovieEntry.COLUMN_POSTER, "text not null")
                 .column(MovieEntry.COLUMN_RELEASE, "text not null")

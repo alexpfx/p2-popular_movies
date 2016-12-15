@@ -8,6 +8,11 @@
         <variable
             name="vm"
             type="udacity.nanodegree.android.p2.model.comum.MovieViewModel" />;
+
+        <variable
+            name="handler"
+            type="udacity.nanodegree.android.p2.model.detail.DetailHandler"/>
+
     </data>
 
     <ScrollView
@@ -101,7 +106,7 @@
                         android:maxWidth="40dp"
                         android:minHeight="40dp"
                         android:minWidth="40dp"
-                        android:onClick="@{(view) -> vm.onFavoriteClick (view)}"
+                        android:onClick="@{(v) -> handler.onFavoriteClick(v, vm)}"
                         android:padding="2dp" />
                 </LinearLayout>
             </LinearLayout>

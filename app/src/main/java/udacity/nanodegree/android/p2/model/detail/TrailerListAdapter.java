@@ -12,11 +12,13 @@ import udacity.nanodegree.android.p2.databinding.ItemTrailerBinding;
  */
 public class TrailerListAdapter extends RecyclerView.Adapter {
     private TrailerViewModelCollection trailers;
+    private TrailerHandler.TrailerHandlerDelegate trailerHandlerDelegate;
     private Context context;
 
     public TrailerListAdapter(Context context, TrailerViewModelCollection trailers) {
         this.trailers = trailers;
         this.context = context;
+        this.trailerHandlerDelegate = (TrailerHandler.TrailerHandlerDelegate) context;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class TrailerListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         TrailerViewHolder viewHolder = (TrailerViewHolder) holder;
         final TrailerViewModel trailerItem = trailers.get(position);
-        viewHolder.bind(trailerItem);
+        viewHolder.bind(trailerItem, new TrailerHandler(trailerHandlerDelegate));
     }
 
     @Override
@@ -42,9 +44,11 @@ public class TrailerListAdapter extends RecyclerView.Adapter {
 
         private ItemTrailerBinding binding;
 
-        public void bind(TrailerViewModel item) {
+        public void bind(TrailerViewModel item, TrailerHandler handler) {
             binding.textTrailerTitle.setText(item.getTitle());
             binding.setVm(item);
+            binding.setHandler(handler);
+
         }
 
         public TrailerViewHolder(ItemTrailerBinding binding) {

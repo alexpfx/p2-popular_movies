@@ -147,6 +147,7 @@ public class MovieViewModel extends BaseObservable {
             throw new RuntimeException(e);
         }
         vm.setReleaseDate(calendar.getTime());
+        vm.setUpdateDate(new Date());
 
         return vm;
     }

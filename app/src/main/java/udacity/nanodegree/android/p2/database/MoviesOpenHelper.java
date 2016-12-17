@@ -13,7 +13,7 @@ import udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
 public class MoviesOpenHelper extends SQLiteOpenHelper {
     public static final String dbName = "movies.db";
-    public static final int dbVersion = 4;
+    public static final int dbVersion = 5;
     private static final String TAG = "MoviesOpenHelper";
 
     private static MoviesOpenHelper instance;

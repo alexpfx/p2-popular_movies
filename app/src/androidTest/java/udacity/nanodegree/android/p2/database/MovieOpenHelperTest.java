@@ -91,7 +91,7 @@ public class MovieOpenHelperTest {
         ContentValues c = new ContentValues();
         c.put(MovieEntry.COLUMN_MOVIE_ID, "movie_id");
         c.put(MovieEntry.COLUMN_POSTER, "poster");
-        c.put(MovieEntry.COLUMN_RELEASE, "release");
+        c.put(MovieEntry.COLUMN_RELEASE_DATE, "release");
         c.put(MovieEntry.COLUMN_SYNOPSIS, "synopsis");
         c.put(MovieEntry.COLUMN_TITLE, "title");
         c.put(MovieEntry.COLUMN_USER_RATING, 4.5);

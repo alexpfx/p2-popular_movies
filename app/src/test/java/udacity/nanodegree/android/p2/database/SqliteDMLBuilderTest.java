@@ -7,10 +7,10 @@ import org.junit.Test;
 /**
  * Created by alexandre on 03/12/2016.
  */
-public class DmlHelperTest {
+public class SqliteDMLBuilderTest {
     @Test
     public void table() throws Exception {
-        DmlHelper my_table = DmlHelper.createInstance()
+        SqliteDMLBuilder my_table = SqliteDMLBuilder.createInstance()
                 .table("my_table");
 
         Assert.assertEquals("create table my_table(", my_table.toString());
@@ -19,7 +19,7 @@ public class DmlHelperTest {
 
     @Test
     public void column() throws Exception {
-        DmlHelper my_table = DmlHelper.createInstance()
+        SqliteDMLBuilder my_table = SqliteDMLBuilder.createInstance()
                 .table("my_table")
                 .column("my_column", "integer not null");
 
@@ -28,11 +28,11 @@ public class DmlHelperTest {
 
     @Test
     public void finish() throws Exception {
-        String dml = DmlHelper.createInstance()
+        String dml = SqliteDMLBuilder.createInstance()
                 .table("my_table")
                 .column("my_column", "integer not null")
                 .column("col2", "text")
-                .finish();
+                .build();
 
         Assert.assertEquals("create table my_table(my_column integer not null, col2 text);", dml);
     }

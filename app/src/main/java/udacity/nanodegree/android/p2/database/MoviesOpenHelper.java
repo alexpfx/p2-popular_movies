@@ -31,18 +31,19 @@ public class MoviesOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String dml = DmlHelper.createInstance()
+        String dml = SqliteDMLBuilder.createInstance()
                 .table(MovieEntry.TABLE_NAME)
                 .column(MovieEntry._ID, "integer primary key")
                 .column(MovieEntry.COLUMN_MOVIE_ID, "integer not null")
                 .column(MovieEntry.COLUMN_TITLE, "text not null")
                 .column(MovieEntry.COLUMN_POSTER, "text not null")
-                .column(MovieEntry.COLUMN_RELEASE, "text not null")
+                .column(MovieEntry.COLUMN_RELEASE_DATE, "integer not null")
                 .column(MovieEntry.COLUMN_SYNOPSIS, "text not null")
                 .column(MovieEntry.COLUMN_USER_RATING, "real not null")
-                .column(MovieEntry.COLUMN_UPDATED_DATE, "text not null")
+                .column(MovieEntry.COLUMN_UPDATE_DATE, "integer not null")
                 .column(MovieEntry.COLUMN_IS_FAVORITE, "integer not null")
-                .finish();
+                .column(MovieEntry.COLUMN_RUNTIME, "integer not null")
+                .build();
         Log.d(TAG, "onCreate: " + dml);
         db.execSQL(dml);
     }

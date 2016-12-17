@@ -45,6 +45,8 @@ public class MovieViewModel extends BaseObservable {
 
     private String synopsys;
 
+    private Date updateDate;
+
     public MovieViewModel(MoviesFragment.OnMovieSelectedListener onMovieSelectedListener) {
         this.onMovieSelectedListener = onMovieSelectedListener;
     }
@@ -115,6 +117,14 @@ public class MovieViewModel extends BaseObservable {
 
     public Integer getId() {
         return id;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     public static MovieViewModel fromResult(Result result) {

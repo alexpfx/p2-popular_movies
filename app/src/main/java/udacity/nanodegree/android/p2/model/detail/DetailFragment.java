@@ -52,6 +52,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         if (id == null) {
             return;
         }
+        Cursor cursor = getContext().getContentResolver()
+                .query(MoviesContract.MovieEntry.CONTENT_URI, null, MoviesContract.MovieEntry.COLUMN_MOVIE_ID + " = ?", new String[]{id}, null);
+        MovieViewModel vm = MovieViewModel.fromCursor(cursor);
+        binding.setVm(vm);
 
         new FetchMovies(new GetVideos(id), getContext(), videosListener).execute();
         new FetchMovies(new GetMovie(id), getContext(), movieDetailListener).execute();
@@ -62,15 +66,14 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         super.onAttach(context);
         onMovieSelectedListener = (MoviesFragment.OnMovieSelectedListener) context;
         detailHandlerDelegate = (DetailHandler.DetailHandlerDelegate) context;
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         binding = FragmentDetailBinding.inflate(getLayoutInflater(savedInstanceState), container, false);
-
-//        ButterKnife.bind(this, view);
+        binding.setHandler(new DetailHandler(detailHandlerDelegate));
         initRecyclerView();
         return binding.getRoot();
     }
@@ -106,6 +109,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onResume() {
         super.onResume();
+
         updateMovie(getMovieId());
     }
 
@@ -124,11 +128,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             Gson gson = new Gson();
             Result result = gson.fromJson(response.toString(), Result.class);
 
+            MovieViewModel oldVm = binding.getVm();
             MovieViewModel vm = MovieViewModel.fromResult(result);
-
-//            vm.setOnMovieSelectedListener(onMovieSelectedListener);
+            if (oldVm != null) {
+                vm.setFavorite(oldVm.isFavorite());
+            }
             binding.setVm(vm);
-            binding.setHandler(new DetailHandler(detailHandlerDelegate));
         }
 
         @Override

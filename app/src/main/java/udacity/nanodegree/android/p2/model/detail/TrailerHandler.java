@@ -1,7 +1,5 @@
 package udacity.nanodegree.android.p2.model.detail;
 
-import android.view.View;
-
 /**
  * Created by alexandre on 11/12/2016.
  */
@@ -19,7 +17,6 @@ public class TrailerHandler {
             return;
         }
         delegate.onTrailerPlay(vm.getKey());
-
 
     }
 

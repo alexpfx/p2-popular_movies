@@ -1,5 +1,6 @@
 package udacity.nanodegree.android.p2.model.comum;
 
+import android.database.Cursor;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
 import android.util.Log;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import udacity.nanodegree.android.p2.R;
+import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
 
@@ -47,6 +49,18 @@ public class MovieViewModel extends BaseObservable {
 
     private Date updateDate;
 
+    MovieViewModel(Integer id, String title, String posterImage, Date releaseDate, Integer runtime, Double voteAvg, boolean favorite, String synopsys, Date updateDate) {
+        this.id = id;
+        this.title = title;
+        this.posterImage = posterImage;
+        this.releaseDate = releaseDate;
+        this.runtime = runtime;
+        this.voteAvg = voteAvg;
+        this.favorite = favorite;
+        this.synopsys = synopsys;
+        this.updateDate = updateDate;
+    }
+
     public MovieViewModel(MoviesFragment.OnMovieSelectedListener onMovieSelectedListener) {
         this.onMovieSelectedListener = onMovieSelectedListener;
     }
@@ -60,6 +74,7 @@ public class MovieViewModel extends BaseObservable {
 
     public void setTitle(String title) {
         this.title = title;
+
     }
 
     public String getPosterImage() {
@@ -127,16 +142,38 @@ public class MovieViewModel extends BaseObservable {
         this.updateDate = updateDate;
     }
 
+    public static final MovieViewModel fromCursor(Cursor cursor) {
+        Builder builder = new Builder();
+        if (!cursor.moveToFirst()) {
+            return builder.build();
+        }
+        String title = cursor.getString(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_TITLE));
+        String poster = cursor.getString(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_POSTER));
+        String synopsis = cursor.getString(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_SYNOPSIS));
+
+        int movieId = cursor.getInt(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_MOVIE_ID));
+        int runtime = cursor.getInt(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_RUNTIME));
+
+        long isFavorite = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_IS_FAVORITE));
+        long release_date = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_RELEASE_DATE));
+        long update_date = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_UPDATE_DATE));
+
+        double user_rating = cursor.getDouble(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_USER_RATING));
+
+        return builder.setTitle(title)
+                .setPosterImage(poster)
+                .setSynopsys(synopsis)
+                .setFavorite(isFavorite == 1L)
+                .setReleaseDate(new Date(release_date))
+                .setUpdateDate(new Date(update_date))
+                .setId(movieId)
+                .setRuntime(runtime)
+                .setVoteAvg(user_rating)
+                .build();
+    }
+
     public static MovieViewModel fromResult(Result result) {
-        MovieViewModel vm = new MovieViewModel();
-
-        vm.setId(result.getId());
-        vm.setTitle(result.getOriginalTitle());
-        vm.setRuntime(result.getRuntime());
-        vm.setSynopsys(result.getOverview());
-        vm.setVoteAvg(result.getVoteAverage());
-        vm.setPosterImage(result.getPosterPath());
-
+        Builder builder = new Builder();
         Calendar calendar;
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
@@ -146,10 +183,17 @@ public class MovieViewModel extends BaseObservable {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        vm.setReleaseDate(calendar.getTime());
-        vm.setUpdateDate(new Date());
 
-        return vm;
+        return builder.setId(result.getId())
+                .setTitle(result.getOriginalTitle())
+                .setRuntime(result.getRuntime())
+                .setSynopsys(result.getOverview())
+                .setVoteAvg(result.getVoteAverage())
+                .setPosterImage(result.getPosterPath())
+                .setReleaseDate(calendar.getTime())
+                .setUpdateDate(new Date())
+                .build();
+
     }
 
     public void onFavoriteClick(View v) {

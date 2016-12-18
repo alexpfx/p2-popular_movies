@@ -1,13 +1,7 @@
 package udacity.nanodegree.android.p2.model.detail;
 
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.BaseObservable;
-import android.net.Uri;
-import android.util.Log;
-import android.view.View;
 
-import udacity.nanodegree.android.p2.R;
 import udacity.nanodegree.android.p2.network.data_transfer.TrailerItem;
 
 /**

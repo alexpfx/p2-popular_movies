@@ -53,9 +53,11 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
     @Override
     public void onFavorite(boolean isFavorited, MovieViewModel viewModel) {
+        Log.d(TAG, "onFavorite: ");
         if (isFavorited) {
             insertOrUpdate(viewModel);
         }
+        updateFavorite(isFavorited, viewModel.getId());
     }
 
     private void insertOrUpdate(MovieViewModel viewModel) {
@@ -64,10 +66,17 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         } else {
             updateMovie(viewModel);
         }
+
+    }
+
+    private void updateFavorite(boolean isFavorited, Integer id) {
+        ContentValues cv = new ContentValues();
+        cv.put(MovieEntry.COLUMN_IS_FAVORITE, isFavorited ? 1 : 0);
+        getContentResolver().update(MovieEntry.CONTENT_URI, cv, MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(id)});
     }
 
     private void updateMovie(MovieViewModel viewModel) {
-
+        getContentResolver().update(MovieEntry.CONTENT_URI, createContentValues(viewModel), MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(viewModel.getId())});
     }
 
     private boolean movieExists(MovieViewModel viewModel) {
@@ -79,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         getContentResolver().insert(MovieEntry.CONTENT_URI, createContentValues(viewModel));
     }
 
+    //TODO move
     private ContentValues createContentValues(MovieViewModel viewModel) {
         ContentValues c = new ContentValues();
         c.put(MovieEntry.COLUMN_MOVIE_ID, viewModel.getId());
@@ -87,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         c.put(MovieEntry.COLUMN_SYNOPSIS, viewModel.getSynopsys());
         c.put(MovieEntry.COLUMN_TITLE, viewModel.getTitle());
         c.put(MovieEntry.COLUMN_USER_RATING, viewModel.getVoteAvg());
-        c.put(MovieEntry.COLUMN_IS_FAVORITE, viewModel.isFavorite());
+        c.put(MovieEntry.COLUMN_IS_FAVORITE, viewModel.isFavorite() ? 1 : 0);
         c.put(MovieEntry.COLUMN_UPDATE_DATE, DateUtil.normalizaDate(viewModel.getUpdateDate()));
         c.put(MovieEntry.COLUMN_RUNTIME, viewModel.getRuntime());
         return c;

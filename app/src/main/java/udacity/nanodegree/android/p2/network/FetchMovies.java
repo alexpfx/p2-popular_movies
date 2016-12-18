@@ -41,6 +41,7 @@ public class FetchMovies implements Response.Listener<JSONObject>, Response.Erro
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, clientUri.toString(), null, this, this);
 
         RequestQueue queue = Volley.newRequestQueue(context);
+        jsonObjectRequest.setShouldCache(false);
         queue.add(jsonObjectRequest);
     }
 
@@ -51,7 +52,12 @@ public class FetchMovies implements Response.Listener<JSONObject>, Response.Erro
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        listener.onError(error.networkResponse.statusCode, error.getCause());
+        Throwable cause = error.getCause();
+        if (error.networkResponse != null) {
+            listener.onError(error.networkResponse.statusCode, cause);
+        } else {
+            listener.onError(0, cause);
+        }
     }
 
     public interface Listener {

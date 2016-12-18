@@ -1,8 +1,12 @@
-- nao ta gravando isFavorite
+
+- modo offline:
+    - 
+
 - release date esta vindo com data negativa, possivel problema de conversao
 - verificar comportamento no back button. nao esta voltando para o ponto da tela onde estava.
 - recyclerview não está otimizada.
 - esta aparecendo null, antes de carregar informacoes no detail view.
+ok - nao ta gravando isFavorite
 
 
 ok - faltou coluna runtime no Banco

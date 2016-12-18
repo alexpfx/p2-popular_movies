@@ -1,4 +1,10 @@
 
++ funcionalidades necessarias:
+- criar novo item de menu para mostrar os filmes favoritos.
+- permitir que os usuários vejam reviews sobre o filme.
+
+
+
 
 - separar logica do MainActivity
 - remover campo _ID do banco

@@ -1,4 +1,4 @@
-package udacity.nanodegree.android.p2.model.detail;
+package udacity.nanodegree.android.p2.model.detail.trailer;
 
 /**
  * Created by alexandre on 11/12/2016.

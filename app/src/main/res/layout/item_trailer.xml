@@ -5,11 +5,11 @@
 
         <variable
             name="vm"
-            type="udacity.nanodegree.android.p2.model.detail.TrailerViewModel"/>
+            type="udacity.nanodegree.android.p2.model.detail.trailer.TrailerViewModel"/>
 
         <variable
             name="handler"
-            type="udacity.nanodegree.android.p2.model.detail.TrailerHandler"/>
+            type="udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler"/>
 
     </data>
 

@@ -1,4 +1,4 @@
-package udacity.nanodegree.android.p2.model.detail;
+package udacity.nanodegree.android.p2.model.detail.trailer;
 
 import android.net.Uri;
 
@@ -19,8 +19,8 @@ public class GetVideos implements FetchRules {
     @Override
     public Uri composeUrl(Uri baseUrl) {
         return baseUrl.buildUpon()
-                .appendPath(id)
                 .appendPath("videos")
+                .appendPath(id)
                 .build();
     }
 }

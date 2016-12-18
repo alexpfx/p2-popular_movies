@@ -1,7 +1,5 @@
 package udacity.nanodegree.android.p2.util;
 
-import android.text.format.Time;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -28,6 +26,5 @@ public class DateUtilTest {
         Assert.assertEquals(exp, calendar);
 
     }
-
 
 }

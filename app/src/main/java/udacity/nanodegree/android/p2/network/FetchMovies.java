@@ -53,9 +53,9 @@ public class FetchMovies implements Response.Listener<JSONObject>, Response.Erro
     @Override
     public void onErrorResponse(VolleyError error) {
         Throwable cause = error.getCause();
-        if (error.networkResponse != null){
+        if (error.networkResponse != null) {
             listener.onError(error.networkResponse.statusCode, cause);
-        }else {
+        } else {
             listener.onError(0, cause);
         }
     }

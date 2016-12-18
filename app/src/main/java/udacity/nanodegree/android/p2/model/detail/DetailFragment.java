@@ -130,7 +130,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
             MovieViewModel oldVm = binding.getVm();
             MovieViewModel vm = MovieViewModel.fromResult(result);
-            if (oldVm != null){
+            if (oldVm != null) {
                 vm.setFavorite(oldVm.isFavorite());
             }
             binding.setVm(vm);

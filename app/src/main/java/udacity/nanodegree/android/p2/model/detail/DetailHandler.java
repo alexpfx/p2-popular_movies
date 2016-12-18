@@ -1,6 +1,5 @@
 package udacity.nanodegree.android.p2.model.detail;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Checkable;
 

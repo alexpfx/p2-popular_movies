@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.test.rule.ActivityTestRule;
-import android.util.Log;
 
 import junit.framework.Assert;
 
@@ -77,8 +76,6 @@ public class MoviesContentProviderTest {
     public void getType() throws Exception {
         String type = context.getContentResolver()
                 .getType(MovieEntry.CONTENT_URI);
-
-        Log.d(TAG, "getType: " + type);
 
     }
 

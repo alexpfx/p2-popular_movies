@@ -3,7 +3,6 @@ package udacity.nanodegree.android.p2.model.comum;
 import android.database.Cursor;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
-import android.util.Log;
 import android.view.View;
 import android.widget.Checkable;
 import android.widget.ImageView;
@@ -82,7 +81,6 @@ public class MovieViewModel extends BaseObservable {
     }
 
     public void setPosterImage(String posterImage) {
-        Log.d(TAG, "setPosterImage: " + posterImage);
         this.posterImage = posterImage;
     }
 
@@ -123,13 +121,10 @@ public class MovieViewModel extends BaseObservable {
     }
 
     public Date getReleaseDate() {
-        if (releaseDate != null)
-            Log.d(TAG, "getReleaseDate: "+releaseDate.getTime());
         return releaseDate;
     }
 
     public void setReleaseDate(Date releaseDate) {
-        Log.d(TAG, "setReleaseDate: "+releaseDate);
         this.releaseDate = releaseDate;
     }
 
@@ -159,7 +154,6 @@ public class MovieViewModel extends BaseObservable {
 
         long isFavorite = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_IS_FAVORITE));
         long release_date = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_RELEASE_DATE));
-        Log.d(TAG, "fromCursor: "+release_date);
         long update_date = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_UPDATE_DATE));
 
         double user_rating = cursor.getDouble(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_USER_RATING));
@@ -180,11 +174,9 @@ public class MovieViewModel extends BaseObservable {
         Builder builder = new Builder();
         Calendar calendar;
         try {
-            Log.d(TAG, "fromResult: "+result.getReleaseDate());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             calendar = Calendar.getInstance();
             calendar.setTime(simpleDateFormat.parse(result.getReleaseDate()));
-
 
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -204,12 +196,10 @@ public class MovieViewModel extends BaseObservable {
 
     public void onFavoriteClick(View v) {
         Checkable c = (Checkable) v;
-        Log.d(TAG, "onFavoriteClick: " + c.isChecked());
     }
 
     @BindingAdapter(value = {"imageUrl"}, requireAll = false)
     public static void setImageUrl(ImageView view, String url) {
-        Log.d(TAG, "setImageUrl: " + url);
         Picasso.with(view.getContext())
                 .load(url)
                 .error(R.drawable.ic_error_black_48dp)
@@ -217,7 +207,6 @@ public class MovieViewModel extends BaseObservable {
     }
 
     public void onClick(View v) {
-        Log.d(TAG, "onItemClick: " + id);
         onMovieSelectedListener.onMovieSelected(this);
     }
 

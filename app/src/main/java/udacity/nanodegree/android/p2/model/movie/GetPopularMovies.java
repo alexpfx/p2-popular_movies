@@ -1,7 +1,6 @@
 package udacity.nanodegree.android.p2.model.movie;
 
 import android.net.Uri;
-import android.util.Log;
 
 import udacity.nanodegree.android.p2.network.FetchRules;
 
@@ -15,7 +14,6 @@ public class GetPopularMovies implements FetchRules {
 
     @Override
     public Uri composeUrl(Uri baseUrl) {
-        Log.d(TAG, "composeUrl: " + baseUrl);
         return baseUrl.buildUpon()
                 .appendPath("popular")
                 .build();

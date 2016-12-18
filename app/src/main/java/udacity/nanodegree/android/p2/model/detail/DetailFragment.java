@@ -11,7 +11,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -167,13 +166,11 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             return;
         }
         do {
-            Log.d(TAG, "onLoadFinished: " + data.getString(data.getColumnIndex(MoviesContract.MovieEntry.COLUMN_TITLE)));
         } while (data.moveToNext());
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        Log.d(TAG, "onLoaderReset: ");
 
     }
 }

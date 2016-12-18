@@ -3,7 +3,6 @@ package udacity.nanodegree.android.p2.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
@@ -46,7 +45,6 @@ public class MoviesOpenHelper extends SQLiteOpenHelper {
 
                 .column(MovieEntry.COLUMN_USER_RATING, "real not null")
                 .build();
-        Log.d(TAG, "onCreate: " + dml);
         db.execSQL(dml);
     }
 

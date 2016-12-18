@@ -1,14 +1,12 @@
 package udacity.nanodegree.android.p2;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.detail.DetailFragment;
@@ -55,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
     @Override
     public void onFavorite(boolean isFavorited, MovieViewModel viewModel) {
-        Log.d(TAG, "onFavorite: ");
         if (isFavorited) {
             insertOrUpdate(viewModel);
         }
@@ -93,9 +90,6 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     //TODO move
     private ContentValues createContentValues(MovieViewModel viewModel) {
         ContentValues c = new ContentValues();
-        Log.d(TAG, "createContentValues: " + viewModel.getReleaseDate());
-        Log.d(TAG, "createContentValues: " + viewModel.getReleaseDate()
-                .getTime());
         c.put(MovieEntry.COLUMN_MOVIE_ID, viewModel.getId());
         c.put(MovieEntry.COLUMN_POSTER, viewModel.getPosterImage());
         c.put(MovieEntry.COLUMN_RELEASE_DATE, viewModel.getReleaseDate()
@@ -108,14 +102,11 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
                 .getTime());
         c.put(MovieEntry.COLUMN_RUNTIME, viewModel.getRuntime());
 
-        Log.d(TAG, "createContentValues: " + c.getAsLong(MovieEntry.COLUMN_RELEASE_DATE));
-        Log.d(TAG, "createContentValues: " + c.getAsInteger(MovieEntry.COLUMN_RELEASE_DATE));
         return c;
     }
 
     @Override
     public void onTrailerPlay(String key) {
-        Log.d(TAG, "onTrailerPlay: " + key);
 
         Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_app, key)));
 

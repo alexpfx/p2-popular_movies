@@ -4,7 +4,6 @@ import android.database.ContentObserver;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.util.Log;
 
 import java.io.File;
 
@@ -30,7 +29,6 @@ public class TestHelper {
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-            Log.d(TAG, "onChange: " + selfChange);
         }
     }
 

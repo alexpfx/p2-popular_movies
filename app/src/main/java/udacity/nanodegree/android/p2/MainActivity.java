@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.detail.DetailFragment;
 import udacity.nanodegree.android.p2.model.detail.DetailHandler;
-import udacity.nanodegree.android.p2.model.detail.TrailerHandler;
+import udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;

@@ -5,11 +5,11 @@
 
         <variable
             name="vm"
-            type="udacity.nanodegree.android.p2.model.detail.TrailerViewModel"/>
+            type="udacity.nanodegree.android.p2.model.detail.trailer.TrailerViewModel"/>
 
         <variable
             name="handler"
-            type="udacity.nanodegree.android.p2.model.detail.TrailerHandler"/>
+            type="udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler"/>
 
     </data>
 
@@ -36,7 +36,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="8"
-            android:gravity="center_vertical|left"/>
+            android:gravity="center_vertical|left"
+            android:text="@{vm.title}"/>
 
     </LinearLayout>
 

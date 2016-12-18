@@ -42,6 +42,7 @@
     <string name="myDateFormat"><xliff:g id="myDateFormat">%1$td/%1$tm/%1$tY</xliff:g></string>
 
     <string name="content_authority"><xliff:g id="contentAuthority">udacity.nanodegree.android.p2</xliff:g></string>
-    
-    
+    <string name="detail_title_user_reviews">User Reviews</string>
+    <string name="author">Author:</string>
+
 </resources>

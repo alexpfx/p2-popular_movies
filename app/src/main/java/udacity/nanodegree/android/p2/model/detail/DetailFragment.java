@@ -11,6 +11,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,19 @@ import org.json.JSONObject;
 import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.databinding.FragmentDetailBinding;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
+import udacity.nanodegree.android.p2.model.comum.ViewModelCollection;
+import udacity.nanodegree.android.p2.model.detail.review.GetReviews;
+import udacity.nanodegree.android.p2.model.detail.review.ReviewListAdapter;
+import udacity.nanodegree.android.p2.model.detail.review.ReviewModelConverter;
+import udacity.nanodegree.android.p2.model.detail.review.ReviewViewModel;
+import udacity.nanodegree.android.p2.model.detail.trailer.GetVideos;
+import udacity.nanodegree.android.p2.model.detail.trailer.TrailerListAdapter;
+import udacity.nanodegree.android.p2.model.detail.trailer.TrailerViewModelCollection;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 import udacity.nanodegree.android.p2.network.FetchMovies;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
+import udacity.nanodegree.android.p2.network.data_transfer.Review;
+import udacity.nanodegree.android.p2.network.data_transfer.ReviewItem;
 import udacity.nanodegree.android.p2.network.data_transfer.Trailer;
 
 /**
@@ -58,6 +69,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         new FetchMovies(new GetVideos(id), getContext(), videosListener).execute();
         new FetchMovies(new GetMovie(id), getContext(), movieDetailListener).execute();
+        new FetchMovies(new GetReviews(id), getContext(), reviewsListener).execute();
     }
 
     @Override
@@ -73,7 +85,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDetailBinding.inflate(getLayoutInflater(savedInstanceState), container, false);
         binding.setHandler(new DetailHandler(detailHandlerDelegate));
-        initRecyclerView();
+        initRecyclerViews();
         return binding.getRoot();
     }
 
@@ -112,14 +124,47 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         updateMovie(getMovieId());
     }
 
-    private void initRecyclerView() {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+    private void initRecyclerViews() {
+        RecyclerView.LayoutManager rvTrailersLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         RecyclerView rvTrailers = binding.rvTrailers;
+        rvTrailers.addItemDecoration(new DividerItemDecoration(getContext(), ((LinearLayoutManager) rvTrailersLayoutManager).getOrientation()));
+        rvTrailers.setLayoutManager(rvTrailersLayoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvTrailers.getContext(), ((LinearLayoutManager) layoutManager).getOrientation());
-        rvTrailers.addItemDecoration(dividerItemDecoration);
-        rvTrailers.setLayoutManager(layoutManager);
+        RecyclerView.LayoutManager rvReviewsLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView rvReviews = binding.rvReviews;
+        rvReviews.setLayoutManager(rvReviewsLayoutManager);
+        rvReviews.addItemDecoration(new DividerItemDecoration(getContext(), ((LinearLayoutManager) rvReviewsLayoutManager).getOrientation()));
+
     }
+
+    private final FetchMovies.Listener reviewsListener = new FetchMovies.Listener() {
+        @Override
+        public void onResponse(JSONObject response) {
+            Gson gson = new Gson();
+            Review review = gson.fromJson(response.toString(), Review.class);
+            ViewModelCollection<ReviewViewModel, ReviewItem> collection = new ViewModelCollection<ReviewViewModel, ReviewItem>(review.getResults(), new ReviewModelConverter());
+            binding.rvReviews.setAdapter(new ReviewListAdapter(getContext(), collection));
+        }
+
+        @Override
+        public void onError(int networkStatusCode, Throwable cause) {
+
+        }
+    };
+    private final FetchMovies.Listener videosListener = new FetchMovies.Listener() {
+        @Override
+        public void onResponse(JSONObject response) {
+            Gson gson = new Gson();
+            Trailer trailer = gson.fromJson(response.toString(), Trailer.class);
+            binding.rvTrailers.setAdapter(new TrailerListAdapter(getContext(), new TrailerViewModelCollection(trailer.getResults())));
+
+        }
+
+        @Override
+        public void onError(int networkStatusCode, Throwable cause) {
+
+        }
+    };
 
     private final FetchMovies.Listener movieDetailListener = new FetchMovies.Listener() {
         @Override
@@ -137,21 +182,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         @Override
         public void onError(int networkStatusCode, Throwable cause) {
-        }
-    };
-
-    private final FetchMovies.Listener videosListener = new FetchMovies.Listener() {
-        @Override
-        public void onResponse(JSONObject response) {
-            Gson gson = new Gson();
-            Trailer trailer = gson.fromJson(response.toString(), Trailer.class);
-            binding.rvTrailers.setAdapter(new TrailerListAdapter(getContext(), new TrailerViewModelCollection(trailer.getResults())));
-
-        }
-
-        @Override
-        public void onError(int networkStatusCode, Throwable cause) {
-
         }
     };
 

@@ -24,7 +24,11 @@ import org.json.JSONObject;
 import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.databinding.FragmentDetailBinding;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
+import udacity.nanodegree.android.p2.model.comum.ViewModelCollection;
 import udacity.nanodegree.android.p2.model.detail.review.GetReviews;
+import udacity.nanodegree.android.p2.model.detail.review.ReviewListAdapter;
+import udacity.nanodegree.android.p2.model.detail.review.ReviewModelConverter;
+import udacity.nanodegree.android.p2.model.detail.review.ReviewViewModel;
 import udacity.nanodegree.android.p2.model.detail.trailer.GetVideos;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerListAdapter;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerViewModelCollection;
@@ -138,9 +142,21 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         public void onResponse(JSONObject response) {
             Gson gson = new Gson();
             Review review = gson.fromJson(response.toString(), Review.class);
-            for (ReviewItem r : review.getResults()) {
-                Log.d(TAG, "onResponse: " + r.getAuthor());
-            }
+            ViewModelCollection<ReviewViewModel, ReviewItem> collection = new ViewModelCollection<ReviewViewModel, ReviewItem>(review.getResults(), new ReviewModelConverter());
+            binding.rvReviews.setAdapter(new ReviewListAdapter(getContext(), collection));
+        }
+
+        @Override
+        public void onError(int networkStatusCode, Throwable cause) {
+
+        }
+    };
+    private final FetchMovies.Listener videosListener = new FetchMovies.Listener() {
+        @Override
+        public void onResponse(JSONObject response) {
+            Gson gson = new Gson();
+            Trailer trailer = gson.fromJson(response.toString(), Trailer.class);
+            binding.rvTrailers.setAdapter(new TrailerListAdapter(getContext(), new TrailerViewModelCollection(trailer.getResults())));
 
         }
 
@@ -149,6 +165,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         }
     };
+
     private final FetchMovies.Listener movieDetailListener = new FetchMovies.Listener() {
         @Override
         public void onResponse(JSONObject response) {
@@ -165,21 +182,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
         @Override
         public void onError(int networkStatusCode, Throwable cause) {
-        }
-    };
-
-    private final FetchMovies.Listener videosListener = new FetchMovies.Listener() {
-        @Override
-        public void onResponse(JSONObject response) {
-            Gson gson = new Gson();
-            Trailer trailer = gson.fromJson(response.toString(), Trailer.class);
-            binding.rvTrailers.setAdapter(new TrailerListAdapter(getContext(), new TrailerViewModelCollection(trailer.getResults())));
-
-        }
-
-        @Override
-        public void onError(int networkStatusCode, Throwable cause) {
-
         }
     };
 

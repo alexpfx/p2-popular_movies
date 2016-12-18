@@ -1,20 +1,24 @@
 
-+ funcionalidades necessarias:
+
+
+
 - criar novo item de menu para mostrar os filmes favoritos.
-- permitir que os usuários vejam reviews sobre o filme.
 
-
+- melhorar design do reviews, alterar cores de labels
+- adicionar estilos
 
 
 - separar logica do MainActivity
 - remover campo _ID do banco
-ok    - implementar update
-ok    - implementar notify
- ok   - implementar delete
-
-
 - parametrizar versoes de libs no build.gradle
 - padronizar nomes de classes e variaveis
+
+ok - permitir que os usuários vejam reviews sobre o filme.
+ok - implementar update
+ok - implementar notify
+ok - implementar delete
+
+
 
 ok - substituir gridView por recyclerView
 ok - substituir butter knife por bindview e remover butter knife

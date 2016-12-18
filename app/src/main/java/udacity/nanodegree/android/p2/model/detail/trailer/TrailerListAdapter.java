@@ -46,7 +46,6 @@ public class TrailerListAdapter extends RecyclerView.Adapter {
         private ItemTrailerBinding binding;
 
         public void bind(TrailerViewModel item, TrailerHandler handler) {
-            binding.textTrailerTitle.setText(item.getTitle());
             binding.setVm(item);
             binding.setHandler(handler);
 

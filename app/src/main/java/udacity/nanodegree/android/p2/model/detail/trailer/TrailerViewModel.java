@@ -24,10 +24,6 @@ public class TrailerViewModel extends BaseObservable {
         return new TrailerViewModel(item.getId(), item.getKey(), item.getName());
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -36,15 +32,8 @@ public class TrailerViewModel extends BaseObservable {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getKey() {
         return key;
     }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
 }

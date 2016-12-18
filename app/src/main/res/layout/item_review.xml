@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="udacity.nanodegree.android.p2.model.detail.review.ReviewViewModel"/>
+
+        <!--<variable-->
+        <!--name="handler"-->
+        <!--type="udacity.nanodegree.android.p2.model.comum.MovieViewModel"/>-->
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/lbl_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/author"/>
+
+        <TextView
+            android:id="@+id/text_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/lbl_author"
+            android:gravity="center_vertical|left"
+            android:text="@{vm.author}"
+            tools:text="Alexandre Alessi"/>
+
+        <TextView
+            android:id="@+id/text_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lbl_author"
+            android:text="@{vm.content}"
+            tools:text="content content content content content \r\n content content"/>
+
+    </RelativeLayout>
+
+</layout>

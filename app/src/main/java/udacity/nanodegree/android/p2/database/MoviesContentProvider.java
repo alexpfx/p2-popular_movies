@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.CONTENT_AUTHORITY;
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
@@ -19,6 +20,7 @@ import static udacity.nanodegree.android.p2.database.MoviesContract.PATH_MOVIE;
  */
 
 public class MoviesContentProvider extends ContentProvider {
+    private static final String TAG = "MoviesContentProvider";
     public static final int MOVIE = 300;
     public static final int MOVIE_BY_ID = 301;
     public static final String UNKNOW_URI = "Unknow uri";
@@ -70,6 +72,7 @@ public class MoviesContentProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
         SQLiteDatabase database = moviesOpenHelper.getWritableDatabase();
+        Log.d(TAG, "insert: "+contentValues);
 
         Uri returnUri;
 

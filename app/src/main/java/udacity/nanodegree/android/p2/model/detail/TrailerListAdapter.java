@@ -2,6 +2,7 @@ package udacity.nanodegree.android.p2.model.detail;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,11 +15,13 @@ public class TrailerListAdapter extends RecyclerView.Adapter {
     private TrailerViewModelCollection trailers;
     private TrailerHandler.TrailerHandlerDelegate trailerHandlerDelegate;
     private Context context;
+    private static final String TAG = "TrailerListAdapter";
 
     public TrailerListAdapter(Context context, TrailerViewModelCollection trailers) {
         this.trailers = trailers;
         this.context = context;
         this.trailerHandlerDelegate = (TrailerHandler.TrailerHandlerDelegate) context;
+        Log.d(TAG, "TrailerListAdapter: "+trailerHandlerDelegate);
     }
 
     @Override

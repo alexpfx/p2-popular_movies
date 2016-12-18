@@ -1,8 +1,10 @@
 
 - modo offline:
-    - 
+    - mostrar mensagem no background da tela principal
+    - habilitar cache do Volley, depois dos testes
 
-- release date esta vindo com data negativa, possivel problema de conversao
+
+ok - release date esta vindo com data negativa, possivel problema de conversao. bug no visualizador de bd
 - verificar comportamento no back button. nao esta voltando para o ponto da tela onde estava.
 - recyclerview não está otimizada.
 - esta aparecendo null, antes de carregar informacoes no detail view.

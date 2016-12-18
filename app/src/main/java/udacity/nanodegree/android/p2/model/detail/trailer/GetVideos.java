@@ -19,8 +19,8 @@ public class GetVideos implements FetchRules {
     @Override
     public Uri composeUrl(Uri baseUrl) {
         return baseUrl.buildUpon()
-                .appendPath("videos")
                 .appendPath(id)
+                .appendPath("videos")
                 .build();
     }
 }

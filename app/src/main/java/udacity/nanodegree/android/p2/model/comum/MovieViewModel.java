@@ -123,10 +123,13 @@ public class MovieViewModel extends BaseObservable {
     }
 
     public Date getReleaseDate() {
+        if (releaseDate != null)
+            Log.d(TAG, "getReleaseDate: "+releaseDate.getTime());
         return releaseDate;
     }
 
     public void setReleaseDate(Date releaseDate) {
+        Log.d(TAG, "setReleaseDate: "+releaseDate);
         this.releaseDate = releaseDate;
     }
 
@@ -156,6 +159,7 @@ public class MovieViewModel extends BaseObservable {
 
         long isFavorite = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_IS_FAVORITE));
         long release_date = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_RELEASE_DATE));
+        Log.d(TAG, "fromCursor: "+release_date);
         long update_date = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_UPDATE_DATE));
 
         double user_rating = cursor.getDouble(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_USER_RATING));
@@ -176,9 +180,11 @@ public class MovieViewModel extends BaseObservable {
         Builder builder = new Builder();
         Calendar calendar;
         try {
+            Log.d(TAG, "fromResult: "+result.getReleaseDate());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
             calendar = Calendar.getInstance();
             calendar.setTime(simpleDateFormat.parse(result.getReleaseDate()));
+
 
         } catch (ParseException e) {
             throw new RuntimeException(e);

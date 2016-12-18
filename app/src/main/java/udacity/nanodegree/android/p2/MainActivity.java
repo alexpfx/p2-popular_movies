@@ -91,15 +91,20 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     //TODO move
     private ContentValues createContentValues(MovieViewModel viewModel) {
         ContentValues c = new ContentValues();
+        Log.d(TAG, "createContentValues: "+viewModel.getReleaseDate());
+        Log.d(TAG, "createContentValues: "+viewModel.getReleaseDate().getTime());
         c.put(MovieEntry.COLUMN_MOVIE_ID, viewModel.getId());
         c.put(MovieEntry.COLUMN_POSTER, viewModel.getPosterImage());
-        c.put(MovieEntry.COLUMN_RELEASE_DATE, DateUtil.normalizaDate(viewModel.getReleaseDate()));
+        c.put(MovieEntry.COLUMN_RELEASE_DATE, viewModel.getReleaseDate().getTime());
         c.put(MovieEntry.COLUMN_SYNOPSIS, viewModel.getSynopsys());
         c.put(MovieEntry.COLUMN_TITLE, viewModel.getTitle());
         c.put(MovieEntry.COLUMN_USER_RATING, viewModel.getVoteAvg());
         c.put(MovieEntry.COLUMN_IS_FAVORITE, viewModel.isFavorite() ? 1 : 0);
-        c.put(MovieEntry.COLUMN_UPDATE_DATE, DateUtil.normalizaDate(viewModel.getUpdateDate()));
+        c.put(MovieEntry.COLUMN_UPDATE_DATE, viewModel.getUpdateDate().getTime());
         c.put(MovieEntry.COLUMN_RUNTIME, viewModel.getRuntime());
+
+        Log.d(TAG, "createContentValues: "+c.getAsLong(MovieEntry.COLUMN_RELEASE_DATE));
+        Log.d(TAG, "createContentValues: "+c.getAsInteger(MovieEntry.COLUMN_RELEASE_DATE));
         return c;
     }
 

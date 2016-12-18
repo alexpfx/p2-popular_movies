@@ -1,5 +1,6 @@
 package udacity.nanodegree.android.p2.model.detail;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Checkable;
 
@@ -11,6 +12,7 @@ import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 
 public class DetailHandler {
 
+    private static final String TAG = "DetailHandler";
     private DetailHandlerDelegate delegate;
 
     public DetailHandler(DetailHandlerDelegate delegate) {
@@ -21,7 +23,9 @@ public class DetailHandler {
         if (delegate == null) {
             return;
         }
-        delegate.onFavorite(((Checkable) v).isChecked(), viewModel);
+
+        boolean checked = ((Checkable) v).isChecked();
+        delegate.onFavorite(checked, viewModel);
 
     }
 

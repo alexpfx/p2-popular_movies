@@ -1,14 +1,15 @@
+/fix/consertar_comportamento_backbutton
+:back button nao voltando para ponto onde foi chamado na lista.
+
+/fix/inibir_exibicao_de_null_enquanto_valor_nao_carregado
+:esta aparecendo null, antes de carregar informacoes no detail view.
+
+/fix/otimizar_recycler_views
+:reutilizar_views
+
 /fix/permitir_modo_offline
 :mostrar mensagem no backgraound da tela principal.
 :habilitar cache do volley
 :testar funcionamento offline
 :estudar técnicas para permitir o uso offline
 
-/fix/consertar_comportamento_backbutton
-:back button nao voltando para ponto onde foi chamado na lista.
-
-/fix/otimizar_recycler_views
-:reutilizar_views
-
-/fix/inibir_exibicao_de_null_enquanto_valor_nao_carregado
-:esta aparecendo null, antes de carregar informacoes no detail view.

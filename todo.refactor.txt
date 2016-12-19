@@ -1,11 +1,17 @@
-/refac/separar_logica_negocio_main_activity
-: criar classes para armazenar logica do main activity
-
-/refac/rever_nome_classes_metodos
-: pensar melhor no nome de cada componente do sistema.
-
 /refac/remover_campo_id
 : remover campo _ID e a implementacao de BaseColumns para movie entry
 
 /refac/parametrizar_versoes_libs_no_build
+
+/refac/passar_apenas_campos_necessarios_no_select
+: crear string array para o projection
+: e utilizar indice nas querys.
+
+/refac/rever_nome_classes_metodos
+: pensar melhor no nome de cada componente do sistema.
+
+/refac/separar_logica_negocio_main_activity
+: criar classes para armazenar logica do main activity
+
+
 

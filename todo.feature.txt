@@ -2,14 +2,3 @@
 
 
 
-
-
-
-ok - permitir que os usuários vejam reviews sobre o filme.
-ok - implementar update
-ok - implementar notify
-ok - implementar delete
-ok - substituir gridView por recyclerView
-ok - substituir butter knife por bindview e remover butter knife
-ok - criar pacote comum e mover classes compartilhadas
-

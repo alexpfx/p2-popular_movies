@@ -1,0 +1,3 @@
+- /style/cores_item_review_layout : destacar o título, acertar o espaçamento.
+- /style/material_design : padronizar app com diretrizes do MD
+- /style/adicionar_estilos_e_temas :

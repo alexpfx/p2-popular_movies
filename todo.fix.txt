@@ -1,14 +1,14 @@
+/fix/permitir_modo_offline
+:mostrar mensagem no backgraound da tela principal.
+:habilitar cache do volley
+:testar funcionamento offline
+:estudar técnicas para permitir o uso offline
 
-- modo offline:
-    - mostrar mensagem no background da tela principal
-    - habilitar cache do Volley, depois dos testes
+/fix/consertar_comportamento_backbutton
+:back button nao voltando para ponto onde foi chamado na lista.
 
+/fix/otimizar_recycler_views
+:reutilizar_views
 
-ok - release date esta vindo com data negativa, possivel problema de conversao. bug no visualizador de bd
-- verificar comportamento no back button. nao esta voltando para o ponto da tela onde estava.
-- recyclerview não está otimizada.
-- esta aparecendo null, antes de carregar informacoes no detail view.
-ok - nao ta gravando isFavorite
-
-
-ok - faltou coluna runtime no Banco
+/fix/inibir_exibicao_de_null_enquanto_valor_nao_carregado
+:esta aparecendo null, antes de carregar informacoes no detail view.

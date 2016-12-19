@@ -1,25 +1,14 @@
+- /feat/mostrar_filmes_favoritos - criar menu item e estrutura para mostrar filmes marcados como favorito pelo usuario.
 
 
 
 
-- criar novo item de menu para mostrar os filmes favoritos.
 
-- melhorar design do reviews, alterar cores de labels
-- adicionar estilos
-
-
-- separar logica do MainActivity
-- remover campo _ID do banco
-- parametrizar versoes de libs no build.gradle
-- padronizar nomes de classes e variaveis
 
 ok - permitir que os usuários vejam reviews sobre o filme.
 ok - implementar update
 ok - implementar notify
 ok - implementar delete
-
-
-
 ok - substituir gridView por recyclerView
 ok - substituir butter knife por bindview e remover butter knife
 ok - criar pacote comum e mover classes compartilhadas

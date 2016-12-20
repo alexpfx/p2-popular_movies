@@ -1,7 +1,6 @@
 package udacity.nanodegree.android.p2.database;
 
 import android.net.Uri;
-import android.util.Log;
 
 import junit.framework.Assert;
 

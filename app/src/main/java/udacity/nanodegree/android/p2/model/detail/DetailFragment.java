@@ -11,7 +11,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.databinding.FragmentDetailBinding;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.comum.ViewModelCollection;
@@ -39,7 +37,7 @@ import udacity.nanodegree.android.p2.network.data_transfer.Review;
 import udacity.nanodegree.android.p2.network.data_transfer.ReviewItem;
 import udacity.nanodegree.android.p2.network.data_transfer.Trailer;
 
-import static udacity.nanodegree.android.p2.database.MoviesContract.*;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
 /**
  * Created by alexandre on 15/11/2016.

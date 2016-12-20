@@ -1,13 +1,8 @@
 package udacity.nanodegree.android.p2.utils;
 
 import android.content.ContentValues;
-import android.database.Cursor;
-
-import junit.framework.Assert;
 
 import java.util.Date;
-
-import udacity.nanodegree.android.p2.util.DateUtil;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
@@ -30,8 +25,7 @@ public class MovieTestHelper {
         return cv;
     }
 
-
-    private static final ContentValues getBaseContentValues (){
+    private static final ContentValues getBaseContentValues() {
         ContentValues cv = new ContentValues();
         cv.put(MovieEntry.COLUMN_RUNTIME, 111);
         cv.put(MovieEntry.COLUMN_IS_FAVORITE, true);
@@ -49,7 +43,6 @@ public class MovieTestHelper {
 
         cv.put(MovieEntry.COLUMN_POSTER, "/dM2w364MScsjFf8pfMbaWUcWrR.jpg");
         cv.put(MovieEntry.COLUMN_USER_RATING, 6.870153d);
-
 
         return cv;
 

@@ -16,11 +16,18 @@ import java.util.Date;
 import java.util.Locale;
 
 import udacity.nanodegree.android.p2.R;
-import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
 
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.*;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_IS_FAVORITE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_MOVIE_ID;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_POSTER;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_RELEASE_DATE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_RUNTIME;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_SYNOPSIS;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_TITLE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_UPDATE_DATE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_USER_RATING;
 
 /**
  * Created by alexandre on 27/11/2016.

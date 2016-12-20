@@ -3,7 +3,6 @@ package udacity.nanodegree.android.p2.model.detail;
 import android.database.Cursor;
 import android.view.View;
 import android.widget.Checkable;
-import android.widget.CursorAdapter;
 
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 

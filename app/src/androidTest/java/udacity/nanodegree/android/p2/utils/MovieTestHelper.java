@@ -37,6 +37,7 @@ public class MovieTestHelper {
         cv.put(MovieEntry.COLUMN_POSTER, "/dM2w364MScsjFf8pfMbaWUcWrR.jpg");
         cv.put(MovieEntry.COLUMN_USER_RATING, 6.870153d);
 
+
         return cv;
 
     }
@@ -51,15 +52,7 @@ public class MovieTestHelper {
             Assert.assertEquals(expected.get(columnName), cursor.getInt(cursor.getColumnIndex(columnName)));
         }
 
-        public static void assertEqualContentValuesAndCursor(ContentValues contentValues, Cursor cursor) {
-            cursor.moveToNext();
-            assertColumnValueInteger(contentValues, cursor, MovieEntry.COLUMN_MOVIE_ID);
-            assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_POSTER);
-            assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_RELEASE_DATE);
-            assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_TITLE);
-            assertColumnValueString(contentValues, cursor, MovieEntry.COLUMN_SYNOPSIS);
-            assertColumnValueDouble(contentValues, cursor, MovieEntry.COLUMN_USER_RATING);
-        }
+
 
         public static void assertColumnValueDouble(ContentValues expected, Cursor cursor, String columnName) {
             Assert.assertEquals(expected.get(columnName), cursor.getDouble(cursor.getColumnIndex(columnName)));

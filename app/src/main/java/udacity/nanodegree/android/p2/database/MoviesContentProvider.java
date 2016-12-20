@@ -22,7 +22,7 @@ public class MoviesContentProvider extends ContentProvider {
     private static final String TAG = "MoviesContentProvider";
     public static final int MOVIE = 300;
     public static final int MOVIE_BY_ID = 301;
-    public static final String UNKNOW_URI = "Unknow uri";
+    public static final String UNKNOW_URI = "Unknow Uri";
 
     private MoviesOpenHelper moviesOpenHelper;
 

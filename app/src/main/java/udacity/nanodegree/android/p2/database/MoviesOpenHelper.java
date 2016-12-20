@@ -11,7 +11,7 @@ import udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
  */
 public class MoviesOpenHelper extends SQLiteOpenHelper {
     public static final String dbName = "movies.db";
-    public static final int dbVersion = 12;
+    public static final int dbVersion = 13;
     private static final String TAG = "MoviesOpenHelper";
 
     private static MoviesOpenHelper instance;
@@ -39,11 +39,11 @@ public class MoviesOpenHelper extends SQLiteOpenHelper {
 
                 .column(MovieEntry.COLUMN_MOVIE_ID, "integer not null")
                 .column(MovieEntry.COLUMN_RELEASE_DATE, "integer not null")
-                .column(MovieEntry.COLUMN_UPDATE_DATE, "integer")
-                .column(MovieEntry.COLUMN_IS_FAVORITE, "integer not null")
-                .column(MovieEntry.COLUMN_RUNTIME, "integer not null")
-
                 .column(MovieEntry.COLUMN_USER_RATING, "real not null")
+                .column(MovieEntry.COLUMN_RUNTIME, "integer not null")
+                .column(MovieEntry.COLUMN_IS_FAVORITE, "integer")
+                .column(MovieEntry.COLUMN_UPDATE_DATE, "integer")
+
                 .build();
         db.execSQL(dml);
     }

@@ -65,7 +65,6 @@ public class MovieOpenHelperTest {
         pulpFictionContentValues.put(MovieEntry.COLUMN_IS_FAVORITE, true);
         long rowid = database.insertOrThrow(MovieEntry.TABLE_NAME, null, pulpFictionContentValues);
 
-
         Assert.assertFalse(rowid == -1);
 
         Cursor cursor = database.query(MovieEntry.TABLE_NAME, new String[]{"title"}, null, null, null, null, null);
@@ -91,6 +90,5 @@ public class MovieOpenHelperTest {
 
         return tables.isEmpty();
     }
-
 
 }

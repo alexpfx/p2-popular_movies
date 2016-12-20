@@ -2,6 +2,8 @@ package udacity.nanodegree.android.p2.database;
 
 import android.net.Uri;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 /**
@@ -13,6 +15,7 @@ public class MoviesContractTest {
     @Test
     public void movieContractTest() {
         Uri uri = MoviesContract.MovieEntry.buildMovieUri(1L);
+        Assert.assertEquals(uri.toString(), "content://udacity.nanodegree.android.p2/movie/1");
     }
 
 }

@@ -16,9 +16,18 @@ import java.util.Date;
 import java.util.Locale;
 
 import udacity.nanodegree.android.p2.R;
-import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
+
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_IS_FAVORITE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_MOVIE_ID;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_POSTER;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_RELEASE_DATE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_RUNTIME;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_SYNOPSIS;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_TITLE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_UPDATE_DATE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_USER_RATING;
 
 /**
  * Created by alexandre on 27/11/2016.
@@ -145,18 +154,18 @@ public class MovieViewModel extends BaseObservable {
         if (!cursor.moveToFirst()) {
             return builder.build();
         }
-        String title = cursor.getString(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_TITLE));
-        String poster = cursor.getString(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_POSTER));
-        String synopsis = cursor.getString(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_SYNOPSIS));
+        String title = cursor.getString(INDEX_TITLE);
+        String poster = cursor.getString(INDEX_POSTER);
+        String synopsis = cursor.getString(INDEX_SYNOPSIS);
 
-        int movieId = cursor.getInt(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_MOVIE_ID));
-        int runtime = cursor.getInt(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_RUNTIME));
+        int movieId = cursor.getInt(INDEX_MOVIE_ID);
+        int runtime = cursor.getInt(INDEX_RUNTIME);
 
-        long isFavorite = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_IS_FAVORITE));
-        long release_date = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_RELEASE_DATE));
-        long update_date = cursor.getLong(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_UPDATE_DATE));
+        long isFavorite = cursor.getLong(INDEX_IS_FAVORITE);
+        long release_date = cursor.getLong(INDEX_RELEASE_DATE);
+        long update_date = cursor.getLong(INDEX_UPDATE_DATE);
 
-        double user_rating = cursor.getDouble(cursor.getColumnIndex(MoviesContract.MovieEntry.COLUMN_USER_RATING));
+        double user_rating = cursor.getDouble(INDEX_USER_RATING);
 
         return builder.setTitle(title)
                 .setPosterImage(poster)

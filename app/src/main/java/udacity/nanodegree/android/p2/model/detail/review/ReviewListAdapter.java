@@ -5,9 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import udacity.nanodegree.android.p2.databinding.ItemReviewBinding;
 import udacity.nanodegree.android.p2.model.comum.ViewModelCollection;
 import udacity.nanodegree.android.p2.network.data_transfer.ReviewItem;

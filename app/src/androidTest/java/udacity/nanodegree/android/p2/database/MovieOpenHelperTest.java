@@ -22,6 +22,7 @@ import java.util.Set;
 
 import udacity.nanodegree.android.p2.MainActivity;
 import udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
+import udacity.nanodegree.android.p2.utils.MovieTestHelper;
 
 /**
  * Created by alexandre on 03/12/2016.
@@ -60,15 +61,19 @@ public class MovieOpenHelperTest {
 
     @Test
     public void insert() {
-        long rowid = database.insert(MovieEntry.TABLE_NAME, null, getContentValues());
+        ContentValues pulpFictionContentValues = MovieTestHelper.getPulpFictionContentValues();
+        pulpFictionContentValues.put(MovieEntry.COLUMN_IS_FAVORITE, true);
+        long rowid = database.insertOrThrow(MovieEntry.TABLE_NAME, null, pulpFictionContentValues);
+
+
         Assert.assertFalse(rowid == -1);
 
-        Cursor cursor = database.query(MovieEntry.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = database.query(MovieEntry.TABLE_NAME, new String[]{"title"}, null, null, null, null, null);
         Assert.assertTrue(cursor.moveToFirst());
 
-        String title = cursor.getString(2);
+        String title = cursor.getString(0);
 
-        Assert.assertEquals("title", title);
+        Assert.assertEquals("Pulp Fiction", title);
         cursor.close();
         database.close();
 
@@ -87,14 +92,5 @@ public class MovieOpenHelperTest {
         return tables.isEmpty();
     }
 
-    public ContentValues getContentValues() {
-        ContentValues c = new ContentValues();
-        c.put(MovieEntry.COLUMN_MOVIE_ID, "movie_id");
-        c.put(MovieEntry.COLUMN_POSTER, "poster");
-        c.put(MovieEntry.COLUMN_RELEASE_DATE, "release");
-        c.put(MovieEntry.COLUMN_SYNOPSIS, "synopsis");
-        c.put(MovieEntry.COLUMN_TITLE, "title");
-        c.put(MovieEntry.COLUMN_USER_RATING, 4.5);
-        return c;
-    }
+
 }

@@ -1,5 +1,3 @@
-
-
 /refac/parametrizar_versoes_libs_no_build
 
 /refac/passar_apenas_campos_necessarios_no_select

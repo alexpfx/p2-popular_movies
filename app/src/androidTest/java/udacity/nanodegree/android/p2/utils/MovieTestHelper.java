@@ -32,6 +32,7 @@ public class MovieTestHelper {
         cv.put(MovieEntry.COLUMN_TITLE, "Pulp Fiction");
         cv.put(MovieEntry.COLUMN_SYNOPSIS, "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time.");
         cv.put(MovieEntry.COLUMN_RELEASE_DATE, "1994-10-14");
+        cv.put(MovieEntry.COLUMN_RUNTIME, 100);
 
         cv.put(MovieEntry.COLUMN_POSTER, "/dM2w364MScsjFf8pfMbaWUcWrR.jpg");
         cv.put(MovieEntry.COLUMN_USER_RATING, 6.870153d);

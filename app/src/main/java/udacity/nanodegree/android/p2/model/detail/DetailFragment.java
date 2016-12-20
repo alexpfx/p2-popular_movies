@@ -39,6 +39,8 @@ import udacity.nanodegree.android.p2.network.data_transfer.Review;
 import udacity.nanodegree.android.p2.network.data_transfer.ReviewItem;
 import udacity.nanodegree.android.p2.network.data_transfer.Trailer;
 
+import static udacity.nanodegree.android.p2.database.MoviesContract.*;
+
 /**
  * Created by alexandre on 15/11/2016.
  */
@@ -63,7 +65,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             return;
         }
         Cursor cursor = getContext().getContentResolver()
-                .query(MoviesContract.MovieEntry.CONTENT_URI, null, MoviesContract.MovieEntry.COLUMN_MOVIE_ID + " = ?", new String[]{id}, null);
+                .query(MovieEntry.CONTENT_URI, MovieEntry.PROJECTION, MovieEntry.COLUMN_MOVIE_ID + " = ?", new String[]{id}, null);
         MovieViewModel vm = MovieViewModel.fromCursor(cursor);
         binding.setVm(vm);
 
@@ -187,7 +189,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getContext(), MoviesContract.MovieEntry.CONTENT_URI, new String[]{MoviesContract.MovieEntry.COLUMN_MOVIE_ID, MoviesContract.MovieEntry.COLUMN_TITLE}, MoviesContract.MovieEntry.COLUMN_MOVIE_ID + " = ?", new String[]{getMovieId()}, null);
+        return new CursorLoader(getContext(), MovieEntry.CONTENT_URI, new String[]{MovieEntry.COLUMN_MOVIE_ID, MovieEntry.COLUMN_TITLE}, MovieEntry.COLUMN_MOVIE_ID + " = ?", new String[]{getMovieId()}, null);
     }
 
     @Override

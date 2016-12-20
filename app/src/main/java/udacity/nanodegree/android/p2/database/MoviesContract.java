@@ -37,6 +37,8 @@ public class MoviesContract {
         public static final String COLUMN_UPDATE_DATE = "UPDATE_DATE";
         public static final String COLUMN_RUNTIME = "RUNTIME";
 
+
+        public static final int INDEX_ID = 0;
         public static final int INDEX_MOVIE_ID = 1;
         public static final int INDEX_TITLE = 2;
         public static final int INDEX_POSTER = 3;

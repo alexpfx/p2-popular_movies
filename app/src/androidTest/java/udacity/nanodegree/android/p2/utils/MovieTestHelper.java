@@ -54,22 +54,4 @@ public class MovieTestHelper {
         return cv;
 
     }
-
-    public static class Asserts {
-
-        public static void assertColumnValueString(ContentValues expected, Cursor cursor, String columnName) {
-            Assert.assertEquals(expected.get(columnName), cursor.getString(cursor.getColumnIndex(columnName)));
-        }
-
-        public static void assertColumnValueInteger(ContentValues expected, Cursor cursor, String columnName) {
-            Assert.assertEquals(expected.get(columnName), cursor.getInt(cursor.getColumnIndex(columnName)));
-        }
-
-
-
-        public static void assertColumnValueDouble(ContentValues expected, Cursor cursor, String columnName) {
-            Assert.assertEquals(expected.get(columnName), cursor.getDouble(cursor.getColumnIndex(columnName)));
-        }
-    }
-
 }

@@ -1,5 +1,4 @@
-/refac/remover_campo_id
-: remover campo _ID e a implementacao de BaseColumns para movie entry
+
 
 /refac/parametrizar_versoes_libs_no_build
 
@@ -12,6 +11,5 @@
 
 /refac/separar_logica_negocio_main_activity
 : criar classes para armazenar logica do main activity
-
 
 

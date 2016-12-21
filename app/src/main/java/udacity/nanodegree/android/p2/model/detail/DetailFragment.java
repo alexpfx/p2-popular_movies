@@ -64,8 +64,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         }
         Cursor cursor = getContext().getContentResolver()
                 .query(MovieEntry.CONTENT_URI, MovieEntry.PROJECTION, MovieEntry.COLUMN_MOVIE_ID + " = ?", new String[]{id}, null);
-        MovieViewModel vm = MovieViewModel.fromCursor(cursor);
-        binding.setVm(vm);
+
+        if (cursor.moveToFirst()){
+            binding.setVm(MovieViewModel.fromCursor(cursor));
+        }
 
         new FetchMovies(new GetVideos(id), getContext(), videosListener).execute();
         new FetchMovies(new GetMovie(id), getContext(), movieDetailListener).execute();

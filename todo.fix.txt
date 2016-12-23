@@ -1,5 +1,6 @@
 /fix/consertar_comportamento_backbutton
 :back button nao voltando para ponto onde foi chamado na lista.
+:mover para o item clicado anteriormente
 
 /fix/inibir_exibicao_de_null_enquanto_valor_nao_carregado
 :esta aparecendo null, antes de carregar informacoes no detail view.
@@ -13,3 +14,4 @@
 :testar funcionamento offline
 :estudar técnicas para permitir o uso offline
 
+problema: quando houver outras opcoes de menu?

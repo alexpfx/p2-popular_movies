@@ -5,4 +5,7 @@ package udacity.nanodegree.android.p2;
  */
 
 public class Global {
+
+    public static final String PREFS_NAME = "MoviesPreferences";
+
 }

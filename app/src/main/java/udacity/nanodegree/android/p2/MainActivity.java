@@ -2,6 +2,7 @@ package udacity.nanodegree.android.p2;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences sharedPreferences = getSharedPreferences(Global.PREFS_NAME, 0);
+
 
         /*if fragment_movies doesn't exists, place the MoviesFragment into main_fragment_container.
          * if exists, so it is a tablet and the MoviesFragment is already in their own fragment view.
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         if (findViewById(R.id.fragment_movies) == null) {
             replaceMainContainer(new MoviesFragment(), "movies");
         }
+
     }
 
     private void replaceMainContainer(Fragment fragment, String name) {

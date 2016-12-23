@@ -22,6 +22,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         this.movies = movies;
     }
 
+    public void setMovies(List<MovieViewModel> movies) {
+        this.movies = movies;
+        notifyDataSetChanged();
+    }
+
     @Override
     public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());

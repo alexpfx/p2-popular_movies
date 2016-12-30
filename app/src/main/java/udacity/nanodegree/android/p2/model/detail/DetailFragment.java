@@ -30,7 +30,7 @@ import udacity.nanodegree.android.p2.model.detail.review.ReviewViewModel;
 import udacity.nanodegree.android.p2.model.detail.trailer.GetVideos;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerListAdapter;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerViewModelCollection;
-import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
+import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 import udacity.nanodegree.android.p2.network.FetchMovies;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
 import udacity.nanodegree.android.p2.network.data_transfer.Review;
@@ -47,7 +47,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private static final String TAG = "DetailFragment";
     private static final int MOVIE_LOADER = 0;
     FragmentDetailBinding binding;
-    private MoviesFragment.OnMovieSelectedListener onMovieSelectedListener;
+    private OnMovieSelectedListener onMovieSelectedListener;
     private DetailHandler.DetailHandlerDelegate detailHandlerDelegate;
     private CursorAdapter cursorAdapter;
 
@@ -77,7 +77,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        onMovieSelectedListener = (MoviesFragment.OnMovieSelectedListener) context;
+        onMovieSelectedListener = (OnMovieSelectedListener) context;
         detailHandlerDelegate = (DetailHandler.DetailHandlerDelegate) context;
 
     }
@@ -98,15 +98,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
-        onMovieSelectedListener = MoviesFragment.OnMovieSelectedListener.EMPTY;
+        onMovieSelectedListener = OnMovieSelectedListener.EMPTY;
     }
 
     private String getMovieId() {

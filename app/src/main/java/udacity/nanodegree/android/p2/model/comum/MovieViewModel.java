@@ -3,12 +3,10 @@ package udacity.nanodegree.android.p2.model.comum;
 import android.database.Cursor;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
-import android.util.Log;
 import android.view.View;
 import android.widget.Checkable;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -18,7 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import udacity.nanodegree.android.p2.R;
-import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
+import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_IS_FAVORITE;
@@ -37,7 +35,7 @@ import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.I
 
 public class MovieViewModel extends BaseObservable {
 
-    private MoviesFragment.OnMovieSelectedListener onMovieSelectedListener = MoviesFragment.OnMovieSelectedListener.EMPTY;
+    private OnMovieSelectedListener onMovieSelectedListener = OnMovieSelectedListener.EMPTY;
 
     private static final String TAG = "MovieViewModel";
 
@@ -71,7 +69,7 @@ public class MovieViewModel extends BaseObservable {
         this.updateDate = updateDate;
     }
 
-    public MovieViewModel(MoviesFragment.OnMovieSelectedListener onMovieSelectedListener) {
+    public MovieViewModel(OnMovieSelectedListener onMovieSelectedListener) {
         this.onMovieSelectedListener = onMovieSelectedListener;
     }
 
@@ -219,7 +217,7 @@ public class MovieViewModel extends BaseObservable {
         onMovieSelectedListener.onMovieSelected(this);
     }
 
-    public void setOnMovieSelectedListener(MoviesFragment.OnMovieSelectedListener onMovieSelectedListener) {
+    public void setOnMovieSelectedListener(OnMovieSelectedListener onMovieSelectedListener) {
         this.onMovieSelectedListener = onMovieSelectedListener;
     }
 

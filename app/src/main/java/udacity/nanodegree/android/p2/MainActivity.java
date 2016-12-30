@@ -15,10 +15,11 @@ import udacity.nanodegree.android.p2.model.detail.DetailFragment;
 import udacity.nanodegree.android.p2.model.detail.DetailHandler;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
+import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
-public class MainActivity extends AppCompatActivity implements MoviesFragment.OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
+public class MainActivity extends AppCompatActivity implements OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
 
     private static final String TAG = "MainActivity";
 
@@ -38,11 +39,6 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: ");
-    }
 
     private void replaceMainContainer(Fragment fragment, String name) {
         getSupportFragmentManager().beginTransaction()

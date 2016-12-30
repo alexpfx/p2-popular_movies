@@ -1,4 +1,4 @@
-- /feat/mostrar_filmes_favoritos - criar menu item e estrutura para mostrar filmes marcados como favorito pelo usuario.
+- implementar MainActivity padrao (usando exemplo do curso)
 
 - /style/cores_item_review_layout : destacar o título, acertar o espaçamento.
 - /style/adicionar_estilos_e_temas :
@@ -38,3 +38,4 @@ problema: quando houver outras opcoes de menu?
 :mover para o item clicado anteriormente
 
 
+OK - /feat/mostrar_filmes_favoritos - criar menu item e estrutura para mostrar filmes marcados como favorito pelo usuario.

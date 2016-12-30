@@ -2,7 +2,7 @@ package udacity.nanodegree.android.p2.model.comum;
 
 import java.util.Date;
 
-import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
+import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 
 public class Builder {
     private Integer id;
@@ -14,7 +14,7 @@ public class Builder {
     private boolean favorite;
     private String synopsys;
     private Date updateDate;
-    private MoviesFragment.OnMovieSelectedListener onMovieSelectedListener;
+    private OnMovieSelectedListener onMovieSelectedListener;
 
     public Builder setId(Integer id) {
         this.id = id;
@@ -61,7 +61,7 @@ public class Builder {
         return this;
     }
 
-    public Builder setOnMovieSelectedListener(MoviesFragment.OnMovieSelectedListener onMovieSelectedListener) {
+    public Builder setOnMovieSelectedListener(OnMovieSelectedListener onMovieSelectedListener) {
         this.onMovieSelectedListener = onMovieSelectedListener;
         return this;
     }

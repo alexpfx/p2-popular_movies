@@ -3,7 +3,6 @@ package udacity.nanodegree.android.p2.model.movie;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -145,10 +143,6 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
-//        Bundle b = new Bundle();
-//        
-//        b.putParcelable("kp", state);
-//        setArguments(b);
     }
 
     @Override
@@ -172,7 +166,6 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d(TAG, "onLoadFinished: " + data.getCount());
         if (data == null || !data.moveToFirst()) {
             return;
         }
@@ -182,6 +175,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
             model.setOnMovieSelectedListener(onMovieSelectedListener);
             movies.add(model);
         } while (data.moveToNext());
+
         if (binding.rvMovies.getAdapter() != null) {
             MoviesAdapter adapter = (MoviesAdapter) binding.rvMovies.getAdapter();
             adapter.setMovies(movies);
@@ -222,16 +216,4 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         Log.e(TAG, "onError: " + String.valueOf(networkStatusCode), cause);
     }
 
-    public interface OnMovieSelectedListener {
-
-        OnMovieSelectedListener EMPTY = new OnMovieSelectedListener() {
-            @Override
-            public void onMovieSelected(MovieViewModel item) {
-
-            }
-        };
-
-        void onMovieSelected(MovieViewModel item);
-
-    }
 }

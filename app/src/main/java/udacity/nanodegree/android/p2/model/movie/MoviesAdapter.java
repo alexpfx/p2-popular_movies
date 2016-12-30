@@ -22,6 +22,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         this.movies = movies;
     }
 
+    public void setMovies(List<MovieViewModel> movies) {
+        this.movies = movies;
+        notifyDataSetChanged();
+    }
+
     @Override
     public MoviesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -33,6 +38,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
     @Override
     public void onBindViewHolder(MoviesViewHolder holder, int position) {
         holder.bind(movies.get(position));
+
+
     }
 
     @Override
@@ -40,13 +47,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesView
         return movies.size();
     }
 
+
     class MoviesViewHolder extends RecyclerView.ViewHolder {
 
         ItemPosterBinding binding;
 
         public void bind(MovieViewModel viewModel) {
             binding.setVm(viewModel);
-
         }
 
         public MoviesViewHolder(ItemPosterBinding binding) {

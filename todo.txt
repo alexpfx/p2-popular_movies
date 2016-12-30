@@ -1,0 +1,40 @@
+- /feat/mostrar_filmes_favoritos - criar menu item e estrutura para mostrar filmes marcados como favorito pelo usuario.
+
+- /style/cores_item_review_layout : destacar o título, acertar o espaçamento.
+- /style/adicionar_estilos_e_temas :
+- /style/material_design : padronizar app com diretrizes do MD
+
+
+/fix/inibir_exibicao_de_null_enquanto_valor_nao_carregado
+:esta aparecendo null, antes de carregar informacoes no detail view.
+
+/fix/otimizar_recycler_views
+:reutilizar_views
+
+/fix/permitir_modo_offline
+:mostrar mensagem no backgraound da tela principal.
+:habilitar cache do volley
+:testar funcionamento offline
+:estudar técnicas para permitir o uso offline
+
+problema: quando houver outras opcoes de menu?
+
+/refac/parametrizar_versoes_libs_no_build
+
+/refac/rever_nome_classes_metodos
+: pensar melhor no nome de cada componente do sistema.
+
+/refac/separar_logica_negocio_main_activity
+: criar classes para armazenar logica do main activity
+
+-- pronto
+
+/refac/passar_apenas_campos_necessarios_no_select
+: crear string array para o projection
+: e utilizar indice nas querys.
+
+/fix/consertar_comportamento_backbutton
+:back button nao voltando para ponto onde foi chamado na lista.
+:mover para o item clicado anteriormente
+
+

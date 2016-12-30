@@ -7,17 +7,19 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/action_order_popular"
-            android:title="@string/action_most_popular"
-            app:showAsAction="never"
+            android:id="@+id/action_popular_movies"
             android:checked="true"
-            />
+            android:title="@string/action_most_popular"
+            app:showAsAction="never"/>
 
         <item
-            android:id="@+id/action_order_top"
+            android:id="@+id/action_top_rated"
             android:title="@string/action_top_rated"
-            app:showAsAction="never"
-            />
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/action_favorite_movies"
+            android:title="My Favorite Movies"
+            app:showAsAction="never"/>
     </group>
 
 </menu>

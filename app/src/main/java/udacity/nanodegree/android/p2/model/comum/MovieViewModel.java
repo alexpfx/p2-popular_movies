@@ -3,10 +3,12 @@ package udacity.nanodegree.android.p2.model.comum;
 import android.database.Cursor;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
+import android.util.Log;
 import android.view.View;
 import android.widget.Checkable;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -151,9 +153,6 @@ public class MovieViewModel extends BaseObservable {
 
     public static final MovieViewModel fromCursor(Cursor cursor) {
         Builder builder = new Builder();
-        if (!cursor.moveToFirst()) {
-            return builder.build();
-        }
         String title = cursor.getString(INDEX_TITLE);
         String poster = cursor.getString(INDEX_POSTER);
         String synopsis = cursor.getString(INDEX_SYNOPSIS);
@@ -213,6 +212,7 @@ public class MovieViewModel extends BaseObservable {
                 .load(url)
                 .error(R.drawable.ic_error_black_48dp)
                 .into(view);
+
     }
 
     public void onClick(View v) {

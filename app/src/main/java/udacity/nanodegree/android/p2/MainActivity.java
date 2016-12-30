@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.detail.DetailFragment;
@@ -35,6 +36,12 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
             replaceMainContainer(new MoviesFragment(), "movies");
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
     }
 
     private void replaceMainContainer(Fragment fragment, String name) {

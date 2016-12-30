@@ -8,18 +8,22 @@ public class SqliteDMLBuilder {
 
     private StringBuilder stringBuilder = new StringBuilder();
 
+    public static SqliteDMLBuilder createInstance() {
+        return new SqliteDMLBuilder();
+    }
+
     public SqliteDMLBuilder table(String name) {
         stringBuilder.append("create table ")
-                .append(name)
-                .append("(");
+                     .append(name)
+                     .append("(");
         return this;
     }
 
     public SqliteDMLBuilder column(String name, String specs) {
         stringBuilder.append(name)
-                .append(" ")
-                .append(specs)
-                .append(", ");
+                     .append(" ")
+                     .append(specs)
+                     .append(", ");
         return this;
     }
 
@@ -29,11 +33,7 @@ public class SqliteDMLBuilder {
             stringBuilder.delete(indexOf, stringBuilder.length());
         }
         return stringBuilder.append(");")
-                .toString();
-    }
-
-    public static SqliteDMLBuilder createInstance() {
-        return new SqliteDMLBuilder();
+                            .toString();
     }
 
     @Override

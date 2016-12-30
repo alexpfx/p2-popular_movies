@@ -19,14 +19,19 @@ import static udacity.nanodegree.android.p2.database.MoviesContract.PATH_MOVIE;
  */
 
 public class MoviesContentProvider extends ContentProvider {
-    private static final String TAG = "MoviesContentProvider";
     public static final int MOVIE = 300;
     public static final int MOVIE_BY_ID = 301;
     public static final String UNKNOW_URI = "Unknow Uri";
+    public static final SQLiteQueryBuilder queryBuilder;
+    private static final String TAG = "MoviesContentProvider";
+    private static final UriMatcher uriMatcher = buildUriMatcher();
+
+    static {
+        queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(MovieEntry.TABLE_NAME);
+    }
 
     private MoviesOpenHelper moviesOpenHelper;
-
-    private static final UriMatcher uriMatcher = buildUriMatcher();
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -44,13 +49,6 @@ public class MoviesContentProvider extends ContentProvider {
         return true;
     }
 
-    public static final SQLiteQueryBuilder queryBuilder;
-
-    static {
-        queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setTables(MovieEntry.TABLE_NAME);
-    }
-
     @Nullable
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
@@ -58,7 +56,7 @@ public class MoviesContentProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case MOVIE:
                 cursor = moviesOpenHelper.getReadableDatabase()
-                        .query(MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                                         .query(MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             default:
                 throw new UnsupportedOperationException("url doesn't match: " + uri);
@@ -89,7 +87,7 @@ public class MoviesContentProvider extends ContentProvider {
         }
 
         getContext().getContentResolver()
-                .notifyChange(uri, null);
+                    .notifyChange(uri, null);
         return returnUri;
     }
 
@@ -132,7 +130,7 @@ public class MoviesContentProvider extends ContentProvider {
 
         if (rows != 0) {
             getContext().getContentResolver()
-                    .notifyChange(uri, null);
+                        .notifyChange(uri, null);
         }
 
         return rows;

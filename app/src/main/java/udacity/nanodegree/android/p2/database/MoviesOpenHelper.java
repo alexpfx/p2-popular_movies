@@ -16,6 +16,10 @@ public class MoviesOpenHelper extends SQLiteOpenHelper {
 
     private static MoviesOpenHelper instance;
 
+    public MoviesOpenHelper(Context context) {
+        super(context, dbName, null, dbVersion);
+    }
+
     public static MoviesOpenHelper getInstance(Context context) {
         if (instance == null) {
             instance = new MoviesOpenHelper(context);
@@ -23,28 +27,24 @@ public class MoviesOpenHelper extends SQLiteOpenHelper {
         return instance;
     }
 
-    public MoviesOpenHelper(Context context) {
-        super(context, dbName, null, dbVersion);
-    }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         String dml = SqliteDMLBuilder.createInstance()
-                .table(MovieEntry.TABLE_NAME)
-                .column(MovieEntry._ID, "integer primary key")
+                                     .table(MovieEntry.TABLE_NAME)
+                                     .column(MovieEntry._ID, "integer primary key")
 
-                .column(MovieEntry.COLUMN_TITLE, "text not null")
-                .column(MovieEntry.COLUMN_POSTER, "text not null")
-                .column(MovieEntry.COLUMN_SYNOPSIS, "text not null")
+                                     .column(MovieEntry.COLUMN_TITLE, "text not null")
+                                     .column(MovieEntry.COLUMN_POSTER, "text not null")
+                                     .column(MovieEntry.COLUMN_SYNOPSIS, "text not null")
 
-                .column(MovieEntry.COLUMN_MOVIE_ID, "integer not null")
-                .column(MovieEntry.COLUMN_RELEASE_DATE, "integer not null")
-                .column(MovieEntry.COLUMN_USER_RATING, "real not null")
-                .column(MovieEntry.COLUMN_RUNTIME, "integer not null")
-                .column(MovieEntry.COLUMN_IS_FAVORITE, "integer")
-                .column(MovieEntry.COLUMN_UPDATE_DATE, "integer")
+                                     .column(MovieEntry.COLUMN_MOVIE_ID, "integer not null")
+                                     .column(MovieEntry.COLUMN_RELEASE_DATE, "integer not null")
+                                     .column(MovieEntry.COLUMN_USER_RATING, "real not null")
+                                     .column(MovieEntry.COLUMN_RUNTIME, "integer not null")
+                                     .column(MovieEntry.COLUMN_IS_FAVORITE, "integer")
+                                     .column(MovieEntry.COLUMN_UPDATE_DATE, "integer")
 
-                .build();
+                                     .build();
         db.execSQL(dml);
     }
 

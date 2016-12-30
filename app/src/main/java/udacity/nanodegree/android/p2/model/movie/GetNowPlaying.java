@@ -12,7 +12,7 @@ public class GetNowPlaying implements FetchRules {
     @Override
     public Uri composeUrl(Uri baseUrl) {
         return baseUrl.buildUpon()
-                .appendPath("now_playing")
-                .build();
+                      .appendPath("now_playing")
+                      .build();
     }
 }

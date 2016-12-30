@@ -3,12 +3,10 @@ package udacity.nanodegree.android.p2.model.comum;
 import android.database.Cursor;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
-import android.util.Log;
 import android.view.View;
 import android.widget.Checkable;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -37,10 +35,8 @@ import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.I
 
 public class MovieViewModel extends BaseObservable {
 
-    private MoviesFragment.OnMovieSelectedListener onMovieSelectedListener = MoviesFragment.OnMovieSelectedListener.EMPTY;
-
     private static final String TAG = "MovieViewModel";
-
+    private MoviesFragment.OnMovieSelectedListener onMovieSelectedListener = MoviesFragment.OnMovieSelectedListener.EMPTY;
     private Integer id;
 
     private String title;
@@ -78,6 +74,66 @@ public class MovieViewModel extends BaseObservable {
     public MovieViewModel() {
     }
 
+    public static final MovieViewModel fromCursor(Cursor cursor) {
+        Builder builder = new Builder();
+        String title = cursor.getString(INDEX_TITLE);
+        String poster = cursor.getString(INDEX_POSTER);
+        String synopsis = cursor.getString(INDEX_SYNOPSIS);
+
+        int movieId = cursor.getInt(INDEX_MOVIE_ID);
+        int runtime = cursor.getInt(INDEX_RUNTIME);
+
+        long isFavorite = cursor.getLong(INDEX_IS_FAVORITE);
+        long release_date = cursor.getLong(INDEX_RELEASE_DATE);
+        long update_date = cursor.getLong(INDEX_UPDATE_DATE);
+
+        double user_rating = cursor.getDouble(INDEX_USER_RATING);
+
+        return builder.setTitle(title)
+                      .setPosterImage(poster)
+                      .setSynopsys(synopsis)
+                      .setFavorite(isFavorite == 1L)
+                      .setReleaseDate(new Date(release_date))
+                      .setUpdateDate(new Date(update_date))
+                      .setId(movieId)
+                      .setRuntime(runtime)
+                      .setVoteAvg(user_rating)
+                      .build();
+    }
+
+    public static MovieViewModel fromResult(Result result) {
+        Builder builder = new Builder();
+        Calendar calendar;
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+            calendar = Calendar.getInstance();
+            calendar.setTime(simpleDateFormat.parse(result.getReleaseDate()));
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return builder.setId(result.getId())
+                      .setTitle(result.getOriginalTitle())
+                      .setRuntime(result.getRuntime())
+                      .setSynopsys(result.getOverview())
+                      .setVoteAvg(result.getVoteAverage())
+                      .setPosterImage(result.getPosterPath())
+                      .setReleaseDate(calendar.getTime())
+                      .setUpdateDate(new Date())
+                      .build();
+
+    }
+
+    @BindingAdapter(value = {"imageUrl"}, requireAll = false)
+    public static void setImageUrl(ImageView view, String url) {
+        Picasso.with(view.getContext())
+               .load(url)
+               .error(R.drawable.ic_error_black_48dp)
+               .into(view);
+
+    }
+
     public String getTitle() {
         return title;
     }
@@ -93,10 +149,6 @@ public class MovieViewModel extends BaseObservable {
 
     public void setPosterImage(String posterImage) {
         this.posterImage = posterImage;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getRuntime() {
@@ -143,6 +195,10 @@ public class MovieViewModel extends BaseObservable {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -151,68 +207,8 @@ public class MovieViewModel extends BaseObservable {
         this.updateDate = updateDate;
     }
 
-    public static final MovieViewModel fromCursor(Cursor cursor) {
-        Builder builder = new Builder();
-        String title = cursor.getString(INDEX_TITLE);
-        String poster = cursor.getString(INDEX_POSTER);
-        String synopsis = cursor.getString(INDEX_SYNOPSIS);
-
-        int movieId = cursor.getInt(INDEX_MOVIE_ID);
-        int runtime = cursor.getInt(INDEX_RUNTIME);
-
-        long isFavorite = cursor.getLong(INDEX_IS_FAVORITE);
-        long release_date = cursor.getLong(INDEX_RELEASE_DATE);
-        long update_date = cursor.getLong(INDEX_UPDATE_DATE);
-
-        double user_rating = cursor.getDouble(INDEX_USER_RATING);
-
-        return builder.setTitle(title)
-                .setPosterImage(poster)
-                .setSynopsys(synopsis)
-                .setFavorite(isFavorite == 1L)
-                .setReleaseDate(new Date(release_date))
-                .setUpdateDate(new Date(update_date))
-                .setId(movieId)
-                .setRuntime(runtime)
-                .setVoteAvg(user_rating)
-                .build();
-    }
-
-    public static MovieViewModel fromResult(Result result) {
-        Builder builder = new Builder();
-        Calendar calendar;
-        try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-            calendar = Calendar.getInstance();
-            calendar.setTime(simpleDateFormat.parse(result.getReleaseDate()));
-
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-
-        return builder.setId(result.getId())
-                .setTitle(result.getOriginalTitle())
-                .setRuntime(result.getRuntime())
-                .setSynopsys(result.getOverview())
-                .setVoteAvg(result.getVoteAverage())
-                .setPosterImage(result.getPosterPath())
-                .setReleaseDate(calendar.getTime())
-                .setUpdateDate(new Date())
-                .build();
-
-    }
-
     public void onFavoriteClick(View v) {
         Checkable c = (Checkable) v;
-    }
-
-    @BindingAdapter(value = {"imageUrl"}, requireAll = false)
-    public static void setImageUrl(ImageView view, String url) {
-        Picasso.with(view.getContext())
-                .load(url)
-                .error(R.drawable.ic_error_black_48dp)
-                .into(view);
-
     }
 
     public void onClick(View v) {

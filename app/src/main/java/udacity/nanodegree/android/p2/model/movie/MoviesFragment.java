@@ -3,7 +3,6 @@ package udacity.nanodegree.android.p2.model.movie;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,10 +36,10 @@ import udacity.nanodegree.android.p2.network.data_transfer.Result;
 
 public class MoviesFragment extends Fragment implements FetchMovies.Listener, LoaderManager
         .LoaderCallbacks<Cursor> {
-    private static final String TAG = "MoviesFragment";
-    private static final int LOAD_FAVORITE_MOVIES = 100;
     public static final int SPAN_COUNT = 3;
     public static final String RV_STATE_KEY = "kp";
+    private static final String TAG = "MoviesFragment";
+    private static final int LOAD_FAVORITE_MOVIES = 100;
     private Parcelable state;
 
     private OnMovieSelectedListener onMovieSelectedListener;
@@ -54,7 +52,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             state = savedInstanceState.getParcelable(RV_STATE_KEY);
         }
         binding = FragmentMoviesBinding.inflate(getLayoutInflater(savedInstanceState));
@@ -127,9 +125,9 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         inflater.inflate(R.menu.movies_fragment_menu, menu);
     }
 
-
-    private void restoreRvState (Parcelable state){
-        binding.rvMovies.getLayoutManager().onRestoreInstanceState(state);
+    private void restoreRvState(Parcelable state) {
+        binding.rvMovies.getLayoutManager()
+                        .onRestoreInstanceState(state);
     }
 
     @Override
@@ -155,7 +153,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     public void onStop() {
         super.onStop();
         Log.d(TAG, "onStop: ");
-        
+
     }
 
     @Override

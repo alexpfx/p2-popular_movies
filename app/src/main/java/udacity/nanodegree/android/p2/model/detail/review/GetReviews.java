@@ -19,8 +19,8 @@ public class GetReviews implements FetchRules {
     @Override
     public Uri composeUrl(Uri baseUrl) {
         return baseUrl.buildUpon()
-                .appendPath(id)
-                .appendPath("reviews")
-                .build();
+                      .appendPath(id)
+                      .appendPath("reviews")
+                      .build();
     }
 }

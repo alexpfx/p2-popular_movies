@@ -1,5 +1,6 @@
-- /feat/mostrar_filmes_favoritos - criar menu item e estrutura para mostrar filmes marcados como favorito pelo usuario.
 
+
+- /feat/mostrar_filmes_favoritos - criar menu item e estrutura para mostrar filmes marcados como favorito pelo usuario.
 - /style/cores_item_review_layout : destacar o título, acertar o espaçamento.
 - /style/adicionar_estilos_e_temas :
 - /style/material_design : padronizar app com diretrizes do MD

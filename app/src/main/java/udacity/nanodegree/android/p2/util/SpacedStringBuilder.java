@@ -9,8 +9,8 @@ public class SpacedStringBuilder {
 
     public SpacedStringBuilder(String s) {
         sb.append(" ")
-                .append(s)
-                .append(" ");
+          .append(s)
+          .append(" ");
     }
 
     public SpacedStringBuilder() {
@@ -23,8 +23,8 @@ public class SpacedStringBuilder {
 
     public SpacedStringBuilder append(String s) {
         sb.append(" ")
-                .append(s)
-                .append(" ");
+          .append(s)
+          .append(" ");
         return this;
     }
 
@@ -45,7 +45,7 @@ public class SpacedStringBuilder {
     @Override
     public String toString() {
         return sb.toString()
-                .replaceAll("\\s+", " ")
-                .trim();
+                 .replaceAll("\\s+", " ")
+                 .trim();
     }
 }

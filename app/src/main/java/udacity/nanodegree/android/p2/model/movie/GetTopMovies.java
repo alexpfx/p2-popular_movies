@@ -11,7 +11,7 @@ public class GetTopMovies implements FetchRules {
     @Override
     public Uri composeUrl(Uri baseUrl) {
         return baseUrl.buildUpon()
-                .appendPath("top_rated")
-                .build();
+                      .appendPath("top_rated")
+                      .build();
     }
 }

@@ -18,8 +18,8 @@ public class MoviesContract {
 
     public static final class MovieEntry implements BaseColumns {
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
-                .appendPath(PATH_MOVIE)
-                .build();
+                                                              .appendPath(PATH_MOVIE)
+                                                              .build();
 
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MOVIE;
 

@@ -15,7 +15,7 @@ public class DateUtil {
         long time = startDate.getTime();
         calDate.setTimeInMillis(time - (time % 86400000));
         return calDate.getTime()
-                .getTime();
+                      .getTime();
     }
 
 }

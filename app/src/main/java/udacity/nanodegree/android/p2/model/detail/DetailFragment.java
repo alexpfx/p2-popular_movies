@@ -47,6 +47,52 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private static final String TAG = "DetailFragment";
     private static final int MOVIE_LOADER = 0;
     FragmentDetailBinding binding;
+    private final FetchMovies.Listener reviewsListener = new FetchMovies.Listener() {
+        @Override
+        public void onResponse(JSONObject response) {
+            Gson gson = new Gson();
+            Review review = gson.fromJson(response.toString(), Review.class);
+            ViewModelCollection<ReviewViewModel, ReviewItem> collection = new ViewModelCollection<ReviewViewModel, ReviewItem>(review.getResults(), new ReviewModelConverter());
+            binding.rvReviews.setAdapter(new ReviewListAdapter(getContext(), collection));
+        }
+
+        @Override
+        public void onError(int networkStatusCode, Throwable cause) {
+
+        }
+    };
+    private final FetchMovies.Listener videosListener = new FetchMovies.Listener() {
+        @Override
+        public void onResponse(JSONObject response) {
+            Gson gson = new Gson();
+            Trailer trailer = gson.fromJson(response.toString(), Trailer.class);
+            binding.rvTrailers.setAdapter(new TrailerListAdapter(getContext(), new TrailerViewModelCollection(trailer.getResults())));
+
+        }
+
+        @Override
+        public void onError(int networkStatusCode, Throwable cause) {
+
+        }
+    };
+    private final FetchMovies.Listener movieDetailListener = new FetchMovies.Listener() {
+        @Override
+        public void onResponse(JSONObject response) {
+            Gson gson = new Gson();
+            Result result = gson.fromJson(response.toString(), Result.class);
+
+            MovieViewModel oldVm = binding.getVm();
+            MovieViewModel vm = MovieViewModel.fromResult(result);
+            if (oldVm != null) {
+                vm.setFavorite(oldVm.isFavorite());
+            }
+            binding.setVm(vm);
+        }
+
+        @Override
+        public void onError(int networkStatusCode, Throwable cause) {
+        }
+    };
     private MoviesFragment.OnMovieSelectedListener onMovieSelectedListener;
     private DetailHandler.DetailHandlerDelegate detailHandlerDelegate;
     private CursorAdapter cursorAdapter;
@@ -63,9 +109,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             return;
         }
         Cursor cursor = getContext().getContentResolver()
-                .query(MovieEntry.CONTENT_URI, MovieEntry.PROJECTION, MovieEntry.COLUMN_MOVIE_ID + " = ?", new String[]{id}, null);
+                                    .query(MovieEntry.CONTENT_URI, MovieEntry.PROJECTION, MovieEntry.COLUMN_MOVIE_ID + " = ?", new String[]{id}, null);
 
-        if (cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             binding.setVm(MovieViewModel.fromCursor(cursor));
         }
 
@@ -138,54 +184,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         rvReviews.addItemDecoration(new DividerItemDecoration(getContext(), ((LinearLayoutManager) rvReviewsLayoutManager).getOrientation()));
 
     }
-
-    private final FetchMovies.Listener reviewsListener = new FetchMovies.Listener() {
-        @Override
-        public void onResponse(JSONObject response) {
-            Gson gson = new Gson();
-            Review review = gson.fromJson(response.toString(), Review.class);
-            ViewModelCollection<ReviewViewModel, ReviewItem> collection = new ViewModelCollection<ReviewViewModel, ReviewItem>(review.getResults(), new ReviewModelConverter());
-            binding.rvReviews.setAdapter(new ReviewListAdapter(getContext(), collection));
-        }
-
-        @Override
-        public void onError(int networkStatusCode, Throwable cause) {
-
-        }
-    };
-    private final FetchMovies.Listener videosListener = new FetchMovies.Listener() {
-        @Override
-        public void onResponse(JSONObject response) {
-            Gson gson = new Gson();
-            Trailer trailer = gson.fromJson(response.toString(), Trailer.class);
-            binding.rvTrailers.setAdapter(new TrailerListAdapter(getContext(), new TrailerViewModelCollection(trailer.getResults())));
-
-        }
-
-        @Override
-        public void onError(int networkStatusCode, Throwable cause) {
-
-        }
-    };
-
-    private final FetchMovies.Listener movieDetailListener = new FetchMovies.Listener() {
-        @Override
-        public void onResponse(JSONObject response) {
-            Gson gson = new Gson();
-            Result result = gson.fromJson(response.toString(), Result.class);
-
-            MovieViewModel oldVm = binding.getVm();
-            MovieViewModel vm = MovieViewModel.fromResult(result);
-            if (oldVm != null) {
-                vm.setFavorite(oldVm.isFavorite());
-            }
-            binding.setVm(vm);
-        }
-
-        @Override
-        public void onError(int networkStatusCode, Throwable cause) {
-        }
-    };
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {

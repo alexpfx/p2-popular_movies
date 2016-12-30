@@ -17,7 +17,7 @@ public class GetMovie implements FetchRules {
     @Override
     public Uri composeUrl(Uri baseUrl) {
         return baseUrl.buildUpon()
-                .appendPath(id)
-                .build();
+                      .appendPath(id)
+                      .build();
     }
 }

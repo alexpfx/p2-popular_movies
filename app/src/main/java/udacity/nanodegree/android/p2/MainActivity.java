@@ -18,7 +18,8 @@ import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
-public class MainActivity extends AppCompatActivity implements MoviesFragment.OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
+public class MainActivity extends AppCompatActivity
+        implements MoviesFragment.OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
 
     private static final String TAG = "MainActivity";
 
@@ -46,14 +47,15 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
 
     private void replaceMainContainer(Fragment fragment, String name) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, fragment, name)
-                .addToBackStack(null)
-                .commit();
+                                   .replace(R.id.main_container, fragment, name)
+                                   .addToBackStack(null)
+                                   .commit();
     }
 
     @Override
     public void onMovieSelected(MovieViewModel item) {
         DetailFragment fragment = new DetailFragment();
+
         Bundle args = new Bundle();
         args.putString("movie_id", String.valueOf(item.getId()));
 
@@ -104,13 +106,13 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         c.put(MovieEntry.COLUMN_MOVIE_ID, viewModel.getId());
         c.put(MovieEntry.COLUMN_POSTER, viewModel.getPosterImage());
         c.put(MovieEntry.COLUMN_RELEASE_DATE, viewModel.getReleaseDate()
-                .getTime());
+                                                       .getTime());
         c.put(MovieEntry.COLUMN_SYNOPSIS, viewModel.getSynopsys());
         c.put(MovieEntry.COLUMN_TITLE, viewModel.getTitle());
         c.put(MovieEntry.COLUMN_USER_RATING, viewModel.getVoteAvg());
         c.put(MovieEntry.COLUMN_IS_FAVORITE, viewModel.isFavorite() ? 1 : 0);
         c.put(MovieEntry.COLUMN_UPDATE_DATE, viewModel.getUpdateDate()
-                .getTime());
+                                                      .getTime());
         c.put(MovieEntry.COLUMN_RUNTIME, viewModel.getRuntime());
 
         return c;

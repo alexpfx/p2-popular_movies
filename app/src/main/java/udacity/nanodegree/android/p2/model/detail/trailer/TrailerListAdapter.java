@@ -11,10 +11,10 @@ import udacity.nanodegree.android.p2.databinding.ItemTrailerBinding;
  * Created by alexandre on 15/11/2016.
  */
 public class TrailerListAdapter extends RecyclerView.Adapter {
+    private static final String TAG = "TrailerListAdapter";
     private TrailerViewModelCollection trailers;
     private TrailerHandler.TrailerHandlerDelegate trailerHandlerDelegate;
     private Context context;
-    private static final String TAG = "TrailerListAdapter";
 
     public TrailerListAdapter(Context context, TrailerViewModelCollection trailers) {
         this.trailers = trailers;
@@ -45,15 +45,15 @@ public class TrailerListAdapter extends RecyclerView.Adapter {
 
         private ItemTrailerBinding binding;
 
+        public TrailerViewHolder(ItemTrailerBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
         public void bind(TrailerViewModel item, TrailerHandler handler) {
             binding.setVm(item);
             binding.setHandler(handler);
 
-        }
-
-        public TrailerViewHolder(ItemTrailerBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
         }
 
     }

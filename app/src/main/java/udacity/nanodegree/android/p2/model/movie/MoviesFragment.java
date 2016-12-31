@@ -36,11 +36,9 @@ import udacity.nanodegree.android.p2.network.fetch.FetchRules;
 
 public class MoviesFragment extends Fragment implements FetchMovies.Listener, LoaderManager
         .LoaderCallbacks<Cursor> {
-    public static final int SPAN_COUNT = 3;
-    public static final String RV_STATE_KEY = "kp";
+    public static final int SPAN_COUNT = 2;
     private static final String TAG = "MoviesFragment";
     private static final int LOAD_FAVORITE_MOVIES = 100;
-    private Parcelable state;
 
     private OnMovieSelectedListener onMovieSelectedListener;
     private FragmentMoviesBinding binding;
@@ -52,13 +50,13 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if (savedInstanceState != null) {
-            state = savedInstanceState.getParcelable(RV_STATE_KEY);
-        }
+
         binding = FragmentMoviesBinding.inflate(getLayoutInflater(savedInstanceState));
         initRecyclerView();
-
-        fetchMovies(new GetPopularMovies());
+        if (savedInstanceState == null){
+            MenuItem m = (MenuItem) getActivity().findViewById(R.id.action_popular_movies);
+            onOptionsItemSelected(m);
+        }
     }
 
     @Override
@@ -74,18 +72,14 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         onMovieSelectedListener = OnMovieSelectedListener.EMPTY;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(RV_STATE_KEY, state);
-        Log.d(TAG, "onSaveInstanceState: ");
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        Log.d(TAG, "onCreateView: ");
+
+
+        Log.d(TAG, "onCreateView: "+savedInstanceState);
         return binding.getRoot();
 
     }
@@ -112,6 +106,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
                 break;
             case R.id.action_favorite_movies:
                 getLoaderManager().initLoader(LOAD_FAVORITE_MOVIES, null, this);
+                Log.d(TAG, "onOptionsItemSelected: init loader");
                 break;
 
         }
@@ -131,33 +126,6 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
                 .onRestoreInstanceState(state);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        state = binding.rvMovies.getLayoutManager()
-                .onSaveInstanceState();
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        restoreRvState(state);
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -168,6 +136,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.d(TAG, "onLoadFinished: ");
         if (data == null || !data.moveToFirst()) {
             return;
         }
@@ -184,6 +153,8 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         } else {
             binding.rvMovies.setAdapter(new MoviesAdapter(movies));
         }
+
+        getLoaderManager().destroyLoader(LOAD_FAVORITE_MOVIES);
 
     }
 

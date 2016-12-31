@@ -1,4 +1,4 @@
-- refatorar codigo usando code style da square
+- recuperar opcao do menu e posicao quando rotacionar (MoviesFragment)
 - implementar MainActivity padrao (usando exemplo do curso)
 
 - /style/cores_item_review_layout : destacar o título, acertar o espaçamento.
@@ -40,3 +40,4 @@ problema: quando houver outras opcoes de menu?
 
 
 OK - /feat/mostrar_filmes_favoritos - criar menu item e estrutura para mostrar filmes marcados como favorito pelo usuario.
+- refatorar codigo usando code style oficial android

@@ -28,10 +28,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPreferences = getSharedPreferences(Global.PREFS_NAME, 0);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, new MoviesFragment())
-                .commit();
+        if (savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_container, new MoviesFragment())
+                    .commit();
+        }
     }
 
     @Override

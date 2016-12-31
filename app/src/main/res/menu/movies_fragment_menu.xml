@@ -4,7 +4,7 @@
 
     <group
         android:id="@+id/group_sort_order"
-        android:checkableBehavior="single">
+        android:checkableBehavior="none">
 
         <item
             android:id="@+id/action_popular_movies"

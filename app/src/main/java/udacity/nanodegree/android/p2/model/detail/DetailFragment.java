@@ -2,8 +2,11 @@ package udacity.nanodegree.android.p2.model.detail;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -31,6 +34,7 @@ import udacity.nanodegree.android.p2.model.detail.review.ReviewListAdapter;
 import udacity.nanodegree.android.p2.model.detail.review.ReviewModelConverter;
 import udacity.nanodegree.android.p2.model.detail.review.ReviewViewModel;
 import udacity.nanodegree.android.p2.model.detail.trailer.GetVideos;
+import udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerListAdapter;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerViewModelCollection;
 import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
@@ -43,7 +47,7 @@ import udacity.nanodegree.android.p2.network.fetch.FetchMovies;
 /**
  * Created by alexandre on 15/11/2016.
  */
-public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>          {
 
     private static final String TAG = "DetailFragment";
     private static final int MOVIE_LOADER = 0;
@@ -97,7 +101,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         public void onError(int networkStatusCode, Throwable cause) {
         }
     };
-    private OnMovieSelectedListener onMovieSelectedListener;
     private DetailHandler.DetailHandlerDelegate detailHandlerDelegate;
     private CursorAdapter cursorAdapter;
 
@@ -138,7 +141,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        onMovieSelectedListener = (OnMovieSelectedListener) context;
         detailHandlerDelegate = (DetailHandler.DetailHandlerDelegate) context;
 
     }
@@ -161,11 +163,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        onMovieSelectedListener = OnMovieSelectedListener.EMPTY;
-    }
 
     private String getMovieId() {
         Bundle arguments = getArguments();
@@ -221,4 +218,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
+
+
 }

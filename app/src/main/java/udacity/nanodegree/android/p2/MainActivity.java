@@ -1,26 +1,15 @@
 package udacity.nanodegree.android.p2;
 
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
-
-import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
-import udacity.nanodegree.android.p2.model.detail.DetailFragment;
-import udacity.nanodegree.android.p2.model.detail.DetailHandler;
-import udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 
-public class MainActivity extends AppCompatActivity
-        implements OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate,
-        TrailerHandler.TrailerHandlerDelegate {
+public class MainActivity extends AppCompatActivity implements OnMovieSelectedListener {
 
     private static final String TAG = "MainActivity";
 
@@ -28,11 +17,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SharedPreferences sharedPreferences = getSharedPreferences(Global.PREFS_NAME, 0);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_container, new MoviesFragment(), "movies")
-                    .commit();
+                    .commitAllowingStateLoss();
         }
     }
 
@@ -56,11 +44,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMovieSelected(MovieViewModel item) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container,
-                        DetailFragment.newInstance(String.valueOf(item.getId())))
-                .addToBackStack("detail")
-                .commit();
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("movie_id", String.valueOf(item.getId()));
+
+        startActivity(intent);
     }
 
     @Override
@@ -68,63 +55,10 @@ public class MainActivity extends AppCompatActivity
         /*workaround: http://stackoverflow
         .com/questions/7575921/illegalstateexception-can-not-perform-this-action-after
         -onsaveinstancestate-wit*/
-        outState.putString("", "");
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
         super.onSaveInstanceState(outState);
 
     }
 
-    @Override
-    public void onFavorite(boolean isFavorited, MovieViewModel viewModel) {
-        if (isFavorited) {
-            insertOrUpdate(viewModel);
-        }
-        updateFavorite(isFavorited, viewModel.getId());
-    }
 
-    private void insertOrUpdate(MovieViewModel viewModel) {
-        if (!movieExists(viewModel)) {
-            insertMovie(viewModel);
-        } else {
-            updateMovie(viewModel);
-        }
-    }
-
-    private void updateFavorite(boolean isFavorited, Integer id) {
-        ContentValues cv = new ContentValues();
-        cv.put(MovieEntry.COLUMN_IS_FAVORITE, isFavorited ? 1 : 0);
-        getContentResolver().update(MovieEntry.CONTENT_URI, cv, MovieEntry.COLUMN_MOVIE_ID + "= ?",
-                new String[]{String.valueOf(id)});
-    }
-
-    private void updateMovie(MovieViewModel viewModel) {
-        getContentResolver().update(MovieEntry.CONTENT_URI, viewModel.createContentValues(),
-                MovieEntry.COLUMN_MOVIE_ID + "= ?",
-                new String[]{String.valueOf(viewModel.getId())});
-    }
-
-    private boolean movieExists(MovieViewModel viewModel) {
-        Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI,
-                new String[]{MovieEntry.COLUMN_MOVIE_ID}, MovieEntry.COLUMN_MOVIE_ID + "= ?",
-                new String[]{String.valueOf(viewModel.getId())}, null);
-        return cursor.moveToFirst();
-    }
-
-    private void insertMovie(MovieViewModel viewModel) {
-        getContentResolver().insert(MovieEntry.CONTENT_URI, viewModel.createContentValues());
-    }
-
-    @Override
-    public void onTrailerPlay(String key) {
-
-        Intent appIntent =
-                new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_app, key)));
-
-        if (appIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(appIntent);
-        } else {
-            Intent webIntent =
-                    new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_web, key)));
-            startActivity(webIntent);
-        }
-    }
 }

@@ -31,7 +31,7 @@ import udacity.nanodegree.android.p2.model.detail.trailer.GetVideos;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerListAdapter;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerViewModelCollection;
 import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
-import udacity.nanodegree.android.p2.network.FetchMovies;
+import udacity.nanodegree.android.p2.network.fetch.FetchMovies;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
 import udacity.nanodegree.android.p2.network.data_transfer.Review;
 import udacity.nanodegree.android.p2.network.data_transfer.ReviewItem;
@@ -69,9 +69,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             binding.setVm(MovieViewModel.fromCursor(cursor));
         }
 
-        new FetchMovies(new GetVideos(id), getContext(), videosListener).execute();
-        new FetchMovies(new GetMovie(id), getContext(), movieDetailListener).execute();
-        new FetchMovies(new GetReviews(id), getContext(), reviewsListener).execute();
+        new FetchMovies(new GetVideos(id), getContext(), videosListener).run();
+        new FetchMovies(new GetMovie(id), getContext(), movieDetailListener).run();
+        new FetchMovies(new GetReviews(id), getContext(), reviewsListener).run();
     }
 
     @Override
@@ -197,6 +197,16 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+
+    public static Fragment newInstance(String id) {
+        Bundle args = new Bundle();
+        args.putString("movie_id", String.valueOf(id));
+
+        Fragment f = new DetailFragment();
+        f.setArguments(args);
+        return f;
 
     }
 }

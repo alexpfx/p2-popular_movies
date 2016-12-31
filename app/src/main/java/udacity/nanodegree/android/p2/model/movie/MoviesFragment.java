@@ -29,8 +29,8 @@ import udacity.nanodegree.android.p2.R;
 import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.databinding.FragmentMoviesBinding;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
-import udacity.nanodegree.android.p2.network.FetchMovies;
-import udacity.nanodegree.android.p2.network.FetchRules;
+import udacity.nanodegree.android.p2.network.fetch.FetchMovies;
+import udacity.nanodegree.android.p2.network.fetch.FetchRules;
 import udacity.nanodegree.android.p2.network.data_transfer.Page;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
 
@@ -52,12 +52,13 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             state = savedInstanceState.getParcelable(RV_STATE_KEY);
         }
         binding = FragmentMoviesBinding.inflate(getLayoutInflater(savedInstanceState));
         initRecyclerView();
 
+        fetchMovies(new GetPopularMovies());
     }
 
     @Override
@@ -90,7 +91,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     }
 
     private void fetchMovies(FetchRules fetchRules) {
-        new FetchMovies(fetchRules, this.getContext(), this).execute();
+        new FetchMovies(fetchRules, this.getContext(), this).run();
     }
 
     private void initRecyclerView() {
@@ -125,9 +126,9 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         inflater.inflate(R.menu.movies_fragment_menu, menu);
     }
 
-
-    private void restoreRvState (Parcelable state){
-        binding.rvMovies.getLayoutManager().onRestoreInstanceState(state);
+    private void restoreRvState(Parcelable state) {
+        binding.rvMovies.getLayoutManager()
+                        .onRestoreInstanceState(state);
     }
 
     @Override
@@ -149,7 +150,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     public void onStop() {
         super.onStop();
         Log.d(TAG, "onStop: ");
-        
+
     }
 
     @Override

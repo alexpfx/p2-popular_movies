@@ -6,9 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.detail.DetailFragment;
@@ -19,7 +17,8 @@ import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
-public class MainActivity extends AppCompatActivity implements OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
+public class MainActivity extends AppCompatActivity
+        implements OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
 
     private static final String TAG = "MainActivity";
 
@@ -29,33 +28,18 @@ public class MainActivity extends AppCompatActivity implements OnMovieSelectedLi
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPreferences = getSharedPreferences(Global.PREFS_NAME, 0);
 
-
-        /*if fragment_movies doesn't exists, place the MoviesFragment into main_fragment_container.
-         * if exists, so it is a tablet and the MoviesFragment is already in their own fragment view.
-          */
-        if (findViewById(R.id.fragment_movies) == null) {
-            replaceMainContainer(new MoviesFragment(), "movies");
-        }
-
-    }
-
-
-    private void replaceMainContainer(Fragment fragment, String name) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, fragment, name)
-                .addToBackStack(null)
-                .commit();
+                                   .replace(R.id.main_container, new MoviesFragment())
+                                   .commit();
+
     }
 
     @Override
     public void onMovieSelected(MovieViewModel item) {
-        DetailFragment fragment = new DetailFragment();
-        Bundle args = new Bundle();
-        args.putString("movie_id", String.valueOf(item.getId()));
-
-        fragment.setArguments(args);
-        replaceMainContainer(fragment, "detail");
-
+        getSupportFragmentManager().beginTransaction()
+                                   .replace(R.id.main_container, DetailFragment.newInstance(String.valueOf(item.getId())))
+                                   .addToBackStack("detail")
+                                   .commit();
     }
 
     @Override
@@ -82,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements OnMovieSelectedLi
     }
 
     private void updateMovie(MovieViewModel viewModel) {
-        getContentResolver().update(MovieEntry.CONTENT_URI, createContentValues(viewModel), MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(viewModel.getId())});
+        getContentResolver().update(MovieEntry.CONTENT_URI, viewModel.createContentValues(), MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(viewModel.getId())});
     }
 
     private boolean movieExists(MovieViewModel viewModel) {
@@ -91,25 +75,7 @@ public class MainActivity extends AppCompatActivity implements OnMovieSelectedLi
     }
 
     private void insertMovie(MovieViewModel viewModel) {
-        getContentResolver().insert(MovieEntry.CONTENT_URI, createContentValues(viewModel));
-    }
-
-    //TODO move
-    private ContentValues createContentValues(MovieViewModel viewModel) {
-        ContentValues c = new ContentValues();
-        c.put(MovieEntry.COLUMN_MOVIE_ID, viewModel.getId());
-        c.put(MovieEntry.COLUMN_POSTER, viewModel.getPosterImage());
-        c.put(MovieEntry.COLUMN_RELEASE_DATE, viewModel.getReleaseDate()
-                .getTime());
-        c.put(MovieEntry.COLUMN_SYNOPSIS, viewModel.getSynopsys());
-        c.put(MovieEntry.COLUMN_TITLE, viewModel.getTitle());
-        c.put(MovieEntry.COLUMN_USER_RATING, viewModel.getVoteAvg());
-        c.put(MovieEntry.COLUMN_IS_FAVORITE, viewModel.isFavorite() ? 1 : 0);
-        c.put(MovieEntry.COLUMN_UPDATE_DATE, viewModel.getUpdateDate()
-                .getTime());
-        c.put(MovieEntry.COLUMN_RUNTIME, viewModel.getRuntime());
-
-        return c;
+        getContentResolver().insert(MovieEntry.CONTENT_URI, viewModel.createContentValues());
     }
 
     @Override

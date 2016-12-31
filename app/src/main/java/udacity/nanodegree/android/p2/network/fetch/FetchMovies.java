@@ -1,4 +1,4 @@
-package udacity.nanodegree.android.p2.network;
+package udacity.nanodegree.android.p2.network.fetch;
 
 import android.content.Context;
 import android.net.Uri;
@@ -31,7 +31,7 @@ public class FetchMovies implements Response.Listener<JSONObject>, Response.Erro
         this.listener = listener;
     }
 
-    public void execute() {
+    public void run() {
         Uri clientUri = fetchRules
                 .composeUrl(Uri.parse(context.getString(R.string.tmdb_api_base_url)))
                 .buildUpon()

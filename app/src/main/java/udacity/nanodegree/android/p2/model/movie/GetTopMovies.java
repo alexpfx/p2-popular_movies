@@ -2,7 +2,7 @@ package udacity.nanodegree.android.p2.model.movie;
 
 import android.net.Uri;
 
-import udacity.nanodegree.android.p2.network.FetchRules;
+import udacity.nanodegree.android.p2.network.fetch.FetchRules;
 
 /**
  * Created by alexandre on 23/10/2016.

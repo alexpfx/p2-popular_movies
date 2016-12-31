@@ -1,5 +1,6 @@
 package udacity.nanodegree.android.p2.model.comum;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import udacity.nanodegree.android.p2.R;
+import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
 
@@ -233,5 +235,23 @@ public class MovieViewModel extends BaseObservable {
                 ", title='" + title + '\'' +
                 ", id=" + id +
                 '}';
+    }
+
+    //TODO move
+    public ContentValues createContentValues() {
+        ContentValues c = new ContentValues();
+        c.put(MoviesContract.MovieEntry.COLUMN_MOVIE_ID, getId());
+        c.put(MoviesContract.MovieEntry.COLUMN_POSTER, getPosterImage());
+        c.put(MoviesContract.MovieEntry.COLUMN_RELEASE_DATE, getReleaseDate()
+                                                       .getTime());
+        c.put(MoviesContract.MovieEntry.COLUMN_SYNOPSIS, getSynopsys());
+        c.put(MoviesContract.MovieEntry.COLUMN_TITLE, getTitle());
+        c.put(MoviesContract.MovieEntry.COLUMN_USER_RATING, getVoteAvg());
+        c.put(MoviesContract.MovieEntry.COLUMN_IS_FAVORITE, isFavorite() ? 1 : 0);
+        c.put(MoviesContract.MovieEntry.COLUMN_UPDATE_DATE, getUpdateDate()
+                                                      .getTime());
+        c.put(MoviesContract.MovieEntry.COLUMN_RUNTIME, getRuntime());
+
+        return c;
     }
 }

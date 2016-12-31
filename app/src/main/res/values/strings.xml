@@ -59,5 +59,9 @@
     <string name="detail_title_user_reviews">User Reviews</string>
     <string name="author">Author:</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_detail">DetailActivity</string>
+
 
 </resources>

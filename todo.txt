@@ -1,5 +1,6 @@
+- criar a DetailActivity
+- manter titulo apos rotacao (movies fragment)
 - bater especificação de tela com app
-- retirar checkbox do menu para simplificar
 - item review: destacar o titulo, acertar espaçamento.
 - adicionar estilos e temas
 - material design
@@ -27,3 +28,4 @@
 - refatorar codigo usando code style oficial android
 - recuperar opcao do menu e posicao quando rotacionar (MoviesFragment)
 - implementar MainActivity padrao (usando exemplo do curso)
+- retirar checkbox do menu para simplificar

@@ -89,9 +89,9 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d(TAG, "onDetach: ");
         onMovieSelectedListener = OnMovieSelectedListener.EMPTY;
     }
+
 
 
     @Override
@@ -114,10 +114,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        item.setChecked(!item.isChecked());
-
-        switch (id) {
+        switch (item.getItemId()) {
             case R.id.action_popular_movies:
                 fetchMovies(new GetPopularMovies());
                 break;

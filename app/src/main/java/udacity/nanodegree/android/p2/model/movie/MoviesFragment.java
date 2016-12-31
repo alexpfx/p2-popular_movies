@@ -29,17 +29,17 @@ import udacity.nanodegree.android.p2.R;
 import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.databinding.FragmentMoviesBinding;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
-import udacity.nanodegree.android.p2.network.fetch.FetchMovies;
-import udacity.nanodegree.android.p2.network.fetch.FetchRules;
 import udacity.nanodegree.android.p2.network.data_transfer.Page;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
+import udacity.nanodegree.android.p2.network.fetch.FetchMovies;
+import udacity.nanodegree.android.p2.network.fetch.FetchRules;
 
 public class MoviesFragment extends Fragment implements FetchMovies.Listener, LoaderManager
         .LoaderCallbacks<Cursor> {
-    private static final String TAG = "MoviesFragment";
-    private static final int LOAD_FAVORITE_MOVIES = 100;
     public static final int SPAN_COUNT = 3;
     public static final String RV_STATE_KEY = "kp";
+    private static final String TAG = "MoviesFragment";
+    private static final int LOAD_FAVORITE_MOVIES = 100;
     private Parcelable state;
 
     private OnMovieSelectedListener onMovieSelectedListener;
@@ -83,7 +83,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
 
         Log.d(TAG, "onCreateView: ");
         return binding.getRoot();
@@ -128,7 +128,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     private void restoreRvState(Parcelable state) {
         binding.rvMovies.getLayoutManager()
-                        .onRestoreInstanceState(state);
+                .onRestoreInstanceState(state);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         super.onPause();
 
         state = binding.rvMovies.getLayoutManager()
-                                .onSaveInstanceState();
+                .onSaveInstanceState();
 
     }
 
@@ -161,7 +161,8 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(getActivity(), MoviesContract.MovieEntry.CONTENT_URI, MoviesContract.MovieEntry.PROJECTION, MoviesContract.MovieEntry
+        return new CursorLoader(getActivity(), MoviesContract.MovieEntry.CONTENT_URI,
+                MoviesContract.MovieEntry.PROJECTION, MoviesContract.MovieEntry
                 .COLUMN_IS_FAVORITE + "= 1", null, MoviesContract.MovieEntry.COLUMN_TITLE + " asc");
     }
 

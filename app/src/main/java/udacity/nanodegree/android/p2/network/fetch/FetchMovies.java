@@ -38,7 +38,8 @@ public class FetchMovies implements Response.Listener<JSONObject>, Response.Erro
                 .appendQueryParameter("api_key", BuildConfig.MOVIE_DB_API_KEY)
                 .build();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, clientUri.toString(), null, this, this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                clientUri.toString(), null, this, this);
 
         RequestQueue queue = Volley.newRequestQueue(context);
         jsonObjectRequest.setShouldCache(false);

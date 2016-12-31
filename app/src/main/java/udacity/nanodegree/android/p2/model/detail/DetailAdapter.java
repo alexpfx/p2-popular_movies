@@ -10,7 +10,8 @@ import android.support.v4.widget.SimpleCursorAdapter;
 
 public class DetailAdapter extends SimpleCursorAdapter {
 
-    public DetailAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
+    public DetailAdapter(Context context, int layout, Cursor c, String[] from, int[] to,
+            int flags) {
         super(context, layout, c, from, to, flags);
     }
 }

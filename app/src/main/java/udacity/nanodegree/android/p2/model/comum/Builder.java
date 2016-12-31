@@ -67,6 +67,7 @@ public class Builder {
     }
 
     public MovieViewModel build() {
-        return new MovieViewModel(id, title, posterImage, releaseDate, runtime, voteAvg, favorite, synopsys, updateDate);
+        return new MovieViewModel(id, title, posterImage, releaseDate, runtime, voteAvg, favorite,
+                synopsys, updateDate);
     }
 }

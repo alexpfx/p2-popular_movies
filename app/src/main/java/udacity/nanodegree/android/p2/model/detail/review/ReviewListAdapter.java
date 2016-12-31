@@ -17,7 +17,8 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
     private Context context;
     private ViewModelCollection<ReviewViewModel, ReviewItem> reviews;
 
-    public ReviewListAdapter(Context context, ViewModelCollection<ReviewViewModel, ReviewItem> reviews) {
+    public ReviewListAdapter(Context context,
+            ViewModelCollection<ReviewViewModel, ReviewItem> reviews) {
         this.context = context;
         this.reviews = reviews;
     }

@@ -13,6 +13,14 @@ import java.io.File;
 
 public class TestHelper {
 
+    public static TestContentObserver getTestContentObserver() {
+        return TestContentObserver.getContentObserver();
+    }
+
+    public static void deleteDatabase(SQLiteDatabase database) {
+        SQLiteDatabase.deleteDatabase(new File(database.getPath()));
+    }
+
     private static class TestContentObserver extends ContentObserver {
         private static final String TAG = "TestContentObserver";
 
@@ -30,14 +38,6 @@ public class TestHelper {
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
         }
-    }
-
-    public static TestContentObserver getTestContentObserver() {
-        return TestContentObserver.getContentObserver();
-    }
-
-    public static void deleteDatabase(SQLiteDatabase database) {
-        SQLiteDatabase.deleteDatabase(new File(database.getPath()));
     }
 
 }

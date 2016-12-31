@@ -5,5 +5,5 @@ package udacity.nanodegree.android.p2.network.fetch;
  */
 
 public interface AfterFetch {
-    void afterFetch ();
+    void afterFetch();
 }

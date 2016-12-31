@@ -1,5 +1,15 @@
 package udacity.nanodegree.android.p2.model.comum;
 
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_IS_FAVORITE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_MOVIE_ID;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_POSTER;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_RELEASE_DATE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_RUNTIME;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_SYNOPSIS;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_TITLE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_UPDATE_DATE;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_USER_RATING;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.databinding.BaseObservable;
@@ -21,26 +31,14 @@ import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
 
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_IS_FAVORITE;
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_MOVIE_ID;
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_POSTER;
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_RELEASE_DATE;
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_RUNTIME;
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_SYNOPSIS;
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_TITLE;
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_UPDATE_DATE;
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_USER_RATING;
-
 /**
  * Created by alexandre on 27/11/2016.
  */
 
 public class MovieViewModel extends BaseObservable {
 
-    private OnMovieSelectedListener onMovieSelectedListener = OnMovieSelectedListener.EMPTY;
-
     private static final String TAG = "MovieViewModel";
-
+    private OnMovieSelectedListener onMovieSelectedListener = OnMovieSelectedListener.EMPTY;
     private Integer id;
 
     private String title;
@@ -59,7 +57,8 @@ public class MovieViewModel extends BaseObservable {
 
     private Date updateDate;
 
-    MovieViewModel(Integer id, String title, String posterImage, Date releaseDate, Integer runtime, Double voteAvg, boolean favorite, String synopsys, Date updateDate) {
+    MovieViewModel(Integer id, String title, String posterImage, Date releaseDate, Integer runtime,
+            Double voteAvg, boolean favorite, String synopsys, Date updateDate) {
         this.id = id;
         this.title = title;
         this.posterImage = posterImage;
@@ -76,79 +75,6 @@ public class MovieViewModel extends BaseObservable {
     }
 
     public MovieViewModel() {
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-
-    }
-
-    public String getPosterImage() {
-        return posterImage;
-    }
-
-    public void setPosterImage(String posterImage) {
-        this.posterImage = posterImage;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(Integer runtime) {
-        this.runtime = runtime;
-    }
-
-    public Double getVoteAvg() {
-        return voteAvg;
-    }
-
-    public void setVoteAvg(Double voteAvg) {
-        this.voteAvg = voteAvg;
-    }
-
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
-    }
-
-    public String getSynopsys() {
-        return synopsys;
-    }
-
-    public void setSynopsys(String synopsys) {
-        this.synopsys = synopsys;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public Date getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
     }
 
     public static final MovieViewModel fromCursor(Cursor cursor) {
@@ -202,10 +128,6 @@ public class MovieViewModel extends BaseObservable {
 
     }
 
-    public void onFavoriteClick(View v) {
-        Checkable c = (Checkable) v;
-    }
-
     @BindingAdapter(value = {"imageUrl"}, requireAll = false)
     public static void setImageUrl(ImageView view, String url) {
         Picasso.with(view.getContext())
@@ -213,6 +135,83 @@ public class MovieViewModel extends BaseObservable {
                 .error(R.drawable.ic_error_black_48dp)
                 .into(view);
 
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+
+    }
+
+    public String getPosterImage() {
+        return posterImage;
+    }
+
+    public void setPosterImage(String posterImage) {
+        this.posterImage = posterImage;
+    }
+
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
+
+    public Double getVoteAvg() {
+        return voteAvg;
+    }
+
+    public void setVoteAvg(Double voteAvg) {
+        this.voteAvg = voteAvg;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public String getSynopsys() {
+        return synopsys;
+    }
+
+    public void setSynopsys(String synopsys) {
+        this.synopsys = synopsys;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public void onFavoriteClick(View v) {
+        Checkable c = (Checkable) v;
     }
 
     public void onClick(View v) {
@@ -243,13 +242,13 @@ public class MovieViewModel extends BaseObservable {
         c.put(MoviesContract.MovieEntry.COLUMN_MOVIE_ID, getId());
         c.put(MoviesContract.MovieEntry.COLUMN_POSTER, getPosterImage());
         c.put(MoviesContract.MovieEntry.COLUMN_RELEASE_DATE, getReleaseDate()
-                                                       .getTime());
+                .getTime());
         c.put(MoviesContract.MovieEntry.COLUMN_SYNOPSIS, getSynopsys());
         c.put(MoviesContract.MovieEntry.COLUMN_TITLE, getTitle());
         c.put(MoviesContract.MovieEntry.COLUMN_USER_RATING, getVoteAvg());
         c.put(MoviesContract.MovieEntry.COLUMN_IS_FAVORITE, isFavorite() ? 1 : 0);
         c.put(MoviesContract.MovieEntry.COLUMN_UPDATE_DATE, getUpdateDate()
-                                                      .getTime());
+                .getTime());
         c.put(MoviesContract.MovieEntry.COLUMN_RUNTIME, getRuntime());
 
         return c;

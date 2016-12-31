@@ -1,5 +1,9 @@
 package udacity.nanodegree.android.p2.database;
 
+import static udacity.nanodegree.android.p2.database.MoviesContract.CONTENT_AUTHORITY;
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
+import static udacity.nanodegree.android.p2.database.MoviesContract.PATH_MOVIE;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -10,23 +14,24 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
-import static udacity.nanodegree.android.p2.database.MoviesContract.CONTENT_AUTHORITY;
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
-import static udacity.nanodegree.android.p2.database.MoviesContract.PATH_MOVIE;
-
 /**
  * Created by alexandre on 25/11/2016.
  */
 
 public class MoviesContentProvider extends ContentProvider {
-    private static final String TAG = "MoviesContentProvider";
     public static final int MOVIE = 300;
     public static final int MOVIE_BY_ID = 301;
     public static final String UNKNOW_URI = "Unknow Uri";
+    public static final SQLiteQueryBuilder queryBuilder;
+    private static final String TAG = "MoviesContentProvider";
+    private static final UriMatcher uriMatcher = buildUriMatcher();
+
+    static {
+        queryBuilder = new SQLiteQueryBuilder();
+        queryBuilder.setTables(MovieEntry.TABLE_NAME);
+    }
 
     private MoviesOpenHelper moviesOpenHelper;
-
-    private static final UriMatcher uriMatcher = buildUriMatcher();
 
     private static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -44,21 +49,16 @@ public class MoviesContentProvider extends ContentProvider {
         return true;
     }
 
-    public static final SQLiteQueryBuilder queryBuilder;
-
-    static {
-        queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setTables(MovieEntry.TABLE_NAME);
-    }
-
     @Nullable
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
+            String sortOrder) {
         Cursor cursor;
         switch (uriMatcher.match(uri)) {
             case MOVIE:
                 cursor = moviesOpenHelper.getReadableDatabase()
-                        .query(MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                        .query(MovieEntry.TABLE_NAME, projection, selection, selectionArgs, null,
+                                null, sortOrder);
                 break;
             default:
                 throw new UnsupportedOperationException("url doesn't match: " + uri);
@@ -123,7 +123,8 @@ public class MoviesContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs) {
+    public int update(Uri uri, ContentValues contentValues, String selection,
+            String[] selectionArgs) {
         SQLiteDatabase database = moviesOpenHelper.getWritableDatabase();
         int rows = database.update(MovieEntry.TABLE_NAME, contentValues, selection, selectionArgs);
         if (uriMatcher.match(uri) != MOVIE) {

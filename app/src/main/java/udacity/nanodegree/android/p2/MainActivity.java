@@ -1,5 +1,7 @@
 package udacity.nanodegree.android.p2;
 
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,10 +17,9 @@ import udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
-
 public class MainActivity extends AppCompatActivity
-        implements OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
+        implements OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate,
+        TrailerHandler.TrailerHandlerDelegate {
 
     private static final String TAG = "MainActivity";
 
@@ -29,17 +30,17 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences sharedPreferences = getSharedPreferences(Global.PREFS_NAME, 0);
 
         getSupportFragmentManager().beginTransaction()
-                                   .replace(R.id.main_container, new MoviesFragment())
-                                   .commit();
-
+                .replace(R.id.main_container, new MoviesFragment())
+                .commit();
     }
 
     @Override
     public void onMovieSelected(MovieViewModel item) {
         getSupportFragmentManager().beginTransaction()
-                                   .replace(R.id.main_container, DetailFragment.newInstance(String.valueOf(item.getId())))
-                                   .addToBackStack("detail")
-                                   .commit();
+                .replace(R.id.main_container,
+                        DetailFragment.newInstance(String.valueOf(item.getId())))
+                .addToBackStack("detail")
+                .commit();
     }
 
     @Override
@@ -56,21 +57,25 @@ public class MainActivity extends AppCompatActivity
         } else {
             updateMovie(viewModel);
         }
-
     }
 
     private void updateFavorite(boolean isFavorited, Integer id) {
         ContentValues cv = new ContentValues();
         cv.put(MovieEntry.COLUMN_IS_FAVORITE, isFavorited ? 1 : 0);
-        getContentResolver().update(MovieEntry.CONTENT_URI, cv, MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(id)});
+        getContentResolver().update(MovieEntry.CONTENT_URI, cv, MovieEntry.COLUMN_MOVIE_ID + "= ?",
+                new String[]{String.valueOf(id)});
     }
 
     private void updateMovie(MovieViewModel viewModel) {
-        getContentResolver().update(MovieEntry.CONTENT_URI, viewModel.createContentValues(), MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(viewModel.getId())});
+        getContentResolver().update(MovieEntry.CONTENT_URI, viewModel.createContentValues(),
+                MovieEntry.COLUMN_MOVIE_ID + "= ?",
+                new String[]{String.valueOf(viewModel.getId())});
     }
 
     private boolean movieExists(MovieViewModel viewModel) {
-        Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI, new String[]{MovieEntry.COLUMN_MOVIE_ID}, MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(viewModel.getId())}, null);
+        Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI,
+                new String[]{MovieEntry.COLUMN_MOVIE_ID}, MovieEntry.COLUMN_MOVIE_ID + "= ?",
+                new String[]{String.valueOf(viewModel.getId())}, null);
         return cursor.moveToFirst();
     }
 
@@ -81,14 +86,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onTrailerPlay(String key) {
 
-        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_app, key)));
+        Intent appIntent =
+                new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_app, key)));
 
         if (appIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(appIntent);
         } else {
-            Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_web, key)));
+            Intent webIntent =
+                    new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_web, key)));
             startActivity(webIntent);
         }
-
     }
 }

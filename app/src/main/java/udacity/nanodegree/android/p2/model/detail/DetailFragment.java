@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import udacity.nanodegree.android.p2.R;
 import udacity.nanodegree.android.p2.databinding.FragmentDetailBinding;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.comum.ViewModelCollection;
@@ -150,6 +151,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 false);
         binding.setHandler(new DetailHandler(detailHandlerDelegate));
         initRecyclerViews();
+        getActivity().setTitle(getString(R.string.detail_fragment_title));
         return binding.getRoot();
     }
 

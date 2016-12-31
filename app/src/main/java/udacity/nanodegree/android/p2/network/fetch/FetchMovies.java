@@ -1,4 +1,4 @@
-package udacity.nanodegree.android.p2.network;
+package udacity.nanodegree.android.p2.network.fetch;
 
 import android.content.Context;
 import android.net.Uri;
@@ -31,14 +31,15 @@ public class FetchMovies implements Response.Listener<JSONObject>, Response.Erro
         this.listener = listener;
     }
 
-    public void execute() {
+    public void run() {
         Uri clientUri = fetchRules
                 .composeUrl(Uri.parse(context.getString(R.string.tmdb_api_base_url)))
                 .buildUpon()
                 .appendQueryParameter("api_key", BuildConfig.MOVIE_DB_API_KEY)
                 .build();
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, clientUri.toString(), null, this, this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                clientUri.toString(), null, this, this);
 
         RequestQueue queue = Volley.newRequestQueue(context);
         jsonObjectRequest.setShouldCache(false);

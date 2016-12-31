@@ -1,5 +1,7 @@
 package udacity.nanodegree.android.p2;
 
+import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
+
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,17 +10,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.detail.DetailFragment;
 import udacity.nanodegree.android.p2.model.detail.DetailHandler;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
+import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 
-import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
-
-public class MainActivity extends AppCompatActivity implements MoviesFragment.OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
+public class MainActivity extends AppCompatActivity
+        implements OnMovieSelectedListener, DetailHandler.DetailHandlerDelegate,
+        TrailerHandler.TrailerHandlerDelegate {
 
     private static final String TAG = "MainActivity";
 
@@ -27,38 +29,47 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPreferences = getSharedPreferences(Global.PREFS_NAME, 0);
-
-
-        /*if fragment_movies doesn't exists, place the MoviesFragment into main_fragment_container.
-         * if exists, so it is a tablet and the MoviesFragment is already in their own fragment view.
-          */
-        if (findViewById(R.id.fragment_movies) == null) {
-            replaceMainContainer(new MoviesFragment(), "movies");
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.main_container, new MoviesFragment(), "movies")
+                    .commit();
         }
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Fragment movies = getSupportFragmentManager().findFragmentByTag("movies");
+        if (movies != null) {
+            movies.setRetainInstance(true);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
-    }
-
-    private void replaceMainContainer(Fragment fragment, String name) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, fragment, name)
-                .addToBackStack(null)
-                .commit();
+        Fragment movies = getSupportFragmentManager().findFragmentByTag("movies");
+        if (movies != null) {
+            movies.getRetainInstance();
+        }
     }
 
     @Override
     public void onMovieSelected(MovieViewModel item) {
-        DetailFragment fragment = new DetailFragment();
-        Bundle args = new Bundle();
-        args.putString("movie_id", String.valueOf(item.getId()));
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container,
+                        DetailFragment.newInstance(String.valueOf(item.getId())))
+                .addToBackStack("detail")
+                .commit();
+    }
 
-        fragment.setArguments(args);
-        replaceMainContainer(fragment, "detail");
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        /*workaround: http://stackoverflow
+        .com/questions/7575921/illegalstateexception-can-not-perform-this-action-after
+        -onsaveinstancestate-wit*/
+        outState.putString("", "");
+        super.onSaveInstanceState(outState);
 
     }
 
@@ -76,57 +87,44 @@ public class MainActivity extends AppCompatActivity implements MoviesFragment.On
         } else {
             updateMovie(viewModel);
         }
-
     }
 
     private void updateFavorite(boolean isFavorited, Integer id) {
         ContentValues cv = new ContentValues();
         cv.put(MovieEntry.COLUMN_IS_FAVORITE, isFavorited ? 1 : 0);
-        getContentResolver().update(MovieEntry.CONTENT_URI, cv, MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(id)});
+        getContentResolver().update(MovieEntry.CONTENT_URI, cv, MovieEntry.COLUMN_MOVIE_ID + "= ?",
+                new String[]{String.valueOf(id)});
     }
 
     private void updateMovie(MovieViewModel viewModel) {
-        getContentResolver().update(MovieEntry.CONTENT_URI, createContentValues(viewModel), MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(viewModel.getId())});
+        getContentResolver().update(MovieEntry.CONTENT_URI, viewModel.createContentValues(),
+                MovieEntry.COLUMN_MOVIE_ID + "= ?",
+                new String[]{String.valueOf(viewModel.getId())});
     }
 
     private boolean movieExists(MovieViewModel viewModel) {
-        Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI, new String[]{MovieEntry.COLUMN_MOVIE_ID}, MovieEntry.COLUMN_MOVIE_ID + "= ?", new String[]{String.valueOf(viewModel.getId())}, null);
+        Cursor cursor = getContentResolver().query(MovieEntry.CONTENT_URI,
+                new String[]{MovieEntry.COLUMN_MOVIE_ID}, MovieEntry.COLUMN_MOVIE_ID + "= ?",
+                new String[]{String.valueOf(viewModel.getId())}, null);
         return cursor.moveToFirst();
     }
 
     private void insertMovie(MovieViewModel viewModel) {
-        getContentResolver().insert(MovieEntry.CONTENT_URI, createContentValues(viewModel));
-    }
-
-    //TODO move
-    private ContentValues createContentValues(MovieViewModel viewModel) {
-        ContentValues c = new ContentValues();
-        c.put(MovieEntry.COLUMN_MOVIE_ID, viewModel.getId());
-        c.put(MovieEntry.COLUMN_POSTER, viewModel.getPosterImage());
-        c.put(MovieEntry.COLUMN_RELEASE_DATE, viewModel.getReleaseDate()
-                .getTime());
-        c.put(MovieEntry.COLUMN_SYNOPSIS, viewModel.getSynopsys());
-        c.put(MovieEntry.COLUMN_TITLE, viewModel.getTitle());
-        c.put(MovieEntry.COLUMN_USER_RATING, viewModel.getVoteAvg());
-        c.put(MovieEntry.COLUMN_IS_FAVORITE, viewModel.isFavorite() ? 1 : 0);
-        c.put(MovieEntry.COLUMN_UPDATE_DATE, viewModel.getUpdateDate()
-                .getTime());
-        c.put(MovieEntry.COLUMN_RUNTIME, viewModel.getRuntime());
-
-        return c;
+        getContentResolver().insert(MovieEntry.CONTENT_URI, viewModel.createContentValues());
     }
 
     @Override
     public void onTrailerPlay(String key) {
 
-        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_app, key)));
+        Intent appIntent =
+                new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_app, key)));
 
         if (appIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(appIntent);
         } else {
-            Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_web, key)));
+            Intent webIntent =
+                    new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_web, key)));
             startActivity(webIntent);
         }
-
     }
 }

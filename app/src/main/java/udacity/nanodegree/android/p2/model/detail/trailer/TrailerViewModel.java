@@ -9,10 +9,10 @@ import udacity.nanodegree.android.p2.network.data_transfer.TrailerItem;
  */
 
 public class TrailerViewModel extends BaseObservable {
+    private static final String TAG = "TrailerViewModel";
     private String id;
     private String key;
     private String title;
-    private static final String TAG = "TrailerViewModel";
 
     public TrailerViewModel(String id, String key, String title) {
         this.id = id;

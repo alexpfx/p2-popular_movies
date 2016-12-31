@@ -35,7 +35,8 @@ public class MovieOpenHelperTest {
     private static final String TAG = "MovieOpenHelperTest";
 
     @Rule
-    public ActivityTestRule<MainActivity> mainActivityRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> mainActivityRule = new ActivityTestRule<>(
+            MainActivity.class);
 
     SQLiteDatabase database;
 
@@ -53,7 +54,8 @@ public class MovieOpenHelperTest {
     @Test
     public void testCreateDb() {
         Assert.assertTrue(database.isOpen());
-        Cursor cursor = database.rawQuery("select name from sqlite_master where type = 'table'", null);
+        Cursor cursor = database.rawQuery("select name from sqlite_master where type = 'table'",
+                null);
         Assert.assertTrue(wereTablesCreated(cursor, MovieEntry.TABLE_NAME));
 
         database.close();
@@ -67,7 +69,8 @@ public class MovieOpenHelperTest {
 
         Assert.assertFalse(rowid == -1);
 
-        Cursor cursor = database.query(MovieEntry.TABLE_NAME, new String[]{"title"}, null, null, null, null, null);
+        Cursor cursor = database.query(MovieEntry.TABLE_NAME, new String[]{"title"}, null, null,
+                null, null, null);
         Assert.assertTrue(cursor.moveToFirst());
 
         String title = cursor.getString(0);

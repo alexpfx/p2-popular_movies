@@ -2,7 +2,7 @@ package udacity.nanodegree.android.p2.model.detail.review;
 
 import android.net.Uri;
 
-import udacity.nanodegree.android.p2.network.FetchRules;
+import udacity.nanodegree.android.p2.network.fetch.FetchRules;
 
 /**
  * Created by alexandre on 18/12/2016.

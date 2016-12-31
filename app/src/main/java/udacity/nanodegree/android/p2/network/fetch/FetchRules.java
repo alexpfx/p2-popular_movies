@@ -1,4 +1,4 @@
-package udacity.nanodegree.android.p2.network;
+package udacity.nanodegree.android.p2.network.fetch;
 
 import android.net.Uri;
 
@@ -8,4 +8,6 @@ import android.net.Uri;
 
 public interface FetchRules {
     Uri composeUrl(Uri baseUrl);
+
+
 }

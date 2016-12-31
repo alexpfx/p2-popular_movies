@@ -16,15 +16,15 @@ public class MoviesOpenHelper extends SQLiteOpenHelper {
 
     private static MoviesOpenHelper instance;
 
+    public MoviesOpenHelper(Context context) {
+        super(context, dbName, null, dbVersion);
+    }
+
     public static MoviesOpenHelper getInstance(Context context) {
         if (instance == null) {
             instance = new MoviesOpenHelper(context);
         }
         return instance;
-    }
-
-    public MoviesOpenHelper(Context context) {
-        super(context, dbName, null, dbVersion);
     }
 
     @Override

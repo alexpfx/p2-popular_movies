@@ -8,6 +8,10 @@ public class SqliteDMLBuilder {
 
     private StringBuilder stringBuilder = new StringBuilder();
 
+    public static SqliteDMLBuilder createInstance() {
+        return new SqliteDMLBuilder();
+    }
+
     public SqliteDMLBuilder table(String name) {
         stringBuilder.append("create table ")
                 .append(name)
@@ -30,10 +34,6 @@ public class SqliteDMLBuilder {
         }
         return stringBuilder.append(");")
                 .toString();
-    }
-
-    public static SqliteDMLBuilder createInstance() {
-        return new SqliteDMLBuilder();
     }
 
     @Override

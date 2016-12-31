@@ -21,9 +21,11 @@ public class MoviesContract {
                 .appendPath(PATH_MOVIE)
                 .build();
 
-        public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MOVIE;
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_MOVIE;
 
-        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + PATH_MOVIE;
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + PATH_MOVIE;
 
         public static final String TABLE_NAME = "MOVIES";
 
@@ -49,12 +51,15 @@ public class MoviesContract {
         public static final int INDEX_UPDATE_DATE = 9;
 
         public static final String[] PROJECTION = new String[]{
-                MovieEntry._ID, COLUMN_MOVIE_ID, COLUMN_TITLE, COLUMN_POSTER, COLUMN_SYNOPSIS, COLUMN_USER_RATING, COLUMN_RELEASE_DATE, COLUMN_RUNTIME, COLUMN_IS_FAVORITE, COLUMN_UPDATE_DATE
+                MovieEntry._ID, COLUMN_MOVIE_ID, COLUMN_TITLE, COLUMN_POSTER, COLUMN_SYNOPSIS,
+                COLUMN_USER_RATING, COLUMN_RELEASE_DATE, COLUMN_RUNTIME, COLUMN_IS_FAVORITE,
+                COLUMN_UPDATE_DATE
         };
 
         public static final Uri buildMovieUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
     }
+
 
 }

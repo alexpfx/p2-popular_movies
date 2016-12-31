@@ -53,10 +53,31 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
         binding = FragmentMoviesBinding.inflate(getLayoutInflater(savedInstanceState));
         initRecyclerView();
-        if (savedInstanceState == null){
-            MenuItem m = (MenuItem) getActivity().findViewById(R.id.action_popular_movies);
-            onOptionsItemSelected(m);
+        if (savedInstanceState == null) {
+            fetchMovies(new GetPopularMovies());
+        } else {
+
         }
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        outState.putParcelable("rv", binding.rvMovies.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState == null) {
+            return;
+        }
+        Parcelable rv = savedInstanceState.getParcelable("rv");
+        Log.d(TAG, "onViewStateRestored: "+rv);
+
+  //      binding.rvMovies.getLayoutManager().onRestoreInstanceState(rv);
+
     }
 
     @Override
@@ -78,8 +99,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
             Bundle savedInstanceState) {
 
 
-
-        Log.d(TAG, "onCreateView: "+savedInstanceState);
+        Log.d(TAG, "onCreateView: " + savedInstanceState);
         return binding.getRoot();
 
     }

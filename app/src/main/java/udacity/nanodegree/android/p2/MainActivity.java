@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
@@ -28,10 +29,28 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPreferences = getSharedPreferences(Global.PREFS_NAME, 0);
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.main_container, new MoviesFragment())
+                    .replace(R.id.main_container, new MoviesFragment(), "movies")
                     .commit();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Fragment movies = getSupportFragmentManager().findFragmentByTag("movies");
+        if (movies != null) {
+            movies.setRetainInstance(true);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Fragment movies = getSupportFragmentManager().findFragmentByTag("movies");
+        if (movies != null) {
+            movies.getRetainInstance();
         }
     }
 
@@ -42,6 +61,16 @@ public class MainActivity extends AppCompatActivity
                         DetailFragment.newInstance(String.valueOf(item.getId())))
                 .addToBackStack("detail")
                 .commit();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        /*workaround: http://stackoverflow
+        .com/questions/7575921/illegalstateexception-can-not-perform-this-action-after
+        -onsaveinstancestate-wit*/
+        outState.putString("", "");
+        super.onSaveInstanceState(outState);
+
     }
 
     @Override

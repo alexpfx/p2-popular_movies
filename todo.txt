@@ -1,31 +1,25 @@
-- criar a DetailActivity
-- manter titulo apos rotacao (movies fragment)
-- bater especificação de tela com app
-- item review: destacar o titulo, acertar espaçamento.
-- adicionar estilos e temas
-- material design
+
 - inibir exibicacao de null qunado valor é carregado (detail)
+- item review: destacar o titulo, acertar espaçamento.
+- bater especificação de tela com app
 - otimizar recycler views (verificar se já instanciado)
-- testar em modo offline
 - parametrizar versoes das libs no build
 - refatorar nomes de classes e métodos
 - separar logica negocio main activity
+- adicionar estilos e temas
+- material design
 
 
 
 -- pronto
 
-/refac/passar_apenas_campos_necessarios_no_select
-: crear string array para o projection
-: e utilizar indice nas querys.
-
-/fix/consertar_comportamento_backbutton
-:back button nao voltando para ponto onde foi chamado na lista.
-:mover para o item clicado anteriormente
-
-
-- /feat/mostrar_filmes_favoritos - criar menu item e estrutura para mostrar filmes marcados como favorito pelo usuario.
 - refatorar codigo usando code style oficial android
 - recuperar opcao do menu e posicao quando rotacionar (MoviesFragment)
 - implementar MainActivity padrao (usando exemplo do curso)
 - retirar checkbox do menu para simplificar
+- criar a DetailActivity
+- mostrar titulo na DetailActivity e consertar layout
+- manter titulo apos rotacao (movies fragment)
+- se offline, deve mostrar filmes favoritos
+
+- testar em modo offline

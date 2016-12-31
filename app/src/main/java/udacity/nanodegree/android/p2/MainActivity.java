@@ -11,7 +11,7 @@ import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 
 public class MainActivity extends AppCompatActivity implements OnMovieSelectedListener {
 
-    private static final String TAG = "MainActivity";
+    public static final String MOVIES_TAG = "movies";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements OnMovieSelectedLi
     @Override
     protected void onResume() {
         super.onResume();
-        Fragment movies = getSupportFragmentManager().findFragmentByTag("movies");
+        Fragment movies = getSupportFragmentManager().findFragmentByTag(MOVIES_TAG);
         if (movies != null) {
             movies.getRetainInstance();
         }
@@ -45,19 +45,9 @@ public class MainActivity extends AppCompatActivity implements OnMovieSelectedLi
     @Override
     public void onMovieSelected(MovieViewModel item) {
         Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra("movie_id", String.valueOf(item.getId()));
+        intent.putExtra(Global.KEY_MOVIE_ID, String.valueOf(item.getId()));
 
         startActivity(intent);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        /*workaround: http://stackoverflow
-        .com/questions/7575921/illegalstateexception-can-not-perform-this-action-after
-        -onsaveinstancestate-wit*/
-        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
-        super.onSaveInstanceState(outState);
-
     }
 
 

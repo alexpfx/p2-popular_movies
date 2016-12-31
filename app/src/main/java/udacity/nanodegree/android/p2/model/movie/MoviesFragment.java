@@ -3,7 +3,6 @@ package udacity.nanodegree.android.p2.model.movie;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -17,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -36,8 +36,8 @@ import udacity.nanodegree.android.p2.network.fetch.FetchRules;
 
 public class MoviesFragment extends Fragment implements FetchMovies.Listener, LoaderManager
         .LoaderCallbacks<Cursor> {
-    public static final int SPAN_COUNT = 2;
     private static final String TAG = "MoviesFragment";
+    public static final int SPAN_COUNT = 3;
     private static final int LOAD_FAVORITE_MOVIES = 100;
 
     private OnMovieSelectedListener onMovieSelectedListener;
@@ -55,29 +55,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         initRecyclerView();
         if (savedInstanceState == null) {
             fetchMovies(new GetPopularMovies());
-        } else {
-
         }
-    }
-
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-//        outState.putParcelable("rv", binding.rvMovies.getLayoutManager().onSaveInstanceState());
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState == null) {
-            return;
-        }
-        Parcelable rv = savedInstanceState.getParcelable("rv");
-        Log.d(TAG, "onViewStateRestored: "+rv);
-
-  //      binding.rvMovies.getLayoutManager().onRestoreInstanceState(rv);
-
     }
 
     @Override
@@ -92,14 +70,9 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         onMovieSelectedListener = OnMovieSelectedListener.EMPTY;
     }
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-
-
-        Log.d(TAG, "onCreateView: " + savedInstanceState);
         return binding.getRoot();
 
     }
@@ -123,7 +96,6 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
                 break;
             case R.id.action_favorite_movies:
                 getLoaderManager().initLoader(LOAD_FAVORITE_MOVIES, null, this);
-                Log.d(TAG, "onOptionsItemSelected: init loader");
                 break;
 
         }
@@ -138,12 +110,6 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         inflater.inflate(R.menu.movies_fragment_menu, menu);
     }
 
-    private void restoreRvState(Parcelable state) {
-        binding.rvMovies.getLayoutManager()
-                .onRestoreInstanceState(state);
-    }
-
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(getActivity(), MoviesContract.MovieEntry.CONTENT_URI,
@@ -153,7 +119,6 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d(TAG, "onLoadFinished: ");
         if (data == null || !data.moveToFirst()) {
             return;
         }
@@ -182,7 +147,6 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     @Override
     public void onResponse(JSONObject response) {
-        Log.d(TAG, "onResponse: ");
         Gson gson = new Gson();
         Page page = gson.fromJson(response.toString(), Page.class);
         List<Result> results = page.getResults();
@@ -198,12 +162,13 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         } else {
             binding.rvMovies.setAdapter(new MoviesAdapter(paths));
         }
-
     }
 
     @Override
     public void onError(int networkStatusCode, Throwable cause) {
         Log.e(TAG, "onError: " + String.valueOf(networkStatusCode), cause);
+        Toast.makeText(getContext(), getString(R.string.msg_movies_not_online), Toast.LENGTH_LONG).show();
+        getLoaderManager().initLoader(LOAD_FAVORITE_MOVIES, null, this);
     }
 
 }

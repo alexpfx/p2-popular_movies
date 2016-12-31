@@ -48,10 +48,10 @@ import udacity.nanodegree.android.p2.network.fetch.FetchMovies;
  * Created by alexandre on 15/11/2016.
  */
 public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>          {
-
-    private static final String TAG = "DetailFragment";
     private static final int MOVIE_LOADER = 0;
     FragmentDetailBinding binding;
+    private DetailHandler.DetailHandlerDelegate detailHandlerDelegate;
+
     private final FetchMovies.Listener reviewsListener = new FetchMovies.Listener() {
         @Override
         public void onResponse(JSONObject response) {
@@ -101,7 +101,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         public void onError(int networkStatusCode, Throwable cause) {
         }
     };
-    private DetailHandler.DetailHandlerDelegate detailHandlerDelegate;
+
     private CursorAdapter cursorAdapter;
 
     public static Fragment newInstance(String id) {
@@ -142,7 +142,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public void onAttach(Context context) {
         super.onAttach(context);
         detailHandlerDelegate = (DetailHandler.DetailHandlerDelegate) context;
-
     }
 
     @Nullable
@@ -153,7 +152,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 false);
         binding.setHandler(new DetailHandler(detailHandlerDelegate));
         initRecyclerViews();
-        getActivity().setTitle(getString(R.string.detail_fragment_title));
         return binding.getRoot();
     }
 
@@ -162,7 +160,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         getLoaderManager().initLoader(MOVIE_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }
-
 
     private String getMovieId() {
         Bundle arguments = getArguments();
@@ -218,6 +215,5 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
-
 
 }

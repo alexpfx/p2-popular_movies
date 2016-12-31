@@ -5,7 +5,5 @@ package udacity.nanodegree.android.p2;
  */
 
 public class Global {
-
-    public static final String PREFS_NAME = "MoviesPreferences";
-
+    public static final String KEY_MOVIE_ID = "MOVIE_ID";
 }

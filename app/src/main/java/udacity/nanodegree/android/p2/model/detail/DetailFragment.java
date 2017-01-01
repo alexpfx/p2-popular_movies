@@ -2,11 +2,8 @@ package udacity.nanodegree.android.p2.model.detail;
 
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,7 +22,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import udacity.nanodegree.android.p2.R;
 import udacity.nanodegree.android.p2.databinding.FragmentDetailBinding;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.comum.ViewModelCollection;
@@ -34,10 +30,8 @@ import udacity.nanodegree.android.p2.model.detail.review.ReviewListAdapter;
 import udacity.nanodegree.android.p2.model.detail.review.ReviewModelConverter;
 import udacity.nanodegree.android.p2.model.detail.review.ReviewViewModel;
 import udacity.nanodegree.android.p2.model.detail.trailer.GetVideos;
-import udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerListAdapter;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerViewModelCollection;
-import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
 import udacity.nanodegree.android.p2.network.data_transfer.Result;
 import udacity.nanodegree.android.p2.network.data_transfer.Review;
 import udacity.nanodegree.android.p2.network.data_transfer.ReviewItem;
@@ -48,10 +42,10 @@ import udacity.nanodegree.android.p2.network.fetch.FetchMovies;
  * Created by alexandre on 15/11/2016.
  */
 public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>          {
-
-    private static final String TAG = "DetailFragment";
     private static final int MOVIE_LOADER = 0;
     FragmentDetailBinding binding;
+    private DetailHandler.DetailHandlerDelegate detailHandlerDelegate;
+
     private final FetchMovies.Listener reviewsListener = new FetchMovies.Listener() {
         @Override
         public void onResponse(JSONObject response) {
@@ -101,7 +95,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         public void onError(int networkStatusCode, Throwable cause) {
         }
     };
-    private DetailHandler.DetailHandlerDelegate detailHandlerDelegate;
+
     private CursorAdapter cursorAdapter;
 
     public static Fragment newInstance(String id) {
@@ -142,7 +136,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public void onAttach(Context context) {
         super.onAttach(context);
         detailHandlerDelegate = (DetailHandler.DetailHandlerDelegate) context;
-
     }
 
     @Nullable
@@ -153,7 +146,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 false);
         binding.setHandler(new DetailHandler(detailHandlerDelegate));
         initRecyclerViews();
-        getActivity().setTitle(getString(R.string.detail_fragment_title));
         return binding.getRoot();
     }
 
@@ -162,7 +154,6 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         getLoaderManager().initLoader(MOVIE_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }
-
 
     private String getMovieId() {
         Bundle arguments = getArguments();
@@ -218,6 +209,5 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
-
 
 }

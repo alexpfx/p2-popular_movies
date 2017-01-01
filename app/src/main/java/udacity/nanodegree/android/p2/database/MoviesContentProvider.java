@@ -115,10 +115,15 @@ public class MoviesContentProvider extends ContentProvider {
         }
         switch (uriMatcher.match(uri)) {
             case MOVIE:
-                return database.delete(MovieEntry.TABLE_NAME, selection, selectionArgs);
+                rows_deleted = database.delete(MovieEntry.TABLE_NAME, selection, selectionArgs);
+                break;
             default:
                 throw new UnsupportedOperationException(UNKNOW_URI + uri);
         }
+        getContext().getContentResolver()
+                .notifyChange(uri, null);
+
+        return rows_deleted;
 
     }
 

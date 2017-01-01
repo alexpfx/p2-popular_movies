@@ -7,14 +7,11 @@
 
         <variable
             name="vm"
-            type="udacity.nanodegree.android.p2.model.comum.MovieViewModel"/>;
+            type="udacity.nanodegree.android.p2.model.comum.MovieViewModel"/>
 
         <variable
             name="handler"
-            type="udacity.nanodegree.android.p2.model.detail.DetailHandler"
-
-        >
-            </variable>
+            type="udacity.nanodegree.android.p2.model.detail.DetailHandler"/>
 
     </data>
 
@@ -31,11 +28,12 @@
             <TextView
                 android:id="@+id/text_title"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="80dp"
                 android:background="@color/colorPrimary"
                 android:gravity="center_vertical|start"
                 android:text="@{vm.title ?? ``}"
                 android:textColor="#fff"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 tools:text="Title"/>
 
             <LinearLayout
@@ -134,7 +132,9 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/detail_title_trailers"/>
+                    android:text="@string/detail_title_trailers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_trailers"
@@ -155,7 +155,9 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:gravity="center_vertical"
-                    android:text="@string/detail_title_user_reviews"/>
+                    android:text="@string/detail_title_user_reviews"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_reviews"

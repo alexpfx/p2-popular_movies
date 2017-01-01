@@ -1,5 +1,10 @@
-- atualizar lista de favoritos quando volta da tela de detail
+
+-- proximas versoes:
+
+- nao mostrar quando nao ha reviews
 - item review: destacar o titulo, acertar espaçamento.
+- adicionar link na view de reviews.
+- atualizar lista de favoritos quando volta da tela de detail
 - bater especificação de tela com app
 - otimizar recycler views (verificar se já instanciado)
 - parametrizar versoes das libs no build

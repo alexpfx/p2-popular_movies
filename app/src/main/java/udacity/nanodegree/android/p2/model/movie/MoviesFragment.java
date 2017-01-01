@@ -95,13 +95,17 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
                 fetchMovies(new GetTopMovies());
                 break;
             case R.id.action_favorite_movies:
-                getLoaderManager().initLoader(LOAD_FAVORITE_MOVIES, null, this);
+                initLoader();
                 break;
 
         }
         getActivity().setTitle(item.getTitle());
 
         return true;
+    }
+
+    public void initLoader (){
+        getLoaderManager().initLoader(LOAD_FAVORITE_MOVIES, null, this);
     }
 
     @Override
@@ -119,7 +123,9 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.d(TAG, "onLoadFinished: ");
         if (data == null || !data.moveToFirst()) {
+            Toast.makeText(getContext(), R.string.msg_movies_dont_have_favorite_movies_yet, Toast.LENGTH_LONG).show();
             return;
         }
         List<MovieViewModel> movies = new ArrayList<>();
@@ -137,6 +143,7 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
         }
 
         getLoaderManager().destroyLoader(LOAD_FAVORITE_MOVIES);
+
 
     }
 

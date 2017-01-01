@@ -9,7 +9,6 @@ import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.I
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_TITLE;
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_UPDATE_DATE;
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_USER_RATING;
-import static udacity.nanodegree.android.p2.util.ResourcesUtil.getString;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -223,10 +222,6 @@ public class MovieViewModel {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
-    }
-
-    public void onFavoriteClick(View v) {
-        Checkable c = (Checkable) v;
     }
 
     public void onClick(View v) {

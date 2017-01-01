@@ -64,6 +64,7 @@
     <string name="msg_movies_dont_have_favorite_movies_yet">You do not have any favorite movies
         yet!
     </string>
+    <string name="my_favorite_movies">My Favorite Movies</string>
 
 
 </resources>

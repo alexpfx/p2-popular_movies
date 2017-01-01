@@ -18,7 +18,7 @@
             app:showAsAction="never"/>
         <item
             android:id="@+id/action_favorite_movies"
-            android:title="My Favorite Movies"
+            android:title="@string/my_favorite_movies"
             app:showAsAction="never"/>
     </group>
 

@@ -19,6 +19,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.test.rule.ActivityTestRule;
+import android.util.Log;
 
 import junit.framework.Assert;
 
@@ -70,9 +71,6 @@ public class MoviesContentProviderTest {
 
     @Test
     public void testQuery() throws Exception {
-        ContentValues contentValues = insertValuesForTest(
-                MovieTestHelper.getPulpFictionContentValues());
-
         Cursor cursor = context.getContentResolver()
                 .query(CONTENT_URI, null, null, null, null, null);
 
@@ -81,12 +79,6 @@ public class MoviesContentProviderTest {
         cursor.close();
     }
 
-    @Test
-    public void getType() throws Exception {
-        String type = context.getContentResolver()
-                .getType(CONTENT_URI);
-
-    }
 
     @Test
     public void testDelete() throws Exception {
@@ -134,10 +126,6 @@ public class MoviesContentProviderTest {
 
         assertEquals(1, count);
 
-        Cursor cursor = queryAll();
-
-//        MovieTestHelper.Asserts.assertEqualContentValuesAndCursor(MovieTestHelper
-// .getPulpFictionContentValues(), cursor);
 
     }
 
@@ -165,7 +153,6 @@ public class MoviesContentProviderTest {
         id = ContentUris.parseId(uri);
         assertFalse(-1L == id);
 
-        cursor = queryAll();
 
     }
 

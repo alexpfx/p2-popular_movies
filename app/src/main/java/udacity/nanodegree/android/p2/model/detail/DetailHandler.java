@@ -23,8 +23,6 @@ public class DetailHandler {
         if (delegate == null) {
             return;
         }
-        Cursor c;
-
         boolean checked = ((Checkable) v).isChecked();
         delegate.onFavorite(checked, viewModel);
 

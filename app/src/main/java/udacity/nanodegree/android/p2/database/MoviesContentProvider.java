@@ -109,7 +109,7 @@ public class MoviesContentProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         SQLiteDatabase database = moviesOpenHelper.getWritableDatabase();
-        int rows_deleted = 0;
+        int rows_deleted;
         if (selection == null) {
             selection = "1";
         }

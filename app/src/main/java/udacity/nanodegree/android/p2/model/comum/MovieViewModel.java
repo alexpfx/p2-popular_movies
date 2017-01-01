@@ -9,10 +9,11 @@ import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.I
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_TITLE;
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_UPDATE_DATE;
 import static udacity.nanodegree.android.p2.database.MoviesContract.MovieEntry.INDEX_USER_RATING;
+import static udacity.nanodegree.android.p2.util.ResourcesUtil.getString;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
-import android.databinding.BaseObservable;
 import android.databinding.BindingAdapter;
 import android.view.View;
 import android.widget.Checkable;
@@ -35,7 +36,8 @@ import udacity.nanodegree.android.p2.network.data_transfer.Result;
  * Created by alexandre on 27/11/2016.
  */
 
-public class MovieViewModel extends BaseObservable {
+public class MovieViewModel {
+
 
     private static final String TAG = "MovieViewModel";
     private OnMovieSelectedListener onMovieSelectedListener = OnMovieSelectedListener.EMPTY;
@@ -158,12 +160,21 @@ public class MovieViewModel extends BaseObservable {
         return runtime;
     }
 
+    public String formatRuntime (Context context){
+        return runtime == null? null: context.getString(R.string.min, runtime);
+    }
+
     public void setRuntime(Integer runtime) {
         this.runtime = runtime;
     }
 
     public Double getVoteAvg() {
         return voteAvg;
+    }
+
+//    android:text="@{@string/max_rating(vm.voteAvg)?? ``}"
+    public String formatVoteAvg (Context context){
+        return voteAvg == null? null:context.getString(R.string.max_rating, voteAvg);
     }
 
     public void setVoteAvg(Double voteAvg) {
@@ -188,6 +199,10 @@ public class MovieViewModel extends BaseObservable {
 
     public Date getReleaseDate() {
         return releaseDate;
+    }
+
+    public String formatReleaseDate (Context context){
+        return releaseDate == null? null: context.getString(R.string.dateToYear, releaseDate);
     }
 
     public void setReleaseDate(Date releaseDate) {

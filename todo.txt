@@ -1,5 +1,4 @@
-
-- inibir exibicacao de null qunado valor é carregado (detail)
+- atualizar lista de favoritos quando volta da tela de detail
 - item review: destacar o titulo, acertar espaçamento.
 - bater especificação de tela com app
 - otimizar recycler views (verificar se já instanciado)
@@ -23,3 +22,4 @@
 - se offline, deve mostrar filmes favoritos
 
 - testar em modo offline
+- inibir exibicacao de null qunado valor é carregado (detail)

@@ -6,6 +6,6 @@ package udacity.nanodegree.android.p2.model.comum;
 
 public interface AbstractViewModel<I> {
 
-    public void fromItem();
+    void fromItem();
 
 }

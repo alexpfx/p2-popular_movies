@@ -12,7 +12,8 @@
 - separar logica negocio main activity
 - adicionar estilos e temas
 - material design
-
+- implementar sync adapter pattern
+- remover classes não utilizadas
 
 
 -- pronto
@@ -28,3 +29,6 @@
 
 - testar em modo offline
 - inibir exibicacao de null qunado valor é carregado (detail)
+- consertar erro ao voltar da tela de detalhes para favoritos
+- colocar dimensões em dimens.xml
+- colocar cores em colors.xml

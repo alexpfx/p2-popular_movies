@@ -9,17 +9,19 @@
         <item
             android:id="@+id/action_popular_movies"
             android:checked="true"
-            android:title="@string/action_most_popular"
+            android:title="@string/action_popular_movies"
             app:showAsAction="never"/>
 
         <item
             android:id="@+id/action_top_rated"
-            android:title="@string/action_top_rated"
+            android:title="@string/action_top_rated_movies"
             app:showAsAction="never"/>
         <item
             android:id="@+id/action_favorite_movies"
-            android:title="@string/my_favorite_movies"
-            app:showAsAction="never"/>
+            android:title="@string/action_favorite_movies"
+            app:showAsAction="never"
+
+        />
     </group>
 
 </menu>

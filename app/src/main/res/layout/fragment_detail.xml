@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,30 +29,31 @@
             <TextView
                 android:id="@+id/text_title"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="@dimen/detail_title_height"
                 android:background="@color/colorPrimary"
                 android:gravity="center_vertical|start"
+                android:padding="@dimen/detail_padding_title"
                 android:text="@{vm.title ?? ``}"
-                android:textColor="#fff"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                tools:text="Title"/>
+                android:textColor="@color/colorWhite"
+                tools:text="Title"
+            />
 
             <LinearLayout
                 android:id="@+id/ll_details"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="5"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/detail_padding_details"
+            >
 
                 <ImageView
                     android:id="@+id/image_poster"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/detail_movie_poster"
-                    android:maxHeight="185dp"
-                    android:maxWidth="185dp"
-                    android:minHeight="100dp"
-                    android:minWidth="100dp"
+
                     android:scaleType="fitCenter"
                     app:imageUrl="@{@string/tmdb_image_base_path(vm.posterImage)}"
                     tools:src="@mipmap/ic_launcher"/>
@@ -64,7 +66,8 @@
                     android:divider="@drawable/divider"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="16dp"
+                    android:paddingLeft="@dimen/detail_info_padding_left"
+
                     android:showDividers="middle">
 
                     <TextView
@@ -72,7 +75,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:padding="2dp"
                         android:text="@{vm.formatReleaseDate(context) ?? ``}"
                         tools:text="0000"/>
 
@@ -81,7 +83,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:padding="2dp"
                         android:text="@{vm.formatRuntime(context) ?? ``}"
                         tools:text="120 min"/>
 
@@ -90,7 +91,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:padding="2dp"
                         android:text="@{vm.formatVoteAvg(context) ?? ``}"
                         tools:text="8.1/10"/>
 
@@ -103,12 +103,9 @@
                         android:button="@drawable/favorite_button_selector"
                         android:checked="@{vm.favorite}"
                         android:clickable="true"
-                        android:maxHeight="60dp"
-                        android:maxWidth="40dp"
-                        android:minHeight="40dp"
-                        android:minWidth="40dp"
+
                         android:onClick="@{(v) -> handler.onFavoriteClick(v, vm)}"
-                        android:padding="2dp"/>
+                    />
                 </LinearLayout>
             </LinearLayout>
 
@@ -116,16 +113,20 @@
                 android:id="@+id/text_overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:padding="@dimen/detail_padding_overview"
                 android:text="@{vm.synopsys}"
-                tools:text="Overview"/>
+                tools:text="Overview"
+            />
 
+            <!-- Trailers -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@drawable/divider"
                 android:orientation="vertical"
-                android:showDividers="beginning">
+                android:padding="@dimen/detail_section_padding"
+                android:showDividers="beginning"
+            >
 
                 <TextView
                     android:layout_width="match_parent"
@@ -143,12 +144,15 @@
                     android:layout_weight="9"/>
             </LinearLayout>
 
+            <!-- User Reviews -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@drawable/divider"
                 android:orientation="vertical"
-                android:showDividers="beginning">
+                android:padding="@dimen/detail_section_padding"
+                android:showDividers="beginning"
+            >
 
                 <TextView
                     android:layout_width="match_parent"

@@ -3,4 +3,15 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="detail_padding_title">8dp</dimen>
+    <dimen name="detail_padding">48dp</dimen>
+    <dimen name="detail_title_height">96dp</dimen>
+    <dimen name="detail_section_padding">8dp</dimen>
+    <dimen name="detail_padding_overview">8dp</dimen>
+    <dimen name="detail_padding_details">8dp</dimen>
+    <dimen name="detail_info_padding_left">8dp</dimen>
+    <dimen name="review_padding">8dp</dimen>
+    <dimen name="movies_padding">1dp</dimen>
+
+
 </resources>

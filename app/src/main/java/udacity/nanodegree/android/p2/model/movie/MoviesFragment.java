@@ -37,7 +37,7 @@ import udacity.nanodegree.android.p2.network.fetch.FetchRules;
 public class MoviesFragment extends Fragment implements FetchMovies.Listener, LoaderManager
         .LoaderCallbacks<Cursor> {
     private static final String TAG = "MoviesFragment";
-    public static final int SPAN_COUNT = 3;
+    public static final int SPAN_COUNT = 2;
     private static final int LOAD_FAVORITE_MOVIES = 100;
 
     private OnMovieSelectedListener onMovieSelectedListener;

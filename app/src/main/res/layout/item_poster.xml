@@ -8,10 +8,6 @@
             name="vm"
             type="udacity.nanodegree.android.p2.model.comum.MovieViewModel"/>
 
-        <!--<variable-->
-            <!--name="handler"-->
-            <!--type="udacity.nanodegree.android.p2.model.comum.MovieViewModel"/>-->
-
     </data>
 
     <LinearLayout
@@ -24,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:padding="0dp"
+            android:padding="1dp"
+            android:background="@color/colorMovieListBackground"
             android:scaleType="centerCrop"
             android:onClick="@{vm::onClick}"
             app:imageUrl="@{@string/tmdb_image_base_path(vm.posterImage)}"/>

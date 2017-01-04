@@ -43,6 +43,9 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     private OnMovieSelectedListener onMovieSelectedListener;
     private FragmentMoviesBinding binding;
 
+    private ActionStatus actionStatus;
+
+
     public MoviesFragment() {
     }
 
@@ -50,12 +53,41 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        setRetainInstance(true);
 
         binding = FragmentMoviesBinding.inflate(getLayoutInflater(savedInstanceState));
         initRecyclerView();
+        Log.d(TAG, "onCreate: ");
         if (savedInstanceState == null) {
-            fetchMovies(new GetPopularMovies());
+            Log.d(TAG, "onCreate: ");
+            changeToPopularMovies();
         }
+    }
+
+    private void changeToPopularMovies() {
+        actionStatus = ActionStatus.POPULAR;
+        fetchMovies(new GetPopularMovies());
+        getActivity().setTitle(getString(R.string.action_popular_movies));
+    }
+
+    private void changeToTopMovies() {
+        actionStatus = ActionStatus.TOP;
+        fetchMovies(new GetTopMovies());
+        getActivity().setTitle(getString(R.string.action_top_rated_movies));
+    }
+
+    private void changeToFavoriteMovies() {
+        actionStatus = ActionStatus.FAVORITES;
+        getLoaderManager().restartLoader(LOAD_FAVORITE_MOVIES, null, this);
+        getActivity().setTitle(getString(R.string.action_favorite_movies));
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getLoaderManager().restartLoader(LOAD_FAVORITE_MOVIES, null, this);
+
     }
 
     @Override
@@ -89,22 +121,23 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_popular_movies:
-                fetchMovies(new GetPopularMovies());
+                changeToPopularMovies();
                 break;
             case R.id.action_top_rated:
-                fetchMovies(new GetTopMovies());
+                changeToTopMovies();
                 break;
             case R.id.action_favorite_movies:
-                initLoader();
+                changeToFavoriteMovies();
                 break;
 
         }
-        getActivity().setTitle(item.getTitle());
+
 
         return true;
     }
 
-    public void initLoader (){
+
+    public void initLoader() {
         getLoaderManager().initLoader(LOAD_FAVORITE_MOVIES, null, this);
     }
 
@@ -123,9 +156,15 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if (!ActionStatus.FAVORITES.equals(actionStatus)) {
+            return;
+        }
+
         Log.d(TAG, "onLoadFinished: ");
         if (data == null || !data.moveToFirst()) {
-            Toast.makeText(getContext(), R.string.msg_movies_dont_have_favorite_movies_yet, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), R.string.msg_movies_dont_have_favorite_movies_yet,
+                    Toast.LENGTH_LONG).show();
+            binding.rvMovies.setAdapter(new MoviesAdapter(new ArrayList<MovieViewModel>()));
             return;
         }
         List<MovieViewModel> movies = new ArrayList<>();
@@ -135,12 +174,12 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
             movies.add(model);
         } while (data.moveToNext());
 
-        if (binding.rvMovies.getAdapter() != null) {
-            MoviesAdapter adapter = (MoviesAdapter) binding.rvMovies.getAdapter();
-            adapter.setMovies(movies);
-        } else {
-            binding.rvMovies.setAdapter(new MoviesAdapter(movies));
-        }
+//        if (binding.rvMovies.getAdapter() != null) {
+//            MoviesAdapter adapter = (MoviesAdapter) binding.rvMovies.getAdapter();
+//            adapter.setMovies(movies);
+//        } else {
+        binding.rvMovies.setAdapter(new MoviesAdapter(movies));
+//        }
 
         getLoaderManager().destroyLoader(LOAD_FAVORITE_MOVIES);
 
@@ -174,8 +213,14 @@ public class MoviesFragment extends Fragment implements FetchMovies.Listener, Lo
     @Override
     public void onError(int networkStatusCode, Throwable cause) {
         Log.e(TAG, "onError: " + String.valueOf(networkStatusCode), cause);
-        Toast.makeText(getContext(), getString(R.string.msg_movies_not_online), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getString(R.string.msg_movies_not_online),
+                Toast.LENGTH_LONG).show();
         getLoaderManager().initLoader(LOAD_FAVORITE_MOVIES, null, this);
     }
+
+    enum ActionStatus {
+        POPULAR, TOP, FAVORITES;
+    }
+
 
 }

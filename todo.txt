@@ -13,6 +13,12 @@
 - adicionar estilos e temas
 - material design
 
+-- sugestoes code reviews
+- colocar dimensões em dimens.xml
+- colocar cores em colors.xml
+- implementar sync adapter pattern
+- consertar erro ao voltar da tela de detalhes para favoritos
+- remover classes não utilizadas
 
 
 -- pronto

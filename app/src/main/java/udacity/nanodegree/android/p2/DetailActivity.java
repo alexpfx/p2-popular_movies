@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import udacity.nanodegree.android.p2.database.MoviesContract;
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.detail.DetailFragment;
 import udacity.nanodegree.android.p2.model.detail.DetailHandler;
 import udacity.nanodegree.android.p2.model.detail.trailer.TrailerHandler;
+import udacity.nanodegree.android.p2.util.ContextUtil;
 
 public class DetailActivity extends AppCompatActivity implements
         DetailHandler.DetailHandlerDelegate, TrailerHandler.TrailerHandlerDelegate {
@@ -20,6 +22,8 @@ public class DetailActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        ContextUtil.setupToolbar(this);
 
         if (savedInstanceState == null) {
             String movie_id = getIntent().getStringExtra(Global.KEY_MOVIE_ID);

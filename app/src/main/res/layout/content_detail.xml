@@ -11,4 +11,6 @@
     tools:context="udacity.nanodegree.android.p2.DetailActivity"
     tools:showIn="@layout/activity_detail">
 
+
+
 </RelativeLayout>

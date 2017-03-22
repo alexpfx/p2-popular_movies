@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:padding="1dp"
-            android:background="@color/colorMovieListBackground"
+            android:background="@color/colorPrimary"
             android:scaleType="centerCrop"
             android:onClick="@{vm::onClick}"
             app:imageUrl="@{@string/tmdb_image_base_path(vm.posterImage)}"/>

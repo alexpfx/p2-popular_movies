@@ -35,7 +35,6 @@
                 android:padding="@dimen/detail_padding_title"
                 android:text="@{vm.title ?? ``}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="@color/colorWhite"
                 tools:text="Title"
             />
 

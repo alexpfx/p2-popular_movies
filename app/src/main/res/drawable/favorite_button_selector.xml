@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:drawable="@drawable/ic_favorite_black_24dp"/>
-    <item android:state_checked="false" android:drawable="@drawable/ic_favorite_border_black_24dp"/>
+
+    <item android:state_checked="true">
+        <bitmap android:src="@drawable/ic_favorite_black_48dp" android:gravity="center_horizontal" android:tint="@color/colorAccent"/>
+
+    </item>
+    <item android:state_checked="false">
+        <bitmap android:src="@drawable/ic_favorite_border_black_48dp" android:gravity="center_horizontal" android:tint="@color/colorAccent"/>
+
+    </item>>
 </selector>

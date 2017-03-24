@@ -3,10 +3,12 @@ package udacity.nanodegree.android.p2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import udacity.nanodegree.android.p2.model.comum.MovieViewModel;
 import udacity.nanodegree.android.p2.model.movie.MoviesFragment;
 import udacity.nanodegree.android.p2.model.movie.OnMovieSelectedListener;
+import udacity.nanodegree.android.p2.util.ContextUtil;
 
 public class MainActivity extends AppCompatActivity implements OnMovieSelectedListener {
 
@@ -14,12 +16,18 @@ public class MainActivity extends AppCompatActivity implements OnMovieSelectedLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //TODO: externalizar.
+        ContextUtil.setupToolbar(this);
+
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main_container, new MoviesFragment(), "movies")
                     .commit();
         }
     }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

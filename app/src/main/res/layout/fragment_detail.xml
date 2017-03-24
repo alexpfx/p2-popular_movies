@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -17,108 +17,250 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
 
+        >
 
-        <LinearLayout
+        <android.support.v7.widget.GridLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@drawable/divider"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:paddingEnd="@dimen/abc_list_item_padding_horizontal_material"
+            android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+            android:paddingRight="@dimen/abc_list_item_padding_horizontal_material"
+            android:paddingStart="@dimen/abc_list_item_padding_horizontal_material"
+            app:columnCount="2"
+            >
+
 
             <TextView
                 android:id="@+id/text_title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_title_height"
-                android:background="@color/colorPrimary"
-                android:gravity="center_vertical|start"
-                android:padding="@dimen/detail_padding_title"
+                android:layout_marginBottom="@dimen/abc_list_item_padding_horizontal_material"
+                android:layout_marginTop="@dimen/abc_list_item_padding_horizontal_material"
+                android:background="@color/colorWhite"
+                android:fontFamily="sans-serif"
                 android:text="@{vm.title ?? ``}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="@color/colorWhite"
-                tools:text="Title"
-            />
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_columnSpan="2"
+                tools:text="Brilho Eterno de uma Mente sem Lembranças"
+                />
 
-            <LinearLayout
-                android:id="@+id/ll_details"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="5"
-                android:orientation="horizontal"
-                android:padding="@dimen/detail_padding_details"
-            >
 
-                <ImageView
-                    android:id="@+id/image_poster"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/detail_movie_poster"
+            <ImageView
+                android:id="@+id/image_poster"
+                android:background="@color/colorWhite"
+                android:contentDescription="@string/detail_movie_poster"
+                android:scaleType="fitCenter"
+                app:imageUrl="@{@string/tmdb_image_base_path(vm.posterImage)}"
+                app:layout_columnSpan="1"
+                app:layout_gravity="left"
+                app:layout_rowSpan="6"
+                tools:src="@drawable/w154"/>
 
-                    android:scaleType="fitCenter"
-                    app:imageUrl="@{@string/tmdb_image_base_path(vm.posterImage)}"
-                    tools:src="@mipmap/ic_launcher"/>
 
-                <LinearLayout
-                    android:id="@+id/ll_details_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:divider="@drawable/divider"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/detail_info_padding_left"
+            <android.support.v4.widget.Space
+                app:layout_gravity="fill_horizontal"
+                app:layout_rowWeight="1"
+                app:layout_columnWeight="1"
+                />
 
-                    android:showDividers="middle">
+            <TextView
+                android:id="@+id/text_release"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:padding="@dimen/default_gap"
+                android:text="@{vm.formatReleaseDate(context) ?? ``}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:layout_gravity="fill_horizontal"
+                tools:text="0000"
+                app:layout_columnWeight="1"
+                />
 
-                    <TextView
-                        android:id="@+id/text_release"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="@{vm.formatReleaseDate(context) ?? ``}"
-                        tools:text="0000"/>
+            <TextView
+                android:id="@+id/text_runtime"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:padding="@dimen/default_gap"
+                android:text="@{vm.formatRuntime(context) ?? ``}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:layout_gravity="fill_horizontal"
+                tools:text="120 min"
+                app:layout_columnWeight="1"
+                />
 
-                    <TextView
-                        android:id="@+id/text_runtime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="@{vm.formatRuntime(context) ?? ``}"
-                        tools:text="120 min"/>
 
-                    <TextView
-                        android:id="@+id/text_vote_avg"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:text="@{vm.formatVoteAvg(context) ?? ``}"
-                        tools:text="8.1/10"/>
+            <TextView
+                android:id="@+id/text_vote_avg"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:padding="@dimen/default_gap"
+                android:text="@{vm.formatVoteAvg(context) ?? ``}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:layout_gravity="fill_horizontal"
+                tools:text="8.1/10"
+                app:layout_columnWeight="1"
+                />
 
-                    <CheckBox
-                        android:id="@+id/image_favorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:button="@drawable/favorite_button_selector"
-                        android:checked="@{vm.favorite}"
-                        android:clickable="true"
+            <ToggleButton
+                android:id="@+id/image_favorite"
+                android:checked="@{vm.favorite}"
+                android:clickable="true"
+                android:onClick="@{(v) -> handler.onFavoriteClick(v, vm)}"
+                android:textOn=""
+                android:textOff=""
+                android:gravity="bottom"
+                android:background="@drawable/favorite_button_selector"
+                app:layout_columnWeight="1"
 
-                        android:onClick="@{(v) -> handler.onFavoriteClick(v, vm)}"
-                    />
-                </LinearLayout>
-            </LinearLayout>
+                />
+
+            <android.support.v4.widget.Space
+                app:layout_gravity="fill_horizontal"
+                app:layout_rowWeight="1"
+                />
 
             <TextView
                 android:id="@+id/text_overview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/detail_padding_overview"
                 android:text="@{vm.synopsys}"
-                tools:text="Overview"
-            />
+                app:layout_columnSpan="2"
+                tools:text="Overview"/>
 
-            <!-- Trailers -->
+            <TextView
+                android:gravity="center_vertical"
+                android:padding="@dimen/default_gap"
+                android:text="@string/detail_title_trailers"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                app:layout_columnSpan="2"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_trailers"
+                app:layout_columnSpan="2"
+
+                />
+
+
+            <TextView
+                android:gravity="fill"
+                android:text="@string/detail_title_user_reviews"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                app:layout_columnSpan="2"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_reviews"
+                app:layout_columnSpan="2"
+                />
+
+
+        </android.support.v7.widget.GridLayout>
+
+
+        <!--
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@drawable/divider"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/text_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/detail_title_height"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center_vertical|start"
+                        android:padding="@dimen/detail_padding_title"
+                        android:text="@{vm.title ?? ``}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                        tools:text="Title"
+                    />
+
+                    <LinearLayout
+                        android:id="@+id/ll_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="5"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/detail_padding_details"
+                    >
+
+                        <ImageView
+                            android:id="@+id/image_poster"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/detail_movie_poster"
+
+                            android:scaleType="fitCenter"
+                            app:imageUrl="@{@string/tmdb_image_base_path(vm.posterImage)}"
+                            tools:src="@mipmap/ic_launcher"/>
+
+                        <LinearLayout
+                            android:id="@+id/ll_details_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:divider="@drawable/divider"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingLeft="@dimen/detail_info_padding_left"
+
+                            android:showDividers="middle">
+
+                            <TextView
+                                android:id="@+id/text_release"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="@{vm.formatReleaseDate(context) ?? ``}"
+                                tools:text="0000"/>
+
+                            <TextView
+                                android:id="@+id/text_runtime"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="@{vm.formatRuntime(context) ?? ``}"
+                                tools:text="120 min"/>
+
+                            <TextView
+                                android:id="@+id/text_vote_avg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:text="@{vm.formatVoteAvg(context) ?? ``}"
+                                tools:text="8.1/10"/>
+
+                            <CheckBox
+                                android:id="@+id/image_favorite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:button="@drawable/favorite_button_selector"
+                                android:checked="@{vm.favorite}"
+                                android:clickable="true"
+
+                                android:onClick="@{(v) -> handler.onFavoriteClick(v, vm)}"
+                            />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/text_overview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/detail_padding_overview"
+                        android:text="@{vm.synopsys}"
+                        tools:text="Overview"
+                    />
+        -->
+        <!-- Trailers -->
+
+        <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -143,8 +285,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="9"/>
             </LinearLayout>
+-->
 
-            <!-- User Reviews -->
+        <!-- User Reviews -->
+        <!--
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -171,5 +315,9 @@
             </LinearLayout>
 
         </LinearLayout>
+    -->
+
     </ScrollView>
+
+
 </layout>

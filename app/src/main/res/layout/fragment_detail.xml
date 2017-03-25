@@ -110,6 +110,7 @@
                 android:textOff=""
                 android:gravity="bottom"
                 android:background="@drawable/favorite_button_selector"
+
                 app:layout_columnWeight="1"
 
                 />

@@ -13,7 +13,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
 
 
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+        /*StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .detectDiskReads()
                 .detectDiskWrites()
                 .detectNetwork()   // or .detectAll() for all detectable problems
@@ -24,7 +24,7 @@ public class BaseApplication extends Application {
                 .detectLeakedClosableObjects()
                 .penaltyLog()
                 .penaltyDeath()
-                .build());
+                .build());*/
         super.onCreate();
     }
 }

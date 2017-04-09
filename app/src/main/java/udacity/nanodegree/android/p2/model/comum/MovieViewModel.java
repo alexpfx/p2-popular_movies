@@ -14,10 +14,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.databinding.BindingAdapter;
+import android.util.Log;
 import android.view.View;
 import android.widget.Checkable;
 import android.widget.ImageView;
 
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -59,7 +66,7 @@ public class MovieViewModel {
     private Date updateDate;
 
     MovieViewModel(Integer id, String title, String posterImage, Date releaseDate, Integer runtime,
-            Double voteAvg, boolean favorite, String synopsys, Date updateDate) {
+                   Double voteAvg, boolean favorite, String synopsys, Date updateDate) {
         this.id = id;
         this.title = title;
         this.posterImage = posterImage;
@@ -131,10 +138,29 @@ public class MovieViewModel {
 
     @BindingAdapter(value = {"imageUrl"}, requireAll = false)
     public static void setImageUrl(ImageView view, String url) {
+        Log.d(TAG, "setImageUrl: " + url);
+        Glide.with(view.getContext()).load(url).fitCenter()
+                .placeholder(R.drawable.ic_autorenew_black_48dp)
+                .crossFade().error(R.drawable.ic_error_black_48dp).override(342, 513).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                return false;
+            }
+        }).into(view);
+
+
+/*
         Picasso.with(view.getContext())
                 .load(url)
+                .resize(200, 200)
                 .error(R.drawable.ic_error_black_48dp)
                 .into(view);
+*/
 
     }
 
@@ -159,8 +185,8 @@ public class MovieViewModel {
         return runtime;
     }
 
-    public String formatRuntime (Context context){
-        return runtime == null? null: context.getString(R.string.min, runtime);
+    public String formatRuntime(Context context) {
+        return runtime == null ? null : context.getString(R.string.min, runtime);
     }
 
     public void setRuntime(Integer runtime) {
@@ -171,9 +197,9 @@ public class MovieViewModel {
         return voteAvg;
     }
 
-//    android:text="@{@string/max_rating(vm.voteAvg)?? ``}"
-    public String formatVoteAvg (Context context){
-        return voteAvg == null? null:context.getString(R.string.max_rating, voteAvg);
+    //    android:text="@{@string/max_rating(vm.voteAvg)?? ``}"
+    public String formatVoteAvg(Context context) {
+        return voteAvg == null ? null : context.getString(R.string.max_rating, voteAvg);
     }
 
     public void setVoteAvg(Double voteAvg) {
@@ -200,8 +226,8 @@ public class MovieViewModel {
         return releaseDate;
     }
 
-    public String formatReleaseDate (Context context){
-        return releaseDate == null? null: context.getString(R.string.dateToYear, releaseDate);
+    public String formatReleaseDate(Context context) {
+        return releaseDate == null ? null : context.getString(R.string.dateToYear, releaseDate);
     }
 
     public void setReleaseDate(Date releaseDate) {
